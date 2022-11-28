@@ -13,6 +13,7 @@ public class Account {
     private String username;
     private String password;
     private int role;
+    private String email;
 
     public Account(int id, String username, String password, int role) {
         this.id = id;
@@ -22,6 +23,14 @@ public class Account {
     }
 
     public Account() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId() {

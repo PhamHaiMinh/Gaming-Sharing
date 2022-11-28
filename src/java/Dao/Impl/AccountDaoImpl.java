@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.SendEmail;
 
 /**
  *
@@ -49,5 +50,44 @@ public class AccountDaoImpl implements AccountDao{
         Account minh = new AccountDaoImpl().login("admin", "Pass@12345");
         System.out.println(minh.getUsername());
     }
-    
+    public String register(Account acc) throws SQLException {
+        String email = acc.getEmail();
+        String username = acc.getUsername();
+        String password = acc.getPassword();
+        DBContext dBContext = new DBContext();
+        Connection connection= dBContext.getConnection();
+        PreparedStatement st;
+        try {
+            st = connection.prepareStatement("SELECT * FROM Account where username=?");
+            st.setString(1, username);
+            st.setString(2, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String checkUser = rs.getString("username");
+                String checkMail = rs.getString("email");
+                if (username.equals(checkUser)) {
+                    return "Username already exist";
+                } else if(email.equals(checkMail)){
+                    return "Email already exist";
+               
+                } else {
+                    st = connection.prepareStatement("INSERT INTO Account(username, password, roleid, email) VALUES(?,?,?,?)");
+                    st.setString(1, username);
+                    st.setString(2, password);
+                    st.setInt(3, 1);
+                    st.setString(4, email);
+
+                    int i = st.executeUpdate();
+
+                    if (i != 0) {
+                        SendEmail se = new SendEmail(email, username);
+                        se.sendMail();
+                        return "Success";
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+        return "error";
+    }
 }
