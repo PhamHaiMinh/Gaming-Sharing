@@ -12,5 +12,4 @@ import Model.Account;
  */
 public interface AccountDao {
       Account login(String username, String password);
-      
 }

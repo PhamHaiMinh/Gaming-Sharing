@@ -29,6 +29,8 @@
         <servlet-class>Controller.Login</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Activation</servlet-name>
+        <servlet-class>Controller.Activation</servlet-class>
         <servlet-name>Logout</servlet-name>
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
@@ -37,6 +39,8 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Activation</servlet-name>
+        <url-pattern>/Activation</url-pattern>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
