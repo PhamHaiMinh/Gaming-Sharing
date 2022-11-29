@@ -31,6 +31,8 @@
     <servlet>
         <servlet-name>Activation</servlet-name>
         <servlet-class>Controller.Activation</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
