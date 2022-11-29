@@ -170,7 +170,7 @@
                                     <p style="color:white">${example}</p>
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
+                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
                                     <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
@@ -210,11 +210,11 @@
 
             myInput.onfocus = function () {
                 document.getElementById("message").style.display = "block";
-            }
+            };
 
             myInput.onblur = function () {
                 document.getElementById("message").style.display = "none";
-            }
+            };
 
             myInput.onkeyup = function () {
                 // Validate lowercase letters
@@ -252,7 +252,15 @@
                     length.classList.remove("valid");
                     length.classList.add("invalid");
                 }
-            }
+                var spchar = /.*[!@#&()–[{}]:;',?*~$^+=<>]/g;
+                if (myInput.value.match(spchar)) {
+                    capital.classList.remove("invalid");
+                    capital.classList.add("valid");
+                } else {
+                    capital.classList.remove("valid");
+                    capital.classList.add("invalid");
+                }
+            };
         </script>
     </body>
 </html>
