@@ -19,7 +19,7 @@ import Model.SendEmail;
  *
  * @author haimi
  */
-public class AccountDaoImpl implements AccountDao{
+public class AccountDaoImpl implements AccountDao {
 
     @Override
     public Account login(String username, String password) {
@@ -38,7 +38,7 @@ public class AccountDaoImpl implements AccountDao{
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4)
-                        );
+                );
             }
             dBContext.closeConnection(connection, ps);
         } catch (SQLException e) {
@@ -46,16 +46,18 @@ public class AccountDaoImpl implements AccountDao{
         }
         return user;
     }
+
     public static void main(String[] args) {
         Account minh = new AccountDaoImpl().login("admin", "Pass@12345");
         System.out.println(minh.getUsername());
     }
+
     public String register(Account acc) throws SQLException {
         String email = acc.getEmail();
         String username = acc.getUsername();
         String password = acc.getPassword();
         DBContext dBContext = new DBContext();
-        Connection connection= dBContext.getConnection();
+        Connection connection = dBContext.getConnection();
         PreparedStatement st;
         try {
             st = connection.prepareStatement("SELECT * FROM Account where username=?");
@@ -67,9 +69,9 @@ public class AccountDaoImpl implements AccountDao{
                 String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
-                } else if(email.equals(checkMail)){
+                } else if (email.equals(checkMail)) {
                     return "Email already exist";
-               
+
                 } else {
                     st = connection.prepareStatement("INSERT INTO Account(username, password, roleid, email) VALUES(?,?,?,?)");
                     st.setString(1, username);
@@ -89,5 +91,45 @@ public class AccountDaoImpl implements AccountDao{
         } catch (Exception e) {
         }
         return "error";
+    }
+
+    @Override
+    public boolean checkEmailExist(String email) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "  select id from Account where [email] = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                if (rs.getString(1) == null) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public void updatePass(String email, String password) {
+         DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "   update Account set [password] = ? where  [email] = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, password);
+            ps.setString(2, email);         
+             ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 }

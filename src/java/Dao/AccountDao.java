@@ -12,4 +12,6 @@ import Model.Account;
  */
 public interface AccountDao {
       Account login(String username, String password);
+      boolean checkEmailExist(String email);
+      void updatePass(String emailString, String password);
 }
