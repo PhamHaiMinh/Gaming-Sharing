@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Dao.Impl.CategoryDaoImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,9 +15,10 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author haimi
  */
-public class Logout extends HttpServlet {
+public class DeleteCategoryStaff extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -28,8 +30,10 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().removeAttribute("account");
-        response.sendRedirect(request.getContextPath() + "/login");
+        CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
+        int id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : 0;
+        boolean status = categoryDaoImpl.delete(id);
+        response.sendRedirect(request.getContextPath() + "/staff/category?status=" + status);
     }
 
 }

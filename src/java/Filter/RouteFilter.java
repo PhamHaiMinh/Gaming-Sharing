@@ -29,17 +29,17 @@ import jakarta.servlet.http.HttpServletResponseWrapper;
  * @author haimi
  */
 public class RouteFilter implements Filter {
-    
+
     private static final boolean debug = false;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-    
+
     public RouteFilter() {
     }
-    
+
     private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
         if (debug) {
@@ -77,7 +77,7 @@ public class RouteFilter implements Filter {
 	}
          */
     }
-    
+
     private void doAfterProcessing(RequestWrapper request, ResponseWrapper response)
             throws IOException, ServletException {
         if (debug) {
@@ -133,7 +133,7 @@ public class RouteFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         if (debug) {
             log("RouteFilter:doFilter()");
         }
@@ -146,10 +146,6 @@ public class RouteFilter implements Filter {
         //
         // Caveat: some servers do not handle wrappers very well for forward or
         // include requests.
-        RequestWrapper wrappedRequest = new RequestWrapper((HttpServletRequest) request);
-        ResponseWrapper wrappedResponse = new ResponseWrapper((HttpServletResponse) response);
-        
-        doBeforeProcessing(wrappedRequest, wrappedResponse);
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String url = httpRequest.getServletPath();
@@ -157,32 +153,6 @@ public class RouteFilter implements Filter {
             httpResponse.sendRedirect(httpRequest.getContextPath());
         }
         chain.doFilter(request, response);
-        
-        Throwable problem = null;
-        
-        try {
-            chain.doFilter(wrappedRequest, wrappedResponse);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
-        
-        doAfterProcessing(wrappedRequest, wrappedResponse);
-
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
-            }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-            sendProcessingError(problem, response);
-        }
     }
 
     /**
@@ -231,12 +201,12 @@ public class RouteFilter implements Filter {
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-        
+
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
         String stackTrace = getStackTrace(t);
-        
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
@@ -263,7 +233,7 @@ public class RouteFilter implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -277,7 +247,7 @@ public class RouteFilter implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
     }
@@ -290,7 +260,7 @@ public class RouteFilter implements Filter {
      * access to the wrapped request using the method getRequest()
      */
     class RequestWrapper extends HttpServletRequestWrapper {
-        
+
         public RequestWrapper(HttpServletRequest request) {
             super(request);
         }
@@ -299,12 +269,12 @@ public class RouteFilter implements Filter {
         // you must also override the getParameter, getParameterValues, getParameterMap,
         // and getParameterNames methods.
         protected Hashtable localParams = null;
-        
+
         public void setParameter(String name, String[] values) {
             if (debug) {
                 System.out.println("RouteFilter::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
             }
-            
+
             if (localParams == null) {
                 localParams = new Hashtable();
                 // Copy the parameters from the underlying request.
@@ -318,7 +288,7 @@ public class RouteFilter implements Filter {
             }
             localParams.put(name, values);
         }
-        
+
         @Override
         public String getParameter(String name) {
             if (debug) {
@@ -337,7 +307,7 @@ public class RouteFilter implements Filter {
             }
             return (val == null ? null : val.toString());
         }
-        
+
         @Override
         public String[] getParameterValues(String name) {
             if (debug) {
@@ -348,7 +318,7 @@ public class RouteFilter implements Filter {
             }
             return (String[]) localParams.get(name);
         }
-        
+
         @Override
         public Enumeration getParameterNames() {
             if (debug) {
@@ -359,7 +329,7 @@ public class RouteFilter implements Filter {
             }
             return localParams.keys();
         }
-        
+
         @Override
         public Map getParameterMap() {
             if (debug) {
@@ -380,7 +350,7 @@ public class RouteFilter implements Filter {
      * get access to the wrapped response using the method getResponse()
      */
     class ResponseWrapper extends HttpServletResponseWrapper {
-        
+
         public ResponseWrapper(HttpServletResponse response) {
             super(response);
         }
@@ -409,5 +379,5 @@ public class RouteFilter implements Filter {
 	}
          */
     }
-    
+
 }
