@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Dao.Impl.CategoryDaoImpl;
+import Model.Category;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author haimi
  */
-public class Logout extends HttpServlet {
+public class DetailCategoryStaff extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -28,8 +30,15 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().removeAttribute("account");
-        response.sendRedirect(request.getContextPath() + "/login");
+        CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
+        int id = request.getParameter("id") != null
+                ? Integer.parseInt(request.getParameter("id"))
+                : 0;
+        Category category = categoryDaoImpl.get(id);
+        request.setAttribute("category", category);
+        request
+                .getRequestDispatcher("categoryDetail.jsp")
+                .forward(request, response);
     }
 
 }
