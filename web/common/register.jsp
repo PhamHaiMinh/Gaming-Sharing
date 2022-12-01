@@ -16,7 +16,7 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         <style>
             .navbar {
                 padding: 0;
@@ -197,10 +197,10 @@
             </div>
         </section>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/popper.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assetsjs/popper.js"></script>
+        <script src="assetsjs/bootstrap.min.js"></script>
+        <script src="assets/js/main.js"></script>
         <script>
             var myInput = document.getElementById("password");
             var letter = document.getElementById("letter");
