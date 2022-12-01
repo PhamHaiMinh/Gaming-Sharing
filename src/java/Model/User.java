@@ -8,7 +8,7 @@ package Model;
  *
  * @author LENOVO
  */
-public class Customer {
+public class User {
     private Account account;
     private int id;
     private String last_name;
@@ -18,10 +18,10 @@ public class Customer {
     private String phone;
     private Address address;
 
-    public Customer() {
+    public User() {
     }
 
-    public Customer(Account account, int id, String last_name, String middle_name, String first_name, boolean gender, String phone, Address address) {
+    public User(Account account, int id, String last_name, String middle_name, String first_name, boolean gender, String phone, Address address) {
         this.account = account;
         this.id = id;
         this.last_name = last_name;
