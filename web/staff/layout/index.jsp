@@ -67,7 +67,7 @@ crossorigin="anonymous"></script>
             </a>
         </li>
         <li class="list-group-item  bg-info">
-            <a href="<%= request.getContextPath()%>/staff/Product" class="text-light">
+            <a href="<%= request.getContextPath()%>/staff/product" class="text-light">
                 <h4>Product</h3>
             </a>
         </li>
