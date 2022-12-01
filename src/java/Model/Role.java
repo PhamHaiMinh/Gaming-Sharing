@@ -11,5 +11,14 @@ package Model;
 public class Role {
     private int rid;
     private String name;
+
+    public Role() {
+    }
+
+    public Role(int rid, String name) {
+        this.rid = rid;
+        this.name = name;
+    }
+    
     
 }
