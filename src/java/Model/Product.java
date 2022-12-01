@@ -9,5 +9,6 @@ package Model;
  * @author LENOVO
  */
 public class Product {
+    private int id;
     
 }
