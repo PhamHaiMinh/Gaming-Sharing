@@ -146,23 +146,6 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int getTotalCategory() {
-        DBContext dBContext = new DBContext();
-        try {
-            Connection connection = dBContext.getConnection();
-            String sql = "select count(*) from Category";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return 0;
-    }
-
-    @Override
     public ArrayList<Category> getAll(int page) {
         Dao.DBContext dBContext = new Dao.DBContext();
         ArrayList<Category> listCategory = new ArrayList<>();

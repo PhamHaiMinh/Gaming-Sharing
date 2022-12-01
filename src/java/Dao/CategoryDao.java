@@ -15,7 +15,5 @@ public interface CategoryDao extends BaseDao<Category> {
 
     public ArrayList<Category> search(String name);
 
-    public int getTotalCategory();
-
     public ArrayList<Category> getAll(int page);
 }

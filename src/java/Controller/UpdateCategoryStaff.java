@@ -71,12 +71,12 @@ public class UpdateCategoryStaff extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/staff/category");
             } else {
                 boolean status = categoryDaoImpl.update(new Category(id, name));
-                int count = categoryDaoImpl.getTotalCategory();
+                ArrayList<Category> categories = categoryDaoImpl.getAll(page);
+                int count = categories.size();
                 int endpage = count / 5;
                 if (count % 5 != 0) {
                     endpage++;
                 }
-                ArrayList<Category> categories = categoryDaoImpl.getAll(page);
                 request.setAttribute("categories", categories);
                 request.setAttribute("endpage", endpage);
                 response.sendRedirect(
@@ -89,12 +89,12 @@ public class UpdateCategoryStaff extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/staff/category");
             } else {
                 boolean status = categoryDaoImpl.update(new Category(id, name));
-                int count = categoryDaoImpl.getTotalCategory();
+                ArrayList<Category> categories = categoryDaoImpl.getAll(page);
+                int count = categories.size();
                 int endpage = count / 5;
                 if (count % 5 != 0) {
                     endpage++;
                 }
-                ArrayList<Category> categories = categoryDaoImpl.getAll(page);
                 request.setAttribute("categories", categories);
                 request.setAttribute("endpage", endpage);
                 response.sendRedirect(
