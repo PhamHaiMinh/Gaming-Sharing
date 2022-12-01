@@ -60,7 +60,7 @@ public class ResetPassWord extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login/resetpassword.jsp").forward(request, response);
+        request.getRequestDispatcher("common/resetpassword.jsp").forward(request, response);
 //        processRequest(request, response);
     }
 
@@ -80,7 +80,7 @@ public class ResetPassWord extends HttpServlet {
         boolean checkExist = dao.checkEmailExist(email.trim());
         if (checkExist == false) {
             request.setAttribute("mess", "Email is not exist in system!");
-            request.getRequestDispatcher("login/resetpassword.jsp").forward(request, response);
+            request.getRequestDispatcher("common/resetpassword.jsp").forward(request, response);
 
         } else {
             String key = generateRandomkey(15);
