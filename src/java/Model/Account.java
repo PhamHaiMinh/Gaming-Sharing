@@ -14,15 +14,26 @@ public class Account {
     private String password;
     private int role;
     private String email;
+    private boolean active;
 
-    public Account(int id, String username, String password, int role) {
+    public Account(int id, String username, String password, int role, String email, boolean active) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.email = email;
+        this.active = active;
     }
 
     public Account() {
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getEmail() {
