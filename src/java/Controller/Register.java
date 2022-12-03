@@ -27,7 +27,7 @@ public class Register extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/common/register.jsp").forward(request, response);
+        request.getRequestDispatcher("common/register.jsp").forward(request, response);
     }
     
     
@@ -48,29 +48,25 @@ public class Register extends HttpServlet {
             AccountDaoImpl ad = new AccountDaoImpl();
 
             String str;
-            try {
-                str = ad.register(acc);
-                if (str.equals("Success")) {
-                    request.setAttribute("success", str + "! Check your email to verify");
-                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                    rd.include(request, response);
-                } else if (str.equals("Username already exist")) {
-                    request.setAttribute("userError", "Username '" + username + "' already exist");
-                    request.setAttribute("example", "You can try: " + username + "1, " + username + "12, " + username + "123");
-                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                    rd.include(request, response);
-                } else if (str.equals("Email already exist")) {
-                    request.setAttribute("emailError", "Email '" + email + "' already exist");
-                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                    rd.include(request, response);
-                } else {
-                    request.setAttribute("error", str);
-                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                    rd.include(request, response);
-                    response.sendRedirect("common/register.jsp");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            str = ad.register(acc);
+            if (str.equals("Success")) {
+                request.setAttribute("success", str + "! Check your email to verify");
+                RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+                rd.include(request, response);
+            } else if (str.equals("Username already exist")) {
+                request.setAttribute("userError", "Username '" + username + "' already exist");
+                request.setAttribute("example", "You can try: " + username + "1, " + username + "12, " + username + "123");
+                RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+                rd.include(request, response);
+            } else if (str.equals("Email already exist")) {
+                request.setAttribute("emailError", "Email '" + email + "' already exist");
+                RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+                rd.include(request, response);
+            } else {
+                request.setAttribute("error", str);
+                RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+                rd.include(request, response);
+                response.sendRedirect("common/register.jsp");
             }
         }
     }
