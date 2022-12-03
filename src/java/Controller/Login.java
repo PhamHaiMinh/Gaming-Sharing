@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
             }
             request.setAttribute("username", username);
             request.setAttribute("password", password);
-            request.getRequestDispatcher("/login/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/common/login.jsp").forward(request, response);
         } else {
             int type = user.getRole();
             switch (type) {
@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect(request.getContextPath());
                     break;
                 default:
-                    request.getRequestDispatcher("/login/login.jsp").forward(request, response);
+                    request.getRequestDispatcher("/common/login.jsp").forward(request, response);
             }
         }
 
@@ -74,14 +74,14 @@ public class Login extends HttpServlet {
                 request.setAttribute("username", username);
                 request.setAttribute("password", password);
                 request.setAttribute("errorPassword", "Password is not valid");
-                request.getRequestDispatcher("login/login.jsp").forward(request, response);
+                request.getRequestDispatcher("common/login.jsp").forward(request, response);
             } else {
                 Account u = db.login(username, password);
                 if (u.getId() == 0) {
                     request.setAttribute("login", false);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
-                    request.getRequestDispatcher("login/login.jsp").forward(request, response);
+                    request.getRequestDispatcher("common/login.jsp").forward(request, response);
                 } else {
                     if (request.getParameter("remember") != null) {
                         Cookie userCookie = new Cookie("username", u.getUsername());
@@ -106,7 +106,7 @@ public class Login extends HttpServlet {
                             request.setAttribute("login", false);
                             request.setAttribute("username", username);
                             request.setAttribute("password", password);
-                            request.getRequestDispatcher("/login/login.jsp").forward(request, response);
+                            request.getRequestDispatcher("/common/login.jsp").forward(request, response);
                     }
                 }
             }
@@ -123,7 +123,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect(request.getContextPath());
                     break;
                 default:
-                    request.getRequestDispatcher("/login/login.jsp").forward(request, response);
+                    request.getRequestDispatcher("/common/login.jsp").forward(request, response);
             }
         }
 
