@@ -70,7 +70,7 @@ public class AccountDaoImpl implements AccountDao {
                     return "Email already exist";
 
                 } else {
-                    st = connection.prepareStatement("INSERT INTO Account(username, password, roleid, email) VALUES(?,?,?,?)");
+                    st = connection.prepareStatement("INSERT INTO Account(username, password, rid, email) VALUES(?,?,?,?)");
                     st.setString(1, username);
                     st.setString(2, password);
                     st.setInt(3, 1);

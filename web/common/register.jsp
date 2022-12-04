@@ -16,7 +16,7 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/register.css">
         <style>
             .navbar {
                 padding: 0;
@@ -144,7 +144,7 @@
             }
         </style>
     </head>
-    <body class="img js-fullheight" style="background-image: url(images/bg.jpg); background-repeat: no-repeat; background-size: cover">
+    <body class="img js-fullheight" style="background-image: url(assets/img/bg.jpg); background-repeat: no-repeat; background-size: cover">
         <section class="ftco-section">
             <div class="container">
                 <div class="row justify-content-center">
@@ -170,7 +170,7 @@
                                     <p style="color:white">${example}</p>
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
+                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
                                     <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
@@ -189,7 +189,7 @@
                             <p style='color:red'>${requestScope.message}</p>
                             <p class="w-100 text-center">&mdash; Already have an account &mdash;</p>
                             <div class="social d-flex text-center">
-                                <a href="login.jsp" class="px-2 py-2 mr-md-1 rounded"> Login</a>
+                                <a href="login" class="px-2 py-2 mr-md-1 rounded"> Login</a>
                             </div>
                         </div>
                     </div>
@@ -198,8 +198,8 @@
         </section>
 
         <script src="assets/js/jquery.min.js"></script>
-        <script src="assetsjs/popper.js"></script>
-        <script src="assetsjs/bootstrap.min.js"></script>
+        <script src="assets/js/popper.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/main.js"></script>
         <script>
             var myInput = document.getElementById("password");
