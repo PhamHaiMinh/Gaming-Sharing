@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author haimi
  */
-public interface CategoryDao extends BaseDao<Category> {
+public interface CategoryDao extends BaseDAO<Category> {
 
     public ArrayList<Category> search(String name);
 

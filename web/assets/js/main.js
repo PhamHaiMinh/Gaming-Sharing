@@ -1,40 +1,7 @@
-var check = function() {
-  if (document.getElementById("new").value ==
-    document.getElementById("confirm").value) {
-    document.getElementById("message").style.color = 'green';
-    document.getElementById("message").innerHTML = 'Matching';
-  } else {
-    document.getElementById("message").style.color = 'red';
-    document.getElementById("message").innerHTML = 'New Password and Confirm Password must matched';
-    document.getElementById("submit").disabled=true;
-  }
-}
 (function ($) {
 
     "use strict";
-
-    var fullHeight = function () {
-
-        $('.js-fullheight').css('height', $(window).height());
-        $(window).resize(function () {
-            $('.js-fullheight').css('height', $(window).height());
-        });
-
-    };
-    fullHeight();
-
-    $(".toggle-password").click(function () {
-
-        $(this).toggleClass("fa-eye fa-eye-slash");
-        var input = $($(this).attr("toggle"));
-        if (input.attr("type") == "password") {
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-        }
-    });
-    
-    // Dropdown on mouse hover
+// Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
             if ($(window).width() > 992) {
@@ -50,8 +17,8 @@ var check = function() {
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -74,20 +41,20 @@ var check = function() {
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
-            0:{
-                items:2
+            0: {
+                items: 2
             },
-            576:{
-                items:3
+            576: {
+                items: 3
             },
-            768:{
-                items:4
+            768: {
+                items: 4
             },
-            992:{
-                items:5
+            992: {
+                items: 5
             },
-            1200:{
-                items:6
+            1200: {
+                items: 6
             }
         }
     });
@@ -101,17 +68,17 @@ var check = function() {
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:2
+            576: {
+                items: 2
             },
-            768:{
-                items:3
+            768: {
+                items: 3
             },
-            992:{
-                items:4
+            992: {
+                items: 4
             }
         }
     });
@@ -132,6 +99,28 @@ var check = function() {
         }
         button.parent().parent().find('input').val(newVal);
     });
+
+    var fullHeight = function () {
+
+        $('.js-fullheight').css('height', $(window).height());
+        $(window).resize(function () {
+            $('.js-fullheight').css('height', $(window).height());
+        });
+
+    };
+    fullHeight();
+
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
 })(jQuery);
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -172,4 +161,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // Your code to run since DOM is loaded and ready
 });
 
-
+var check = function () {
+    if (document.getElementById("new").value ==
+            document.getElementById("confirm").value) {
+        document.getElementById("message").style.color = 'green';
+        document.getElementById("message").innerHTML = 'Matching';
+    } else {
+        document.getElementById("message").style.color = 'red';
+        document.getElementById("message").innerHTML = 'New Password and Confirm Password must matched';
+        document.getElementById("submit").disabled = true;
+    }
+}
