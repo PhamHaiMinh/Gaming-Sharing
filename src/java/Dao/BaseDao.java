@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Admin
  */
-public interface BaseDAO<T> {
+public interface BaseDao<T> {
 
     T get(int id);
 

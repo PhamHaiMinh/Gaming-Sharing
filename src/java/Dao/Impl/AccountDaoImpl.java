@@ -49,7 +49,8 @@ public class AccountDaoImpl implements AccountDao {
         return user;
     }
 
-    public String register(Account acc) throws SQLException {
+    @Override
+    public String register(Account acc) {
         String email = acc.getEmail();
         String username = acc.getUsername();
         String password = acc.getPassword();
@@ -85,7 +86,7 @@ public class AccountDaoImpl implements AccountDao {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return "error";
     }
