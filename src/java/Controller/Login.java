@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin");
                     break;
                 case 2:
-                    response.sendRedirect(request.getContextPath() + "/seller");
+                    response.sendRedirect(request.getContextPath() + "/staff");
                     break;
                 case 3:
                     response.sendRedirect(request.getContextPath());
@@ -120,7 +120,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/admin");
                     break;
                 case 2:
-                    response.sendRedirect(request.getContextPath() + "/seller");
+                    response.sendRedirect(request.getContextPath() + "/staff");
                     break;
                 case 3:
                     response.sendRedirect(request.getContextPath());

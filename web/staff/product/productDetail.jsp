@@ -1,5 +1,5 @@
 <%@include file="../layout/index.jsp" %>
-<div class=" container m-3 d-flex justify-content-center" style="flex-direction: column;">
+<div class=" container my-3 d-flex justify-content-center" style="flex-direction: column;">
     <div>
         <a class="btn btn-info m-3 mx-5" href="<%= request.getContextPath()%>/staff/product/update?id=${product.id}" role="button">Update</a>
     </div>
