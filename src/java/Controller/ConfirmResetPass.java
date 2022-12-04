@@ -63,7 +63,7 @@ public class ConfirmResetPass extends HttpServlet {
         HttpSession session = request.getSession();
         String keySession = (String) session.getAttribute("key");
         if (key.equals(keySession)) {
-            request.getRequestDispatcher("login/ConfirmResetPass.jsp").forward(request, response);
+            request.getRequestDispatcher("common/ConfirmResetPass.jsp").forward(request, response);
         } else {
             response.getWriter().println("Error key.You can't access this site");
         }
@@ -87,7 +87,7 @@ public class ConfirmResetPass extends HttpServlet {
         String cfpass = request.getParameter("cfpass");
         if (!newpass.equals(cfpass)) {
             request.setAttribute("mess", "New password not match with confirm password !");
-            request.getRequestDispatcher("login/ConfirmResetPass.jsp").forward(request, response);
+            request.getRequestDispatcher("common/ConfirmResetPass.jsp").forward(request, response);
         }else{
              AccountDao dao = new AccountDaoImpl();
              dao.updatePass(email, newpass);
