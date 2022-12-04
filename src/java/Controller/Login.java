@@ -1,14 +1,16 @@
+package Controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
 
 import Dao.AccountDao;
 import Model.Account;
 import Dao.Impl.AccountDaoImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +20,9 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author MrTuan
+ * @author haimi
  */
+@WebServlet(urlPatterns = {"/login"})
 public class Login extends HttpServlet {
 
     @Override
@@ -66,7 +69,7 @@ public class Login extends HttpServlet {
 
         Account user = (Account) request.getSession().getAttribute("user");
         if (user == null) {
-            AccountDao  db = new AccountDaoImpl();
+            AccountDao db = new AccountDaoImpl();
             String username = request.getParameter("username").trim();
             String password = request.getParameter("password").trim();
             if (!isValid(password)) {
