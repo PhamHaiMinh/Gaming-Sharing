@@ -15,7 +15,7 @@
     <body>
         <%@include file="../layout/index.jsp"  %>
 
-        <div class=" container p-4 d-flex float-end flex-column  ">
+        <div class=" container p-4 d-flex flex-column mx-auto  ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
             </div>
