@@ -44,7 +44,7 @@ public class ListCategoryStaff extends HttpServlet {
             request.getRequestDispatcher("category/categoryList.jsp").forward(request, response);
         } else {
             List<Category> categories = categoryDaoImpl.getAll(page);
-            int count = categories.size();
+            int count = categoryDaoImpl.getAll().size();
             int endpage = count / 5;
             if (count % 5 != 0) {
                 endpage++;

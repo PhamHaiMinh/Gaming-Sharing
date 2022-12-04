@@ -131,8 +131,8 @@ public class CategoryDaoImpl implements CategoryDao {
         DBContext dBContext = new DBContext();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "delete from Category  where id=?\n"
-                    + "delete from Product where categoryID=?";
+            String sql = "delete from Product where category_id=?\n"
+                    + "delete from Category  where id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ps.setInt(2, id);

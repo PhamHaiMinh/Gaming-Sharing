@@ -36,9 +36,7 @@ public class DetailCategoryStaff extends HttpServlet {
                 : 0;
         Category category = categoryDaoImpl.get(id);
         request.setAttribute("category", category);
-        request
-                .getRequestDispatcher("categoryDetail.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("categoryDetail.jsp").forward(request, response);
     }
 
 }
