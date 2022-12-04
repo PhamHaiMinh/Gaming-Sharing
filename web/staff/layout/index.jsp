@@ -35,6 +35,9 @@ crossorigin="anonymous"></script>
             transform: translateX(-100%);
         }
     }
+    body{
+        background-color: aliceblue;
+    }
 </style>
 <nav class="navbar navbar-dark bg-primary">
     <div class="container-fluid">
