@@ -96,7 +96,7 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getInt("category_id"),
                         rs.getString("image")
                 );
-                dBContext.closeConnection(connection, ps, rs);
+
                 try {
                     String quesry = "select * from Category where id=?";
                     PreparedStatement prS = connection.prepareStatement(quesry);
@@ -109,12 +109,13 @@ public class ProductDaoImpl implements ProductDao {
                         product.setCategory(category);
                     }
                 } catch (SQLException e) {
-                    Logger.getLogger(Category.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, e);
                 }
                 products.add(product);
             }
+            dBContext.closeConnection(connection, ps, rs);
         } catch (SQLException e) {
-            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return products;
     }
@@ -148,10 +149,6 @@ public class ProductDaoImpl implements ProductDao {
             Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new ProductDaoImpl().insert(new Product("minh", 1, 3, "minhds", 4)));
     }
 
     @Override
