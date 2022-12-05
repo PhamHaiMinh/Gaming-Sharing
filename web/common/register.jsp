@@ -158,7 +158,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="login-wrap p-0">
 
-                            <form action="register" class="signin-form" method="post"">
+                            <form action="" class="signin-form" method="post">
 
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Email" required name="email">
@@ -171,10 +171,8 @@
                                 </div>
                                 <div class="form-group">
                                     <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
-                                    <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
-                                    <!--<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>-->
                                     <input type="submit" class="btn btn-primary btn-block btn-lg" name="btn-register" value="Register">
                                 </div>
 
