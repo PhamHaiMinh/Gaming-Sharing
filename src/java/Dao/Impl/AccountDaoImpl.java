@@ -60,23 +60,21 @@ public class AccountDaoImpl implements AccountDao {
         try {
             st = connection.prepareStatement("SELECT * FROM Account where username=?");
             st.setString(1, username);
-            st.setString(2, email);
+//            st.setString(2, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String checkUser = rs.getString("username");
                 String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
-                } else if (email.equals(checkMail)) {
-                    return "Email already exist";
-
+//                } else if (email.equals(checkMail)) {
+//                    return "Email already exist";
                 } else {
-                    st = connection.prepareStatement("INSERT INTO Account(username, password, rid, email) VALUES(?,?,?,?)");
+                    st = connection.prepareStatement("INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)");
                     st.setString(1, username);
                     st.setString(2, password);
-                    st.setInt(3, 1);
+                    st.setInt(3, 3);
                     st.setString(4, email);
-
                     int i = st.executeUpdate();
 
                     if (i != 0) {
@@ -90,7 +88,16 @@ public class AccountDaoImpl implements AccountDao {
         }
         return "error";
     }
-
+    public static void main(String[] args) {
+        String username="longnt2";
+        String password="Long12345";
+        String email="longnt@gmail.com";
+        int roleid=0;
+        Account acc = new Account(username, password, roleid, email);
+        AccountDaoImpl ad = new AccountDaoImpl();
+        
+        System.out.println(ad.register(acc));
+    }
     @Override
     public boolean checkEmailExist(String email) {
         DBContext dBContext = new DBContext();
