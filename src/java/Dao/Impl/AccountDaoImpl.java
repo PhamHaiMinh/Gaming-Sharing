@@ -27,7 +27,7 @@ public class AccountDaoImpl implements AccountDao {
         Account user = new Account();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "select * from Account where username  = ? and password = ?";
+            String sql = "select id, username, password, role_id, email from Account where username  = ? and password = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -37,7 +37,8 @@ public class AccountDaoImpl implements AccountDao {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getInt(4)
+                        rs.getInt(4),
+                        rs.getString(5)
                 );
             }
             dBContext.closeConnection(connection, ps);
@@ -52,7 +53,8 @@ public class AccountDaoImpl implements AccountDao {
         System.out.println(minh.getUsername());
     }
 
-    public String register(Account acc) throws SQLException {
+    @Override
+    public String register(Account acc){
         String email = acc.getEmail();
         String username = acc.getUsername();
         String password = acc.getPassword();
@@ -73,7 +75,7 @@ public class AccountDaoImpl implements AccountDao {
                     return "Email already exist";
 
                 } else {
-                    st = connection.prepareStatement("INSERT INTO Account(username, password, roleid, email) VALUES(?,?,?,?)");
+                    st = connection.prepareStatement("INSERT INTO Account(username, password, rid, email) VALUES(?,?,?,?)");
                     st.setString(1, username);
                     st.setString(2, password);
                     st.setInt(3, 1);
