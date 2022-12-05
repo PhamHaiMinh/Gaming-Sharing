@@ -22,7 +22,7 @@ public class DBContext {
   private final String dbName = "GamingSharing";
   private final String portNumber = "1433";
   private final String userID = "sa";
-  private final String password = "12345678";
+  private final String password = "123";
   public Connection connection;
 
   public Connection getConnection() {
