@@ -28,6 +28,14 @@ public class Account {
     public Account() {
     }
 
+    public Account(String username, String password, int role, String email) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+    }
+
+
     public boolean isActive() {
         return active;
     }

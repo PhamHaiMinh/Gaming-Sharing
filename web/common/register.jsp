@@ -158,7 +158,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="login-wrap p-0">
 
-                            <form action="" class="signin-form" method="post">
+                            <form action="register" class="signin-form" method="post">
 
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Email" required name="email">
@@ -200,6 +200,7 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/main.js"></script>
         <script>
+            
             var myInput = document.getElementById("password");
             var letter = document.getElementById("letter");
             var capital = document.getElementById("capital");
