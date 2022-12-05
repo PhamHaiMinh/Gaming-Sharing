@@ -48,10 +48,10 @@ public class CreateCategoryStaff extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
-        String categoryName = request.getParameter("name").trim();
+        String name = request.getParameter("name").trim();
         boolean status = false;
-        if (categoryName != null && categoryName.matches(".*\\w.*")) {
-            Category category = new Category(categoryName);
+        if (name != null && name.matches(".*\\w.*")) {
+            Category category = new Category(name);
             status = categoryDaoImpl.insert(category);
             response.sendRedirect(request.getContextPath() + "/staff/category?status=" + status);
         } else {

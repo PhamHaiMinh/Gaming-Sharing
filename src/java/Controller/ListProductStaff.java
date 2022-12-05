@@ -4,14 +4,14 @@
  */
 package Controller;
 
-import Dao.ProductDao;
 import Dao.Impl.ProductDaoImpl;
+import Dao.ProductDao;
 import Model.Product;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,40 +20,36 @@ import java.util.List;
  */
 public class ListProductStaff extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        ProductDao productDaoImpl = new ProductDaoImpl();
-        String search = request.getParameter("search");
-        int page = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-        String status = request.getParameter("status");
-        if (search != null) {
-            List<Product> products = productDaoImpl.search(search);
-            request.setAttribute("search", search);
-            request.setAttribute("products", products);
-
-            request.getRequestDispatcher("product/productList.jsp").forward(request, response);
-        } else {
-            List<Product> products = productDaoImpl.getAll(page);
-            int count = productDaoImpl.getAll().size();
-            int endpage = count / 5;
-            if (count % 5 != 0) {
-                endpage++;
-            }
-            request.setAttribute("endpage", endpage);
-            request.setAttribute("products", products);
-            request.setAttribute("status", status);
-            request.getRequestDispatcher("product/productList.jsp").forward(request, response);
-        }
+  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+  /**
+   * Handles the HTTP <code>GET</code> method.
+   *
+   * @param request servlet request
+   * @param response servlet response
+   * @throws ServletException if a servlet-specific error occurs
+   * @throws IOException if an I/O error occurs
+   */
+  @Override
+  protected void doGet(
+    HttpServletRequest request,
+    HttpServletResponse response
+  ) throws ServletException, IOException {
+    ProductDao productDaoImpl = new ProductDaoImpl();
+    int page = request.getParameter("page") != null
+      ? Integer.parseInt(request.getParameter("page"))
+      : 1;
+    String status = request.getParameter("status");
+    List<Product> products = productDaoImpl.getAll(page);
+    int count = productDaoImpl.getAll().size();
+    int endpage = count / 5;
+    if (count % 5 != 0) {
+      endpage++;
     }
-
+    request.setAttribute("endpage", endpage);
+    request.setAttribute("products", products);
+    request.setAttribute("status", status);
+    request
+      .getRequestDispatcher("product/productList.jsp")
+      .forward(request, response);
+  }
 }
