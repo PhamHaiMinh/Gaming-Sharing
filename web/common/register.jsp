@@ -170,7 +170,8 @@
                                     <p style="color:white">${example}</p>
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
+                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password"   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$"
+                                           title="Must contain at least one number and one uppercase and lowercase letter special characters, the length is 8-16 characters">
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary btn-block btn-lg" name="btn-register" value="Register">
@@ -200,7 +201,7 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/main.js"></script>
         <script>
-            
+
             var myInput = document.getElementById("password");
             var letter = document.getElementById("letter");
             var capital = document.getElementById("capital");

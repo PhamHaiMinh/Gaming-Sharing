@@ -32,95 +32,15 @@ import jakarta.servlet.http.HttpServletResponseWrapper;
  */
 @WebFilter(filterName = "UserFilter", urlPatterns = {"/user/*"})
 public class UserFilter implements Filter {
-    
+
     private static final boolean debug = false;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-    
+
     public UserFilter() {
-    }    
-    
-    private void doBeforeProcessing(RequestWrapper request, ResponseWrapper response)
-            throws IOException, ServletException {
-        if (debug) {
-            log("UserFilter:DoBeforeProcessing");
-        }
-
-        // Write code here to process the request and/or response before
-        // the rest of the filter chain is invoked.
-        // For example, a filter that implements setParameter() on a request
-        // wrapper could set parameters on the request before passing it on
-        // to the filter chain.
-        /*
-	String [] valsOne = {"val1a", "val1b"};
-	String [] valsTwo = {"val2a", "val2b", "val2c"};
-	request.setParameter("name1", valsOne);
-	request.setParameter("nameTwo", valsTwo);
-         */
-        // For example, a logging filter might log items on the request object,
-        // such as the parameters.
-        /*
-	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    String values[] = request.getParameterValues(name);
-	    int n = values.length;
-	    StringBuffer buf = new StringBuffer();
-	    buf.append(name);
-	    buf.append("=");
-	    for(int i=0; i < n; i++) {
-	        buf.append(values[i]);
-	        if (i < n-1)
-	            buf.append(",");
-	    }
-	    log(buf.toString());
-	}
-         */
-    }    
-    
-    private void doAfterProcessing(RequestWrapper request, ResponseWrapper response)
-            throws IOException, ServletException {
-        if (debug) {
-            log("UserFilter:DoAfterProcessing");
-        }
-
-        // Write code here to process the request and/or response after
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log the attributes on the
-        // request object after the request has been processed. 
-        /*
-	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    Object value = request.getAttribute(name);
-	    log("attribute: " + name + "=" + value.toString());
-
-	}
-         */
-        // For example, a filter might append something to the response.
-        /*
-	PrintWriter respOut = new PrintWriter(response.getWriter());
-	respOut.println("<p><strong>This has been appended by an intrusive filter.</strong></p>");
-	
-	respOut.println("<p>Params (after the filter chain):<br>");
-	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-		String name = (String)en.nextElement();
-		String values[] = request.getParameterValues(name);
-		int n = values.length;
-		StringBuffer buf = new StringBuffer();
-		buf.append(name);
-		buf.append("=");
-		for(int i=0; i < n; i++) {
-		    buf.append(values[i]);
-		    if (i < n-1)
-			buf.append(",");
-		}
-		log(buf.toString());
-		respOut.println(buf.toString() + "<br>");
-	}
-        respOut.println("</p>");
-         */
     }
 
     /**
@@ -135,7 +55,7 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         if (debug) {
             log("UserFilter:doFilter()");
         }
@@ -148,11 +68,7 @@ public class UserFilter implements Filter {
         //
         // Caveat: some servers do not handle wrappers very well for forward or
         // include requests.
-        RequestWrapper wrappedRequest = new RequestWrapper((HttpServletRequest) request);
-        ResponseWrapper wrappedResponse = new ResponseWrapper((HttpServletResponse) response);
-        
-        doBeforeProcessing(wrappedRequest, wrappedResponse);
-         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Account account = (Account) httpRequest.getSession().getAttribute("account");
         if (account == null) {
@@ -163,42 +79,16 @@ public class UserFilter implements Filter {
             switch (type) {
                 case 1:
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/admin");
-
                     break;
                 case 2:
                     chain.doFilter(request, response);
                     break;
                 case 3:
-                    httpResponse.sendRedirect(httpRequest.getContextPath());
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
                     break;
                 default:
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             }
-        }
-        Throwable problem = null;
-        
-        try {
-            chain.doFilter(wrappedRequest, wrappedResponse);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
-        
-        doAfterProcessing(wrappedRequest, wrappedResponse);
-
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
-            }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-            sendProcessingError(problem, response);
         }
     }
 
@@ -221,16 +111,16 @@ public class UserFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
      * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {                
+            if (debug) {
                 log("UserFilter: Initializing filter");
             }
         }
@@ -248,22 +138,22 @@ public class UserFilter implements Filter {
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-        
+
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);        
-        
+        String stackTrace = getStackTrace(t);
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);                
+                PrintWriter pw = new PrintWriter(ps);
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
 
                 // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");                
-                pw.print(stackTrace);                
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
+                pw.print(stackTrace);
                 pw.print("</pre></body>\n</html>"); //NOI18N
                 pw.close();
                 ps.close();
@@ -280,7 +170,7 @@ public class UserFilter implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -294,9 +184,9 @@ public class UserFilter implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
-        filterConfig.getServletContext().log(msg);        
+        filterConfig.getServletContext().log(msg);
     }
 
     /**
@@ -307,7 +197,7 @@ public class UserFilter implements Filter {
      * access to the wrapped request using the method getRequest()
      */
     class RequestWrapper extends HttpServletRequestWrapper {
-        
+
         public RequestWrapper(HttpServletRequest request) {
             super(request);
         }
@@ -316,12 +206,12 @@ public class UserFilter implements Filter {
         // you must also override the getParameter, getParameterValues, getParameterMap,
         // and getParameterNames methods.
         protected Hashtable localParams = null;
-        
+
         public void setParameter(String name, String[] values) {
             if (debug) {
                 System.out.println("UserFilter::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
             }
-            
+
             if (localParams == null) {
                 localParams = new Hashtable();
                 // Copy the parameters from the underlying request.
@@ -335,7 +225,7 @@ public class UserFilter implements Filter {
             }
             localParams.put(name, values);
         }
-        
+
         @Override
         public String getParameter(String name) {
             if (debug) {
@@ -354,7 +244,7 @@ public class UserFilter implements Filter {
             }
             return (val == null ? null : val.toString());
         }
-        
+
         @Override
         public String[] getParameterValues(String name) {
             if (debug) {
@@ -365,7 +255,7 @@ public class UserFilter implements Filter {
             }
             return (String[]) localParams.get(name);
         }
-        
+
         @Override
         public Enumeration getParameterNames() {
             if (debug) {
@@ -375,8 +265,8 @@ public class UserFilter implements Filter {
                 return getRequest().getParameterNames();
             }
             return localParams.keys();
-        }        
-        
+        }
+
         @Override
         public Map getParameterMap() {
             if (debug) {
@@ -397,9 +287,9 @@ public class UserFilter implements Filter {
      * get access to the wrapped response using the method getResponse()
      */
     class ResponseWrapper extends HttpServletResponseWrapper {
-        
+
         public ResponseWrapper(HttpServletResponse response) {
-            super(response);            
+            super(response);
         }
 
         // You might, for example, wish to know what cookies were set on the response
@@ -426,5 +316,5 @@ public class UserFilter implements Filter {
 	}
          */
     }
-    
+
 }
