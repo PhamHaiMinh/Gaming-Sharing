@@ -1,0 +1,17 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Dec 7, 2022, 2:22:59 AM
+    Author     : LENOVO
+*/
+div.line {
+    padding: 1px;
+    background: #cccccc;
+    margin-top: 3px;
+}
+
+p {
+  text-align: center;  
+}
