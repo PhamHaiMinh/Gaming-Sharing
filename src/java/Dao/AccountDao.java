@@ -15,4 +15,6 @@ public interface AccountDao {
       boolean checkEmailExist(String email);
       void updatePass(String emailString, String password);
       String register(Account acc);
+      void changePassword(Account a);
+      Account check(String username, String password);
 }
