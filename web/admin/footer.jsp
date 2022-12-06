@@ -9,9 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Copyright</title>
+        <link href="assets/css/copyright.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="line"></div>
+        <p>Power by Gaming Sharing</p>
     </body>
 </html>
