@@ -27,7 +27,7 @@ public class AccountDaoImpl implements AccountDao {
         Account user = new Account();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "select id, username, password, role_id, email,active from Account where username  = ? and password = ?";
+            String sql = "select id, username, password, role_id, email, active from Account where username  = ? and password = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -88,16 +88,18 @@ public class AccountDaoImpl implements AccountDao {
         }
         return "error";
     }
+
     public static void main(String[] args) {
-        String username="longnt2";
-        String password="Long12345";
-        String email="longnt@gmail.com";
-        int roleid=0;
+        String username = "longnt2";
+        String password = "Long12345";
+        String email = "longnt@gmail.com";
+        int roleid = 0;
         Account acc = new Account(username, password, roleid, email);
         AccountDaoImpl ad = new AccountDaoImpl();
-        
+
         System.out.println(ad.register(acc));
     }
+
     @Override
     public boolean checkEmailExist(String email) {
         DBContext dBContext = new DBContext();
@@ -137,7 +139,7 @@ public class AccountDaoImpl implements AccountDao {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+
     @Override
     public void changePassword(Account a) {
         DBContext dBContext = new DBContext();
@@ -164,7 +166,7 @@ public class AccountDaoImpl implements AccountDao {
             st.setString(1, username);
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return new Account(username, password, rs.getInt("role"), rs.getString("email"));
             }
         } catch (SQLException e) {

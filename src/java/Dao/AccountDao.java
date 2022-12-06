@@ -11,10 +11,16 @@ import Model.Account;
  * @author haimi
  */
 public interface AccountDao {
-      Account login(String username, String password);
-      boolean checkEmailExist(String email);
-      void updatePass(String emailString, String password);
-      String register(Account acc);
-      void changePassword(Account a);
-      Account check(String username, String password);
+
+    Account login(String username, String password);
+
+    boolean checkEmailExist(String email);
+
+    void updatePass(String emailString, String password);
+
+    String register(Account acc);
+
+    void changePassword(Account a);
+
+    Account check(String username, String password);
 }
