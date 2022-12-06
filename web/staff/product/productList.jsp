@@ -71,12 +71,11 @@
                         </c:forEach>
                     </tbody>
                 </table>
-
                 <div class="paging">
                     <ul class="pagination justify-content-center">
-                        <c:forEach begin="1" end="${endpage}" var="p">
-                            <li class="page-item"><a class="page-link" href="product?page=${p}">${p}</a></li>
-                            </c:forEach>
+                        <c:forEach   items="${pages}" var="p">
+                            <li class="page-item"><a class="page-link  ${page == p ? "active":""}  ${p}" href="product?page=${p}">${p == "disabled"? "..." : p}</a></li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
