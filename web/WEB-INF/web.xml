@@ -57,6 +57,10 @@
         <servlet-name>ListProduct</servlet-name>
         <servlet-class>Controller.ListProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>dashboard</servlet-name>
+        <servlet-class>Controller.Admin.dashboard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
         <url-pattern>/Activation</url-pattern>
@@ -112,6 +116,10 @@
     <servlet-mapping>
         <servlet-name>ListProduct</servlet-name>
         <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dashboard</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
