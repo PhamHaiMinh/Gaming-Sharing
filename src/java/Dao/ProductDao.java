@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface ProductDao extends BaseDao<Product>, BaseImageDao<Product> {
 
-    public List<Product> search(String search);
+    public List<Product> search(String sort,
+            int categoryId, long minPrice, long maxPrice, String name);
 
     public List<Product> getAll(int page);
 

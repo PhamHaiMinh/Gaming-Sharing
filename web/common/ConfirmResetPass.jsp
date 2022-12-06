@@ -23,7 +23,7 @@
                     <div class="p-5 bg-white rounded shadow-lg">
                         <h2 class="mb-2 text-center">Reset password</h2>
                         <form action="<%=request.getContextPath()%>/ConfirmResetPass" method="POST">
-                            <input name="email" class="form-control form-control-lg mb-3" type="hidden" readonly="" value="${param.email}" >
+                            <input name="email" class="form-control form-control-lg mb-3" type="text" readonly="" value="${param.email}" >
                             <h4 class="font-500">New Password</h4>
                             <input name="newpass" class="form-control form-control-lg mb-3" type="password" required  placeholder="newpass" >
                             <h4 class="font-500">Confirm Password</h4>
