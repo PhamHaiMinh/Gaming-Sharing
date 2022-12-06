@@ -137,4 +137,39 @@ public class AccountDaoImpl implements AccountDao {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+    
+    @Override
+    public void changePassword(Account a) {
+        DBContext dBContext = new DBContext();
+        Connection connection = dBContext.getConnection();
+        String sql = "update account set password=? where username=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, a.getPassword());
+            st.setString(2, a.getUsername());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public Account check(String username, String password) {
+        String sql = "select * from Account where username=? and password=?";
+        DBContext dBContext = new DBContext();
+        Account user = new Account();
+        try {
+            Connection connection = dBContext.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return new Account(username, password, rs.getInt("role"), rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }
