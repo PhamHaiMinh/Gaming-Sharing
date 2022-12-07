@@ -10,10 +10,100 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Dashboard</title>
+        <link href="/assets/css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['Attendance', 11],
+                    ['Absent', 2]
+                ]);
+
+                var options = {
+                    title: 'Staff Attendance status'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                chart.draw(data, options);
+            }
+        </script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Year', 'Sales', 'Expenses'],
+                    ['2004', 1000, 400],
+                    ['2005', 1170, 460],
+                    ['2006', 660, 1120],
+                    ['2006', 660, 1120],
+                    ['2006', 660, 1120],
+                    ['2006', 660, 1120],
+                    ['2007', 1030, 540]
+                ]);
+
+                var options = {
+                    title: 'Company Performance',
+                    curveType: 'function',
+                    legend: {position: 'bottom'}
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+            }
+        </script>
+        <style>
+            .all{
+                display: flex;
+                flex: 1;
+            }
+            .right{
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+            }
+            .diagram{
+                display: flex;
+                flex-direction: row;
+            }
+
+            .diagram1{
+                flex: 1;
+            }
+            .diagram2{
+                flex: 1;
+            }
+            .footer{
+                position: absolute;
+                width: 100%;
+                bottom: 0;
+            }
+        </style>
     </head>
     <body>
-        
-        <jsp:include page="left.jsp"></jsp:include>
-        <jsp:include page="footer.jsp"></jsp:include>
+        <div class="all">
+            <div class="left">
+                <jsp:include page="left.jsp"></jsp:include>
+                </div>
+                <div class="right">
+                    <div class="diagram">
+                        <div class="diagram1" id="piechart" style="width: 800px; height: 500px;"></div>
+                        <div class="diagram2" id="curve_chart" style="width: 800px; height: 500px"></div> 
+                    </div>
+                    <h1>sdasahdusahudhsuahduhuh</h1>
+                    <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
+                    <div class="footer">
+                    <jsp:include page="footer.jsp"></jsp:include>
+                </div>      
+            </div>
+        </div>
     </body>
 </html>

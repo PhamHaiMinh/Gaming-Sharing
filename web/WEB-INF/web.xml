@@ -61,6 +61,14 @@
         <servlet-name>dashboard</servlet-name>
         <servlet-class>Controller.Admin.dashboard</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>staff</servlet-name>
+        <servlet-class>Controller.Admin.staff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>attendance</servlet-name>
+        <servlet-class>Controller.Admin.attendance</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
         <url-pattern>/Activation</url-pattern>
@@ -120,6 +128,14 @@
     <servlet-mapping>
         <servlet-name>dashboard</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff</servlet-name>
+        <url-pattern>/admin/staff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>attendance</servlet-name>
+        <url-pattern>/admin/attend</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

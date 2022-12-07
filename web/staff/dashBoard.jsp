@@ -9,11 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Staff Dashboard</title>
+        <link href="/assets/css/dashboard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <%@include file="layout/index.jsp"  %>
+        <jsp:include page="left.jsp"></jsp:include>
+            <div>
 
-        <h1>Hello World!</h1>
+                <div class="right" style="text-align: left; display: flex">
+                    <p>dijsaijidjaisjdis</p>
+                </div>
+                <div class="footer" style="
+                     position: relative;
+                     top: 98vh;
+                     ">
+                <jsp:include page="footer.jsp"></jsp:include>
+            </div>      
+        </div>
     </body>
 </html>
