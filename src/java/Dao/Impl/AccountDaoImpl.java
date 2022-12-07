@@ -7,13 +7,13 @@ package Dao.Impl;
 import Dao.AccountDao;
 import Dao.DBContext;
 import Model.Account;
+import Model.SendEmail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Model.SendEmail;
 
 /**
  *
@@ -27,7 +27,8 @@ public class AccountDaoImpl implements AccountDao {
         Account user = new Account();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "select id, username, password, role_id, email, active from Account where username  = ? and password = ?";
+            String sql
+                    = "select id, username, password, role_id, email, active from Account where username  = ? and password = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -60,17 +61,19 @@ public class AccountDaoImpl implements AccountDao {
         try {
             st = connection.prepareStatement("SELECT * FROM Account where username=?");
             st.setString(1, username);
-//            st.setString(2, email);
+            //            st.setString(2, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String checkUser = rs.getString("username");
                 String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
-//                } else if (email.equals(checkMail)) {
-//                    return "Email already exist";
+                    //                } else if (email.equals(checkMail)) {
+                    //                    return "Email already exist";
                 } else {
-                    st = connection.prepareStatement("INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)");
+                    st = connection.prepareStatement(
+                            "INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)"
+                    );
                     st.setString(1, username);
                     st.setString(2, password);
                     st.setInt(3, 3);
@@ -87,17 +90,6 @@ public class AccountDaoImpl implements AccountDao {
         } catch (SQLException e) {
         }
         return "error";
-    }
-
-    public static void main(String[] args) {
-        String username = "longnt2";
-        String password = "Long12345";
-        String email = "longnt@gmail.com";
-        int roleid = 0;
-        Account acc = new Account(username, password, roleid, email);
-        AccountDaoImpl ad = new AccountDaoImpl();
-
-        System.out.println(ad.register(acc));
     }
 
     @Override
@@ -159,7 +151,6 @@ public class AccountDaoImpl implements AccountDao {
     public Account check(String username, String password) {
         String sql = "select * from Account where username=? and password=?";
         DBContext dBContext = new DBContext();
-        Account user = new Account();
         try {
             Connection connection = dBContext.getConnection();
             PreparedStatement st = connection.prepareStatement(sql);
@@ -167,7 +158,12 @@ public class AccountDaoImpl implements AccountDao {
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return new Account(username, password, rs.getInt("role"), rs.getString("email"));
+                return new Account(
+                        username,
+                        password,
+                        rs.getInt("role"),
+                        rs.getString("email")
+                );
             }
         } catch (SQLException e) {
             System.out.println(e);
