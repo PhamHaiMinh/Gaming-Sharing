@@ -23,7 +23,7 @@
                 <div class="col-lg-6 col-12 mx-auto">
                     <div class="p-5 bg-white rounded shadow-lg">
                         <h2 class="mb-2 text-center">Reset password</h2>
-                        <form action="<%=request.getContextPath()%>/login" method="POST">
+                        <form action="<%=request.getContextPath()%>/reset_password" method="POST">
                             <h4 class="font-500">Your Email</h4>
                             <input name="email" class="form-control form-control-lg mb-3" type="text" required  placeholder="Email" value="${email}" >
                             <span style="color: red" class="mb-3">${mess}</span>
