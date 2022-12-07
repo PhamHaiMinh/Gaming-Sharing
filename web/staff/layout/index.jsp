@@ -61,17 +61,27 @@ crossorigin="anonymous"></script>
     <ul class=" list-group list-group-flush bg-info">
         <li class="list-group-item  bg-info">
             <a href="<%= request.getContextPath()%>/staff" class="text-light"F>
-                <h4>Dashboard</h3>
+                <h4>Dashboard</h4>
             </a>
         </li>
         <li class="list-group-item  bg-info" >
             <a href="<%= request.getContextPath()%>/staff/category" class="text-light">
-                <h4>Category</h3>
+                <h4>Category</h4>
             </a>
         </li>
         <li class="list-group-item  bg-info">
             <a href="<%= request.getContextPath()%>/staff/product" class="text-light">
-                <h4>Product</h3>
+                <h4>Product</h4>
+            </a>
+        </li>
+        <li class="list-group-item  bg-info">
+            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="text-light">
+                <h4>Blog Category</h4>
+            </a>
+        </li>
+        <li class="list-group-item  bg-info">
+            <a href="<%= request.getContextPath()%>/staff/blog" class="text-light">
+                <h4>Blog</h4>
             </a>
         </li>
     </ul>
