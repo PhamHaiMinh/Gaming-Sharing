@@ -12,20 +12,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class BlogCategoryDaoImpl implements BlogCategoryDao{
+public class BlogCategoryDaoImpl implements BlogCategoryDao {
 
     private PreparedStatement pstm;
     private Statement stm;
     private ResultSet rs;
     DBContext db = new DBContext();
 
+    public int getTotalSearch(String catName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Override
-    public ArrayList<BlogCategory> getListCategory() {
+    public ArrayList<BlogCategory> searchCategory(String name, int offset, int row_count) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public BlogCategory get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<BlogCategory> getAll() {
         ArrayList<BlogCategory> listCategory = new ArrayList<BlogCategory>();
         String sql = "SELECT * FROM BlogCategory";
         //System.out.println(sql);
@@ -47,12 +62,17 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao{
     }
 
     @Override
-    public int getTotalSearch(String catName) {
+    public boolean insert(BlogCategory item) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ArrayList<BlogCategory> searchCategory(String name, int offset, int row_count) {
+    public boolean update(BlogCategory item) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

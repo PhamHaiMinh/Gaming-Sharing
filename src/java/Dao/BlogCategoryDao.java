@@ -11,8 +11,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public interface BlogCategoryDao {
-    public ArrayList<BlogCategory> getListCategory();
+public interface BlogCategoryDao extends BaseDao<BlogCategory>{
     public int getTotalSearch(String catName);
     public ArrayList<BlogCategory> searchCategory(String name, int offset, int row_count);
 }
