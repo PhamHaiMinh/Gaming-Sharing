@@ -64,7 +64,7 @@ public class AccountDaoImpl implements AccountDao {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String checkUser = rs.getString("username");
-                String checkMail = rs.getString("email");
+//                String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
 //                } else if (email.equals(checkMail)) {
@@ -85,6 +85,7 @@ public class AccountDaoImpl implements AccountDao {
                 }
             }
         } catch (SQLException e) {
+            System.out.println(e);
         }
         return "error";
     }
@@ -95,6 +96,7 @@ public class AccountDaoImpl implements AccountDao {
         String email = "longnt@gmail.com";
         int roleid = 0;
         Account acc = new Account(username, password, roleid, email);
+
         AccountDaoImpl ad = new AccountDaoImpl();
 
         System.out.println(ad.register(acc));
