@@ -85,7 +85,7 @@ s<%--
                     <div class="btn-group">
                         <a  class="nav-item nav-link ml-3"  data-toggle="dropdown">${account.username}</a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/home'">Thông tin tài khoản</button>
+                            <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/profile'">Thông tin tài khoản</button>
                             <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/logout'">Đăng xuất</button>
                         </div>
                     </div>

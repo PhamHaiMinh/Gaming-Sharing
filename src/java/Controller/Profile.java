@@ -6,6 +6,8 @@ package Controller;
 
 import Dao.AccountDao;
 import Dao.Impl.AccountDaoImpl;
+import Dao.Impl.UserDaoImpl;
+import Dao.UserDao;
 import Model.Account;
 import Model.User;
 import java.io.IOException;
@@ -65,9 +67,9 @@ public class Profile extends HttpServlet {
         if (session.getAttribute("account") == null) {
             response.sendRedirect("login");
         } else {
-           Account a = (Account) session.getAttribute("account");
-            AccountDao dao = new AccountDaoImpl();
-            User account = dao.getProfile(String.valueOf(a.getId()));
+            Account a = (Account) session.getAttribute("account");
+            UserDao dao = new UserDaoImpl();
+            User account = dao.get(a.getId());
             request.setAttribute("user", account);
             request.getRequestDispatcher("common/profile.jsp").forward(request, response);
         }
