@@ -1,110 +1,42 @@
-<%-- 
-    Document   : CreateCetegory
-    Created on : Sep 30, 2022, 2:30:11 AM
-    Author     : Mr Tuan
---%>
-
 <%@include file="../layout/index.jsp" %>
-<div class="container-category">
-    <div class="side-nav-categories">
-        <form id="form" action="create" method="POST">
-            <div class="div-title">
-                <h1 class="title">Create Category</h1>
-            </div>
-            <div class="div-name">
-                <h3 class="title-name">Name</h3>
-                <input class="text-name" type="text" onkeyup="ValidateCategory()"  placeholder="Name..." name="name" id="category-input"><span id="text-category"></span>
-            </div>
-            <input type="submit" class="btn btn-primary"  style="color: #fff;" value="Create" >
-        </form>
+<div class=" container m-3 d-flex justify-content-center" style="flex-direction: column;">
+    <div class="text-center">
+        <h1 class="title">New Category</h1>
     </div>
+    <form id="form" action="create" method="POST"  class=" card p-3  needs-validation" novalidate   
+          style="width: 30rem;
+          margin: 2rem auto;" >
+        <div class="my-2">
+            <label  class="form-label">Name</label ><br/>
+            <input class="text-name" type="text"  required  placeholder="Name..."  name="name"/>
+            <div class="valid-feedback">
+                Valid
+            </div>
+            <div class="invalid-feedback">
+                Please input Name
+            </div>
+        </div>
+        <div class="my-2" >
+            <input type="submit" class="btn btn-primary" value="Create">
+        </div>
+    </form>
 </div>
-<script>
-    function ValidateCategory() {
-        var form = document.getElementById("form");
-        var category = document.getElementById("category-input").value;
-        var text = document.getElementById("text-category");
+<script >
+    (() => {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
 
-        if (category !== "") {
-            form.classList.add("valid");
-            form.classList.remove("invalid");
-            text.innerHTML = "Name valid!";
-            text.style.color = "#00ff00";
-        } else {
-            form.classList.remove("valid");
-            form.classList.add("valid");
-            text.innerHTML = "Please enter name!";
-            text.style.color = "#ff0000";
-        }
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
 
-
-    }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
 </script>
-<style>
-    .side-nav-categories {
-        border-radius: 30px;
-        text-align: center;
-        padding: 0px;
-        position: relative;
-        background-color: #fff;
-        border-width: 1px;
-        border-style: solid;
-        border-color: #f5f5f5 #eee #d5d5d5 #eee;
-        box-shadow: 0 5px 0 rgba(200,200,200,.2);
-        width: 800px;
-        margin: auto;
-        top:15px;
-        left: 20px;
-
-    }
-    .div-title{
-
-        margin-top: 20px;
-    }
-    .title{
-        font-family: serif;
-
-    }
-    .div-id{
-        margin-top: 30px;
-        margin-left: 100px;
-    }
-    .title-id{
-        font-family: serif;
-        text-align: left;
-    }
-    .text-id{
-        border-radius: 5px;
-        text-align: left;
-        width: 200px;
-        height: 32px;
-        margin-right: 500px;
-    }
-
-    .div-name{
-        margin-top: 20px;
-        margin-left: 100px;
-    }
-    .title-name{
-        font-family: serif;
-        text-align: left;
-    }
-    .text-name{
-        border-radius: 5px;
-        text-align: left;
-        width: 550px;
-        height: 32px;
-        margin-right: 200px;
-    }
-
-    .btn-primary{
-        background-color: rgb(255, 165, 0);
-        margin-top: 60px;
-        margin-bottom: 60px;
-        width: 100px;
-        height: 45px;
-    }
-    #text-category{
-        margin-right: 540px;
-    }
-</style>

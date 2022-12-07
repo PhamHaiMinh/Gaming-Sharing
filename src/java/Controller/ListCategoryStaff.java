@@ -5,13 +5,14 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import Dao.CategoryDao;
-import Model.Category;
 import Dao.Impl.CategoryDaoImpl;
-import java.io.IOException;
+import Model.Category;
+import Model.Page;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,29 +32,30 @@ public class ListCategoryStaff extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
         CategoryDao categoryDaoImpl = new CategoryDaoImpl();
-        String search = request.getParameter("search");
-        int page = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-        String status = request.getParameter("status");
-        if (search != null) {
-            List<Category> categories = categoryDaoImpl.search(search);
-            request.setAttribute("search", search);
-            request.setAttribute("categories", categories);
-            request.getRequestDispatcher("category/categoryList.jsp").forward(request, response);
-        } else {
-            List<Category> categories = categoryDaoImpl.getAll(page);
-            int count = categoryDaoImpl.getTotalCategory();
-            int endpage = count / 5;
-            if (count % 5 != 0) {
-                endpage++;
-            }
-            request.setAttribute("endpage", endpage);
-            request.setAttribute("categories", categories);
-            request.setAttribute("status", status);
-            request.getRequestDispatcher("category/categoryList.jsp").forward(request, response);
-        }
-    }
 
+        int page = request.getParameter("page") != null
+                ? Integer.parseInt(request.getParameter("page"))
+                : 1;
+        String status = request.getParameter("status");
+        List<Category> categories = categoryDaoImpl.getAll(page);
+        int count = categoryDaoImpl.getAll().size();
+        int endpage = count / 5;
+        if (count % 5 != 0) {
+            endpage++;
+        }
+        Page pageClass = new Page(page, endpage);
+        List<String> pages = pageClass.listPage();
+        request.setAttribute("page", Integer.toString(page));
+        request.setAttribute("pages", pages);
+        request.setAttribute("categories", categories);
+        request.setAttribute("status", status);
+        request
+                .getRequestDispatcher("category/categoryList.jsp")
+                .forward(request, response);
+    }
 }

@@ -18,75 +18,76 @@ import java.util.logging.Logger;
  */
 public class DBContext {
 
-    private final String serverName = "localhost";
-    private final String dbName = "GamingSharing";
-    private final String portNumber = "1433";
-    private final String userID = "sa";
-    private final String password = "123456";
-    public Connection connection;
-    public Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url
-                    = "jdbc:sqlserver://"
-                    + serverName
-                    + ":"
-                    + portNumber
-                    + ";databaseName="
-                    + dbName;
-            return DriverManager.getConnection(url, userID, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return connection;
-    }
+  private final String serverName = "localhost";
+  private final String dbName = "GamingSharing";
+  private final String portNumber = "1433";
+  private final String userID = "sa";
+  private final String password = "123";
+  public Connection connection;
 
-    public void closeConnection(
-            Connection connection,
-            PreparedStatement preparedStatement,
-            ResultSet resultSet
-    ) {
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
+  public Connection getConnection() {
+    Connection connection = null;
+    try {
+      Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+      String url =
+        "jdbc:sqlserver://" +
+        serverName +
+        ":" +
+        portNumber +
+        ";databaseName=" +
+        dbName;
+      return DriverManager.getConnection(url, userID, password);
+    } catch (ClassNotFoundException | SQLException e) {
+      Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
     }
+    return connection;
+  }
 
-    public void closeConnection(
-            Connection connection,
-            PreparedStatement preparedStatement
-    ) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
+  public void closeConnection(
+    Connection connection,
+    PreparedStatement preparedStatement,
+    ResultSet resultSet
+  ) {
+    if (resultSet != null) {
+      try {
+        resultSet.close();
+      } catch (SQLException e) {
+        Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
+      }
     }
+    if (preparedStatement != null) {
+      try {
+        preparedStatement.close();
+      } catch (SQLException e) {
+        Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
+      }
+    }
+    if (connection != null) {
+      try {
+        connection.close();
+      } catch (SQLException e) {
+        Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
+      }
+    }
+  }
+
+  public void closeConnection(
+    Connection connection,
+    PreparedStatement preparedStatement
+  ) {
+    if (preparedStatement != null) {
+      try {
+        preparedStatement.close();
+      } catch (SQLException e) {
+        Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
+      }
+    }
+    if (connection != null) {
+      try {
+        connection.close();
+      } catch (SQLException e) {
+        Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
+      }
+    }
+  }
 }

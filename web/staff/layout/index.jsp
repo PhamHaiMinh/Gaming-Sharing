@@ -35,6 +35,9 @@ crossorigin="anonymous"></script>
             transform: translateX(-100%);
         }
     }
+    body{
+        background-color: aliceblue;
+    }
 </style>
 <nav class="navbar navbar-dark bg-primary">
     <div class="container-fluid">
@@ -67,7 +70,7 @@ crossorigin="anonymous"></script>
             </a>
         </li>
         <li class="list-group-item  bg-info">
-            <a href="<%= request.getContextPath()%>/staff/Product" class="text-light">
+            <a href="<%= request.getContextPath()%>/staff/product" class="text-light">
                 <h4>Product</h3>
             </a>
         </li>

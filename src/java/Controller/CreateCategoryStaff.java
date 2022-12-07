@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Dao.CategoryDao;
 import Dao.Impl.CategoryDaoImpl;
 import Model.Category;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 /**
  *
@@ -49,12 +47,11 @@ public class CreateCategoryStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("minddd");
         CategoryDaoImpl categoryDaoImpl = new CategoryDaoImpl();
-        String categoryName = request.getParameter("name").trim();
+        String name = request.getParameter("name").trim();
         boolean status = false;
-        if (categoryName != null && categoryName.matches(".*\\w.*")) {
-            Category category = new Category(categoryName);
+        if (name != null && name.matches(".*\\w.*")) {
+            Category category = new Category(name);
             status = categoryDaoImpl.insert(category);
             response.sendRedirect(request.getContextPath() + "/staff/category?status=" + status);
         } else {

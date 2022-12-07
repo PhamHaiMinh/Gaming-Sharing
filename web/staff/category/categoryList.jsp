@@ -15,7 +15,7 @@
     <body>
         <%@include file="../layout/index.jsp"  %>
 
-        <div class=" container p-4 d-flex float-end flex-column  ">
+        <div class=" container p-4 d-flex flex-column mx-auto  ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/category/create" role="button">Create</a>
             </div>
@@ -64,8 +64,8 @@
 
                 <div class="paging">
                     <ul class="pagination justify-content-center">
-                        <c:forEach begin="1" end="${endpage}" var="p">
-                            <li class="page-item"><a class="page-link" href="category?page=${p}">${p}</a></li>
+                        <c:forEach   items="${pages}" var="p">
+                            <li class="page-item"><a class="page-link  ${page == p ? "active":""}  ${p}" href="product?page=${p}">${p == "disabled"? "..." : p}</a></li>
                             </c:forEach>
                     </ul>
                 </div>

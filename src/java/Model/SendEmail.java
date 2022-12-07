@@ -40,7 +40,6 @@ public class SendEmail {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
-
         Session session = Session.getDefaultInstance(
                 props,
                 new jakarta.mail.Authenticator() {

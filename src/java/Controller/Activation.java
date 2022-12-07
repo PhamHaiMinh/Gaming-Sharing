@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package Controller;
 
 import Dao.DBContext;
 import java.io.IOException;
@@ -27,12 +27,12 @@ public class Activation extends HttpServlet {
         String username = request.getParameter("key2");
         PreparedStatement ps;
         try {
-            ps = connection.prepareStatement("SELECT email, username, isActive FROM Account WHERE email=? AND username=? AND isActive=0");
+            ps = connection.prepareStatement("SELECT email, username, active FROM Account WHERE email=? AND username=? AND active=0");
             ps.setString(1, email);
             ps.setString(2, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                ps = connection.prepareStatement("UPDATE Account SET isActive=1 where email=? and username=?");
+                ps = connection.prepareStatement("UPDATE Account SET active=1 where email=? and username=?");
                 ps.setString(1, email);
                 ps.setString(2, username);
                 int i = ps.executeUpdate();
