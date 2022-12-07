@@ -6,6 +6,8 @@ package Controller;
 
 import Dao.AccountDao;
 import Dao.Impl.AccountDaoImpl;
+import Dao.Impl.UserDaoImpl;
+import Dao.UserDao;
 import Model.Account;
 import Model.User;
 import java.io.IOException;
@@ -21,32 +23,6 @@ import jakarta.servlet.http.HttpSession;
  * @author Admin
  */
 public class UpdateProfile extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateProfile</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateProfile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -66,8 +42,8 @@ public class UpdateProfile extends HttpServlet {
             response.sendRedirect("login");
         } else {
             Account a = (Account) session.getAttribute("account");
-            AccountDao dao = new AccountDaoImpl();
-            User account = dao.getProfile(String.valueOf(a.getId()));
+            UserDao dao = new UserDaoImpl();
+            User account = dao.get(a.getId());
             request.setAttribute("user", account);
             request.getRequestDispatcher("common/editprofile.jsp").forward(request, response);
         }
@@ -86,26 +62,16 @@ public class UpdateProfile extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
-        String username = request.getParameter("username");
-        String first_name = request.getParameter("first_name");
+        String firstName = request.getParameter("first_name");
         String middle_name = request.getParameter("middle_name");
         String last_name = request.getParameter("last_name");
-        String gender = request.getParameter("gender");
+        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
         String phone = request.getParameter("phone");
         String avt = request.getParameter("avt");
-        AccountDao dao = new AccountDaoImpl();
-        dao.updateProfile(String.valueOf(a.getId()), first_name, middle_name, last_name, gender, phone, avt);
-        response.sendRedirect("Profile");
+        UserDao dao = new UserDaoImpl();
+        User user = new User(a, a.getId(), last_name, middle_name, firstName, gender, phone, avt);
+        dao.update(user);
+        response.sendRedirect("profile");
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

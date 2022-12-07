@@ -22,7 +22,7 @@
                 <div class="col-lg-6 col-12 mx-auto">
                     <div class="p-5 bg-white rounded shadow-lg">
                         <h2 class="mb-2 text-center">Profile</h2>
-                        <img style="margin-left: 40%" width="90px" height="90px" src="${user.avatar}">
+                        <img style="margin-left: 40%" width="90px" height="90px" src="${user.avt}">
                         <h4 class="font-500">Email</h4>
                         <input name="username" class="form-control form-control-lg mb-3" type="text" required readonly placeholder="Emaill " value="${sessionScope.account.email}" >
                         <h4 class="font-500">User Name</h4>

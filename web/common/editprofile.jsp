@@ -41,7 +41,7 @@
                                 <input name="gender" type="radio" value="0" ${user.gender?"":"checked"}>Female
                             </div>
                             <h4 class="font-500">Avatar</h4>
-                            <img id="myAvatar" style="border-radius: 15px;" src="${user.avatar}" width="120" >
+                            <img id="myAvatar" style="border-radius: 15px;" src="${user.avt}" width="120" >
                             <input name="avt" id="sendimg" type="hidden" >
                             <input id="fileAvatar" onchange="changeAvatar()" type="file" accept=".jpg, .jpeg, .png"><!-- comment -->
                             <span style="color: red" class="mb-3">${errorPassword}</span>

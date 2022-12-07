@@ -9,6 +9,7 @@ package Model;
  * @author LENOVO
  */
 public class User {
+
     private Account account;
     private int id;
     private String last_name;
@@ -17,11 +18,12 @@ public class User {
     private boolean gender;
     private String phone;
     private Address address;
+    private String avt;
 
     public User() {
     }
 
-    public User(Account account, int id, String last_name, String middle_name, String first_name, boolean gender, String phone, Address address) {
+    public User(Account account, int id, String last_name, String middle_name, String first_name, boolean gender, String phone, Address address, String avt) {
         this.account = account;
         this.id = id;
         this.last_name = last_name;
@@ -30,6 +32,18 @@ public class User {
         this.gender = gender;
         this.phone = phone;
         this.address = address;
+        this.avt = avt;
+    }
+
+    public User(Account account, int id, String last_name, String middle_name, String first_name, boolean gender, String phone, String avt) {
+        this.account = account;
+        this.id = id;
+        this.last_name = last_name;
+        this.middle_name = middle_name;
+        this.first_name = first_name;
+        this.gender = gender;
+        this.phone = phone;
+        this.avt = avt;
     }
 
     public Account getAccount() {
@@ -95,7 +109,13 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
-    
-    
-    
+
+    public String getAvt() {
+        return avt;
+    }
+
+    public void setAvt(String avt) {
+        this.avt = avt;
+    }
+
 }

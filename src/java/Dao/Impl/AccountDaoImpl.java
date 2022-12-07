@@ -8,6 +8,7 @@ import Dao.AccountDao;
 import Dao.DBContext;
 import Model.Account;
 import Model.SendEmail;
+import Model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -170,4 +171,5 @@ public class AccountDaoImpl implements AccountDao {
         }
         return null;
     }
+   
 }
