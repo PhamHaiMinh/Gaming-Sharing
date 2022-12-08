@@ -12,9 +12,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,12 +34,10 @@ public class Register extends HttpServlet {
             String email = request.getParameter("email");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-
             Account acc = new Account();
             acc.setEmail(email);
             acc.setUsername(username);
             acc.setPassword(password);
-
             String str;
             str = account.register(acc);
             switch (str) {
@@ -59,21 +54,21 @@ public class Register extends HttpServlet {
                     rd.include(request, response);
                     break;
                 }
-                case "Email already exist": {
-                    request.setAttribute("emailError", "Email '" + email + "' already exist");
-                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                    rd.include(request, response);
-                    break;
-                }
+//                case "Email already exist": {
+//                    request.setAttribute("emailError", "Email '" + email + "' already exist");
+//                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+//                    rd.include(request, response);
+//                    break;
+//                }
                 default: {
-                    request.setAttribute("error", str);
-                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                    rd.include(request, response);
-                    break;
-                }
+                        request.setAttribute("error", str);
+                        RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+                        rd.include(request, response);
+                        break;
+                        }
             }
-        }
     }
+        }
 
     /**
      * Returns a short description of the servlet.

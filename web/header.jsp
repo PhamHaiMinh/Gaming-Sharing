@@ -1,4 +1,4 @@
-<%-- 
+s<%-- 
     Document   : header
     Created on : Dec 5, 2022, 10:15:42 AM
     Author     : Admin
@@ -12,6 +12,7 @@
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@page import="Model.*" import="Dao.*"  import="Dao.Impl.*" import="java.util.List" %>
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -28,89 +29,70 @@
 </head>
 
 <body>
-    <!-- Topbar Start -->
-    <div class="container-fluid">
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
-            <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">Gaming</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Sharing</span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-6 text-left">
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Topbar End -->
-
-
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
-        <div class="row px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse"
-                   href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Danh mục</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
-                </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
-                     id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                    <div class="navbar-nav w-100">
-                        <a href="" class="nav-item nav-link">Chuột chơi game</a>
-                        <a href="" class="nav-item nav-link">Bàn phím chơi game</a>
-                        <a href="" class="nav-item nav-link">Tai nghe</a>
-                        <a href="" class="nav-item nav-link">Bàn di chuột</a>
-                        <a href="" class="nav-item nav-link">Tay cầm chơi game</a>
-                        <a href="" class="nav-item nav-link">Vô lăng chơi game</a>
-                        <a href="" class="nav-item nav-link">Webcam</a>
-                        <a href="" class="nav-item nav-link">Phụ kiện</a>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-                            <a href="product" class="nav-item nav-link">Sản phẩm</a>
-                            <a href="#" class="nav-item nav-link">Blog</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
-                                <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle"
-                                      style="padding-bottom: 2px;">0</span>
-                            </a>
-                            <a href="" class="btn px-0 ml-3">
-                                <i class="fas fa-shopping-cart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle"
-                                      style="padding-bottom: 2px;">0</span>
-                            </a>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Tài
-                                    khoản</button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <button class="dropdown-item" type="button" onclick="window.location.href = 'login'">Đăng nhập</button>
-                                    <button class="dropdown-item" type="button" onclick="window.location.href = 'register'">Đăng ký</button>
-                                </div>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0 ">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="<%=request.getContextPath()%>/home" class="text-decoration-none my-2 d-flex flex-column">
+                <span class="h6 text-uppercase text-primary bg-dark px-2">Gaming</span>
+                <span class="h6 text-uppercase text-dark bg-primary px-2">Sharing</span>
+            </a> 
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="<%=request.getContextPath()%>/home" class="nav-item nav-link active">Trang chủ</a>
+                    <a href="<%=request.getContextPath()%>/product" class="nav-item nav-link">Sản phẩm</a>
+                    <a href="<%=request.getContextPath()%>/blog" class="nav-item nav-link">Blog</a>
+                    <div class="d-block">
+                        <a class="nav-item nav-link" data-toggle="collapse"
+                           href="#navbar-vertical">
+                            Danh mục
+                        </a>
+                        <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
+                             id="navbar-vertical" style="z-index: 999;">
+                            <%
+                            CategoryDao categoryDaoImpl = new CategoryDaoImpl();
+                            List<Category> categories = categoryDaoImpl.getAll();
+                            %>
+                            <div class="navbar-nav w-100" style="flex-direction: column;">
+                                <c:forEach items="${categories}" var="c">
+                                    <a href="<%=request.getContextPath()%>/product?categoryId=${c.id}" class="nav-item nav-link text-black-50">${c.name}</a>
+                                </c:forEach>
                             </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                    <a href="" class="btn px-0">
+                        <i class="fas fa-heart text-primary"></i>
+                        <span class="badge text-secondary border border-secondary rounded-circle"
+                              style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="" class="btn px-0 ml-3">
+                        <i class="fas fa-shopping-cart text-primary"></i>
+                        <span class="badge text-secondary border border-secondary rounded-circle"
+                              style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <%
+                         Account account = (Account) request.getSession().getAttribute("account");
+                         if(account == null){
+                    %>
+                    <a href="<%=request.getContextPath()%>/login" class="btn px-0 ml-3">Đăng nhập</a>
+                    <%
+                    }else{
+                    %>
+                    <div class="btn-group">
+                        <a  class="nav-item nav-link ml-3"  data-toggle="dropdown">${account.username}</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/profile'">Thông tin tài khoản</button>
+                            <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/logout'">Đăng xuất</button>
                         </div>
                     </div>
-                </nav>
+                    <%}%>
+                </div>     
             </div>
-        </div>
+        </nav>
     </div>
-    <!-- Navbar End -->
+</div>
+<!-- Navbar End -->    

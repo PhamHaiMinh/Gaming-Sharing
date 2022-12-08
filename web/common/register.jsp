@@ -144,7 +144,7 @@
             }
         </style>
     </head>
-    <body class="img js-fullheight" style="background-image: url(assets/img/bg.jpg); background-repeat: no-repeat; background-size: cover">
+    <body style="height: 100vh">
         <section class="ftco-section">
             <div class="container">
                 <div class="row justify-content-center">
@@ -170,7 +170,9 @@
                                     <p style="color:white">${example}</p>
                                 </div>
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" title="Must contain at least one number and one uppercase and lowercase letter, the length is 8-16 characters">
+                                    <input id="password" type="password" class="form-control" placeholder="Password" required name="password"   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$"
+                                           title="Must contain at least one number and one uppercase and lowercase letter special characters, the length is 8-16 characters">
+                                    <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary btn-block btn-lg" name="btn-register" value="Register">
@@ -182,12 +184,13 @@
                                 <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
                                 <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
                                 <p id="number" class="invalid">A <b>number</b></p>
+                                <p id="spchar" class="invalid">A <b>special character</b></p>
                                 <p id="length" class="invalid"> <b>8-16 characters</b></p>
                             </div>
                             <p style='color:red'>${requestScope.message}</p>
                             <p class="w-100 text-center">&mdash; Already have an account &mdash;</p>
                             <div class="social d-flex text-center">
-                                <a href="login" class="px-2 py-2 mr-md-1 rounded"> Login</a>
+                                <a href="login" class="btn btn-secondary btn-block btn-lg"> Login</a>
                             </div>
                         </div>
                     </div>
@@ -200,13 +203,13 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/main.js"></script>
         <script>
-            
+
             var myInput = document.getElementById("password");
             var letter = document.getElementById("letter");
             var capital = document.getElementById("capital");
             var number = document.getElementById("number");
             var length = document.getElementById("length");
-
+            var spchar = document.getElementById("spchar");
             myInput.onfocus = function () {
                 document.getElementById("message").style.display = "block";
             };
@@ -251,16 +254,15 @@
                     length.classList.remove("valid");
                     length.classList.add("invalid");
                 }
-                var spchar = /.*[!@#&()–[{}]:;',?*~$^+=<>]/g;
-                if (myInput.value.match(spchar)) {
-                    capital.classList.remove("invalid");
-                    capital.classList.add("valid");
+                var spChar = /[!@#$&*]/g;
+                if (myInput.value.match(spChar)) {
+                    spchar.classList.remove("invalid");
+                    spchar.classList.add("valid");
                 } else {
-                    capital.classList.remove("valid");
-                    capital.classList.add("invalid");
+                    spchar.classList.remove("valid");
+                    spchar.classList.add("invalid");
                 }
             };
         </script>
     </body>
 </html>
-

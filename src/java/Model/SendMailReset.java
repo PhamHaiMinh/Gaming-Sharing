@@ -48,6 +48,6 @@ public class SendMailReset {
         }
     }
     public static void main(String[] args) {
-    new    SendMailReset().sendMailResetPass("anhvqhe160809@fpt.edu.vn", "541545");
+    new    SendMailReset().sendMailResetPass("luckienphongcover@gmail.com", "541545");
     }
 }

@@ -14,14 +14,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <style>
+            .content{
+                display: none;
+            }
+        </style>
         <script>
             $(document).ready(function () {
-                $(".content").slice(0, 18).show();
+                $(".content").slice(0, 20).show();
                 $("#loadMore").on("click", function (e) {
                     e.preventDefault();
-                    $(".content:hidden").slice(0, 18).slideDown();
+                    $(".content:hidden").slice(0, 20).slideDown();
                     if ($(".content:hidden").length == 0) {
-                        $("#loadMore").text("No Content").addClass("noContent");
+                        $("#loadMore").text("Hết sản phẩm").addClass("noContent");
                     }
                 });
             })
@@ -30,19 +35,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
     <body>
         <%@include file="header.jsp"  %>
-        <!-- Shop Start -->
         <div class="container-fluid">
             <div class="row px-xl-5">
-                <!-- Shop Sidebar Start -->
                 <div class="col-lg-3 col-md-4">
                     <form action="product" method="get" >  
-                        <!-- Price Start -->
                         <input type="submit" class="btn btn-primary" style="width: -webkit-fill-available" value="Tìm kiếm">
                         <h5 class="section-title position-relative text-uppercase my-3"><span class="bg-secondary pr-3">Tìm kiếm </span></h5>
                         <div class="bg-light p-2 mb-30">
                             <input name="search" type="text" class="form-control" placeholder="Search" value="${search}">
                         </div>
-
                         <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Bộ Lọc </span></h5>
                         <div class="bg-light p-2 mb-30">
                             <div class="form-check">
@@ -51,7 +52,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     Tên từ a đến z
                                 </label>
                             </div> 
-
                             <div class="form-check">
                                 <input  type="radio" name="type" ${sort == 'sortNameAsc'? 'checked':''}  value="sortNameAsc">
                                 <label class="form-check-label  ">
@@ -83,10 +83,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                 </label>
                             </div> 
                         </div>
-
                         <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Giá </span></h5>
                         <div class="bg-light p-2 mb-30">
-
                             <div class="">
                                 <label>Từ</label>
                                 <input name="minPrice" class="form-control" placeholder="$0" type="number" min="0" max="1000000000" value="${minPrice}" />
@@ -108,13 +106,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <input type="submit" value="Button">
                     </form>
                 </div>
-                <!-- Shop Sidebar End -->
-
-                <!-- Shop Product Start -->
                 <div class="col-lg-9 col-md-8">
                     <div class="row  ">
                         <c:forEach items="${products}" var="p">
-                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 content category-${p.categoryId}">
+                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1 content">
                                 <div class=" bg-light mb-4">
                                     <div class="product-img position-relative overflow-hidden">
                                         <img class="img-fluid w-100" src="${p.image}" alt="">
@@ -136,21 +131,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                             </div>
                         </c:forEach>
                     </div>
+                    <div class="text-center mb-5 btn-load">
+                        <button type="button" class="btn btn-outline-primary rounded-3" id="loadMore" >
+                            Xem Thêm
+                        </button>
+                    </div>
                 </div>
-                <!-- Shop Product End -->
             </div>
-        </div>
-        <!-- Shop End -->
-        <!-- Shop Product End -->
-
-        <div class="text-center mb-5 btn-load">
-            <button type="button" class="btn btn-outline-primary rounded-3" id="loadMore" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                </svg>
-                See More
-            </button>
         </div>
         <%@include file="footer.jsp"  %>
     </body>
