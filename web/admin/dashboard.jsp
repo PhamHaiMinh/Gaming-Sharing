@@ -63,18 +63,31 @@
         <style>
             .all{
                 display: flex;
+            }
+            .left{
                 flex: 1;
+                display: flex;
+                flex-direction: column;
             }
             .right{
-                flex: 3;
+                width: 100%;
+                flex: 6;
                 display: flex;
                 flex-direction: column;
             }
             .diagram{
                 display: flex;
                 flex-direction: row;
+                flex: 1;
             }
-
+            
+            .content{
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                width: 100%;
+            }
+            
             .diagram1{
                 flex: 1;
             }
@@ -95,11 +108,13 @@
                 </div>
                 <div class="right">
                     <div class="diagram">
-                        <div class="diagram1" id="piechart" style="width: 800px; height: 500px;"></div>
-                        <div class="diagram2" id="curve_chart" style="width: 800px; height: 500px"></div> 
+                        <div class="diagram1" id="piechart" style="width: 50%; height: 99%;"></div>
+                        <div class="diagram2" id="curve_chart" style="width: 50%; height: 99%"></div> 
                     </div>
-                    <h1>sdasahdusahudhsuahduhuh</h1>
-                    <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
+                    <div class="content">
+                        <h1>sdasahdusahudhsuahduhuh</h1>
+                        <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
+                    </div>
                     <div class="footer">
                     <jsp:include page="footer.jsp"></jsp:include>
                 </div>      
