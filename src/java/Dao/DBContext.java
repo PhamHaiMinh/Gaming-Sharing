@@ -19,13 +19,13 @@ import java.util.logging.Logger;
 public class DBContext {
 
   private final String serverName = "localhost";
-  private final String dbName = "GamingSharing1";
+  private final String dbName = "GamingSharing";
   private final String portNumber = "1433";
   private final String userID = "sa";
-  private final String password = "iloveyou";
+  private final String password = "123";
   public Connection connection;
 
-  public Connection getConnection() {
+  public Connection getConnection(){
     Connection connection = null;
     try {
       Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
