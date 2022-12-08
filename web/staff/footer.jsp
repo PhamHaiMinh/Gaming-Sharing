@@ -12,8 +12,9 @@
         <title>Copyright</title>
         <link href="assets/css/copyright.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body>
-        <div class="line"></div>
-        <p>Power by Gaming Sharing</p>
-    </body>
+    <body >
+        <div class="line" style="background: 1px; background-color: #999999; height: 1px; width: auto"></div>
+        <p style="text-align: center !important; margin: 0;">
+            Power by Gaming Sharing
+        </p>
 </html>
