@@ -5,6 +5,7 @@ body {
 
 html {
   height: -webkit-fill-available;
+  width: 280px;
 }
 
 main {
