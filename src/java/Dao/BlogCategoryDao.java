@@ -14,4 +14,6 @@ import java.util.ArrayList;
 public interface BlogCategoryDao extends BaseDao<BlogCategory>{
     public int getTotalSearch(String catName);
     public ArrayList<BlogCategory> searchCategory(String name, int offset, int row_count);
+    public boolean deleteCategory(String[] listIdDelete);
+    public boolean isCategoryExist(String name);
 }

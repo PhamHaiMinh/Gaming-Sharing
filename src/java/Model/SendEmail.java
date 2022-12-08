@@ -58,7 +58,7 @@ public class SendEmail {
             message.setSubject("Verification link: ");
             message.setText(
                     "Click here to verify your account: "
-                    + "http://localhost:8080/SWP391_Project/Activation?key1="
+                    + "http://localhost:8080/Gaming_Sharing/Activation?key1="
                     + email
                     + "&key2="
                     + username

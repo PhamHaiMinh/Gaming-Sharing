@@ -25,7 +25,7 @@ public class DBContext {
   private final String password = "123";
   public Connection connection;
 
-  public Connection getConnection() {
+  public Connection getConnection(){
     Connection connection = null;
     try {
       Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
