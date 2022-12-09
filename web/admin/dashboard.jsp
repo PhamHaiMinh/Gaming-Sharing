@@ -79,6 +79,7 @@
                 display: flex;
                 flex-direction: row;
                 flex: 1;
+                width: -webkit-fill-available;
             }
             
             .content{
@@ -96,7 +97,7 @@
             }
             .footer{
                 position: absolute;
-                width: 100%;
+                width: -webkit-fill-available;
                 bottom: 0;
             }
         </style>
