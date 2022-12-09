@@ -68,8 +68,8 @@
     <servlet>
         <servlet-name>attendance</servlet-name>
         <servlet-class>Controller.Admin.attendance</servlet-class>
-</servlet>
-<servlet>
+    </servlet>
+    <servlet>
         <servlet-name>Profile</servlet-name>
         <servlet-class>Controller.Profile</servlet-class>
     </servlet>
@@ -84,6 +84,14 @@
     <servlet>
         <servlet-name>ConfirmResetPass</servlet-name>
         <servlet-class>Controller.ConfirmResetPass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListCancel</servlet-name>
+        <servlet-class>Controller.staff.ListCancel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelDetail</servlet-name>
+        <servlet-class>Controller.staff.CancelDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
@@ -152,7 +160,7 @@
     <servlet-mapping>
         <servlet-name>attendance</servlet-name>
         <url-pattern>/admin/attend</url-pattern>
- </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile</url-pattern>
@@ -168,6 +176,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmResetPass</servlet-name>
         <url-pattern>/ConfirmResetPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCancel</servlet-name>
+        <url-pattern>/staff/cancel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelDetail</servlet-name>
+        <url-pattern>/staff/cancel/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

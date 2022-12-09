@@ -90,6 +90,12 @@ crossorigin="anonymous"></script>
                         Orders
                     </a>
                 </li>
+                <li>
+                    <a href="<%= request.getContextPath()%>/staff/cancel" class="nav-link text-white">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                        Cancel
+                    </a>
+                </li>
             </ul>
             <hr>
             <div class="dropdown">
