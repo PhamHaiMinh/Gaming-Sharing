@@ -48,14 +48,14 @@
                 </div>
             </div>
             <div>
-                <form action="/staff/blog/add-cat" method="post" class="form-inline">
+                <form action="<%= request.getContextPath()%>/staff/blog/add-cat" method="post" class="form-inline">
                     <div class="form-group left" style="padding-right: 10px">
                         <button type="submit" class="btn btn-info" name="showadd" >
                             <img src="<%=request.getContextPath() %>/assets/img/add.png" alt="" width="20" height="20"> Thêm
                         </button>
                     </div>
                 </form>
-                <form action="/staff/blog/delete-cat" method="post" onsubmit="return checkDelete()" class="form-inline">
+                <form action="<%= request.getContextPath()%>/staff/blog/delete-cat" method="post" onsubmit="return checkDelete()" class="form-inline">
                     <div>
                         <div class="form-group left">
                             <button type="submit" class="btn btn-danger" name="delete" >
@@ -86,7 +86,7 @@
                             <td><%=blogCat.getName() %></td>
                             <td><%=blogCat.getDescription() %></td>
                             <td>
-                                <a href="edit-cat?showedit=1&id=<%=blogCat.getId()%>">Sửa</a>
+                                <a href="<%= request.getContextPath()%>/staff/blog/edit-cat?showedit=1&id=<%=blogCat.getId()%>">Sửa</a>
                             </td>
                         </tr>
                         <%	

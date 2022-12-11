@@ -90,7 +90,6 @@ public class ListBlogCategory extends HttpServlet {
         int row_count = pagination.getRowCountAdmin();
         request.setAttribute("pages", pagination.getPages(total, row_count));
         request.setAttribute("current_page", current_page);
-        // neu load trang
         ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) blogCat.getAll();
         request.setAttribute("listCategory", listCategory);
         if (listCategory.size() == 0) {
@@ -99,7 +98,7 @@ public class ListBlogCategory extends HttpServlet {
             request.setAttribute("listCategory", listCategory);
         }
         request.setAttribute("error", msg);
-        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
+        request.getRequestDispatcher("list_blog_category.jsp").forward(request, response);
     }
 
     /**
