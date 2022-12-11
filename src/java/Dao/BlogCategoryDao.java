@@ -16,4 +16,5 @@ public interface BlogCategoryDao extends BaseDao<BlogCategory>{
     public ArrayList<BlogCategory> searchCategory(String name, int offset, int row_count);
     public boolean deleteCategory(String[] listIdDelete);
     public boolean isCategoryExist(String name);
+    public BlogCategory getCategory(String id);
 }

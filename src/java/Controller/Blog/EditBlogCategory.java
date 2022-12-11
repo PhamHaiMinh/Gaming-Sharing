@@ -2,27 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.Blog;
 
 import Dao.Impl.BlogCategoryDaoImpl;
 import Model.BlogCategory;
-import Model.Page;
-import Model.Pagination;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "ListBlogCategory", urlPatterns = {"/staff/ListBlogCategory"})
-public class ListBlogCategory extends HttpServlet {
+public class EditBlogCategory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +36,10 @@ public class ListBlogCategory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListBlogCategory</title>");
+            out.println("<title>Servlet EditBlogCategory</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListBlogCategory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditBlogCategory at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +57,7 @@ public class ListBlogCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
+        request.getRequestDispatcher("edit_blog_category.jsp").forward(request, response);
     }
 
     /**
@@ -76,32 +71,37 @@ public class ListBlogCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String msg = "";
-        if (request.getAttribute("msg") != null) {
-            msg = (String) request.getAttribute("msg");
-        }
         BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
-        Pagination pagination = new Pagination();
-
-        int current_page = 1;
-        if (request.getParameter("page") != null) {
-            current_page = Integer.parseInt(request.getParameter("page"));
-        }
-        int total = blogCat.getTotalSearch("");
-        int row_count = pagination.getRowCountAdmin();
-        request.setAttribute("pages", pagination.getPages(total, row_count));
-        request.setAttribute("current_page", current_page);
-        // neu load trang
-        ArrayList<BlogCategory> listCategory = blogCat.searchCategory("", pagination.getOffset(current_page, row_count), row_count);
-        request.setAttribute("listCategory", listCategory);
-        // truong hop bang ko co du lieu + xoa dl da bi xoa truoc do
-        if (listCategory.size() == 0) {
-            msg += "\nKhông tồn tại dữ liệu!";
-        } else {
-            request.setAttribute("listCategory", listCategory);
-        }
-        request.setAttribute("error", msg);
-        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
+			String error="";
+			String id = request.getParameter("id");
+			if(request.getParameter("edit")!=null&&id!=null){
+				String catName, description;
+				catName = request.getParameter("catName");
+				if(blogCat.isCategoryExist(catName)){
+					error+= "Tên danh mục đã bị trùng";
+				}else{
+					description = request.getParameter("description");
+					BlogCategory blogCategory = new BlogCategory();
+					blogCategory.setName(catName);
+					blogCategory.setDescription(description);
+					
+					if(blogCat.update(blogCategory)){
+						error += "Sửa danh mục thành công";
+						request.setAttribute("msg", error);
+						request.getRequestDispatcher("list_blog_category").forward(request, response);
+						return;
+					}else{
+						error+="Thêm dữ liệu vào database thất bại";
+					}
+				}
+				request.setAttribute("error", error);
+				request.getRequestDispatcher("add_blog_category.jsp").forward(request, response);
+			}
+			if(request.getParameter("showedit")!=null&&id!=null){
+				BlogCategory blogCategory = blogCat.getCategory(id);
+				request.setAttribute("blogCat",blogCategory);
+				request.getRequestDispatcher("edit_blog_category.jsp.jsp").forward(request, response);
+			}
     }
 
     /**
