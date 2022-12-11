@@ -42,7 +42,7 @@
 		
             %>
             <div>
-               
+
                 <div class="error" >
                     <span id="msg"><%if(error!=null) out.print(error); %></span>
                 </div>
@@ -67,6 +67,7 @@
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>STT</th>
+                            <th>Chọn</th>
                             <th>ID</th>
                             <th>Tên danh mục</th>
                             <th>Mô tả</th>
@@ -78,6 +79,9 @@
                         %>
                         <tr>
                             <td><%=stt++ %></td>
+                            <td>
+                                <input type="checkbox" name="check" value="<%=objDanhMuc.getIdDanhMuc() %>">
+                            </td>
                             <td><%=blogCat.getId() %></td>
                             <td><%=blogCat.getName() %></td>
                             <td><%=blogCat.getDescription() %></td>
