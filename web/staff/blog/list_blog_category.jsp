@@ -80,7 +80,7 @@
                         <tr>
                             <td><%=stt++ %></td>
                             <td>
-                                <input type="checkbox" name="check" value="<%=objDanhMuc.getIdDanhMuc() %>">
+                                <input type="checkbox" name="check" value="<%=blogCat.getId() %>">
                             </td>
                             <td><%=blogCat.getId() %></td>
                             <td><%=blogCat.getName() %></td>
