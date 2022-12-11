@@ -98,7 +98,7 @@ public class ListBlogCategory extends HttpServlet {
         if (listCategory.size() == 0) {
             msg += "\nKhông tồn tại dữ liệu!";
         } else {
-            request.setAttribute("listDanhMuc", listCategory);
+            request.setAttribute("listCategory", listCategory);
         }
         request.setAttribute("error", msg);
         request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
