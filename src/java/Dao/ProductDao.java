@@ -19,5 +19,6 @@ public interface ProductDao extends BaseDao<Product>, BaseImageDao<Product> {
     public List<Product> getAll(int page);
 
     public Product getLast();
+    public Product getProductById(String id);
 
 }

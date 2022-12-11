@@ -86,6 +86,38 @@
         <servlet-class>Controller.ConfirmResetPass</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>Controller.AddToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartItem</servlet-name>
+        <servlet-class>Controller.DeleteCartItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCartItemQuantity</servlet-name>
+        <servlet-class>Controller.UpdateCartItemQuantity</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCart</servlet-name>
+        <servlet-class>Controller.ViewCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListStaff</servlet-name>
+        <servlet-class>Controller.Admin.ListStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditStaffStatus</servlet-name>
+        <servlet-class>Controller.Admin.EditStaffStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStaff</servlet-name>
+        <servlet-class>Controller.Admin.DeleteStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailStaff</servlet-name>
+        <servlet-class>Controller.Admin.DetailStaff</servlet-class>
+</servlet>
+<servlet>
         <servlet-name>ListCancel</servlet-name>
         <servlet-class>Controller.staff.ListCancel</servlet-class>
     </servlet>
@@ -178,12 +210,46 @@
         <url-pattern>/ConfirmResetPass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartItem</servlet-name>
+        <url-pattern>/DeleteCartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartItemQuantity</servlet-name>
+        <url-pattern>/UpdateCartItemQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCart</servlet-name>
+        <url-pattern>/ViewCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListStaff</servlet-name>
+        <url-pattern>/ListStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditStaffStatus</servlet-name>
+        <url-pattern>/EditStaffStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStaff</servlet-name>
+        <url-pattern>/DeleteStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailStaff</servlet-name>
+        <url-pattern>/DetailStaff</url-pattern>
+</servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>ListCancel</servlet-name>
         <url-pattern>/staff/cancel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CancelDetail</servlet-name>
         <url-pattern>/staff/cancel/detail</url-pattern>
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

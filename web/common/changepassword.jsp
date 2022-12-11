@@ -28,10 +28,10 @@
                 <div class="col-lg-6 col-12 mx-auto">
                     <div class="p-5 bg-white rounded shadow-lg">
                         <h2 class="mb-2 text-center">Change password</h2>
-                        
+
                         <form action="ChangePassword" method="POST">
                             <input type="hidden" name="user" value="${sessionScope.account.username}"
-                            <h4 class="font-500">Old password</h4>
+                                   <h4 class="font-500">Old password</h4>
                             <input name="opass" class="form-control form-control-lg mb-3" type="password" required  placeholder="Enter old password" >
                             <h4 class="font-500">New Password</h4>
                             <div class="input-group ">
@@ -40,7 +40,7 @@
                             <h4 class="font-500">Re-enter New Password</h4>
                             <div class="input-group ">
                                 <input class="form-control form-control-lg" id="password" name="renpass" type="password" placeholder="Enter new password" >
-                                
+
                             </div>
                             <span style="color: red" class="mb-3">${errorPassword}</span>
                             <div class="d-flex my-3  justify-content-between">
@@ -60,10 +60,10 @@
             </div>
 
         </div>
-        
+
     </body>
-    
-    
+
+
     <style>
         .fadeOutLeft{
             animation: fadeOutLeft 0.3s ease-in;

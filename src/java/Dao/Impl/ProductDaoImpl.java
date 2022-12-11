@@ -387,4 +387,33 @@ public class ProductDaoImpl implements ProductDao {
         }
         return product;
     }
+
+    @Override
+    public Product getProductById(String id) {
+          DBContext dBContext = new DBContext();
+        Product product = new Product();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select * from Product where id = " +  id;
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("price"),
+                        rs.getInt("viewed"),
+                        rs.getInt("quantity"),
+                        rs.getString("description"),
+                        rs.getInt("category_id"),
+                        rs.getString("image")
+                );
+                product = getCategoryProduct(connection, product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return product;
+    }
 }

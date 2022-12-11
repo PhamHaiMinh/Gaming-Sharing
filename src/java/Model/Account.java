@@ -15,7 +15,19 @@ public class Account {
     private int role;
     private String email;
     private boolean active;
+    private String roleName;
 
+    public Account(int id, String username, String password, int role, String email, boolean active, String roleName) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+        this.active = active;
+        this.roleName = roleName;
+    }
+    
+    
     public Account(int id, String username, String password, int role, String email, boolean  active) {
         this.id = id;
         this.username = username;
