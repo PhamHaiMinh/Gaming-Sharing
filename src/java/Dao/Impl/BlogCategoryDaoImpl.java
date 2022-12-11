@@ -26,6 +26,7 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
     private ResultSet rs;
     DBContext db = new DBContext();
 
+    @Override
     public int getTotalSearch(String catName) {
         int total = 0;
         String sq = "";
@@ -76,7 +77,7 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
     }
 
     @Override
-    public BlogCategory get(int id) {
+    public BlogCategory getCategory(String id) {
         BlogCategory blogCat = null;
         String sql = "SELECT * FROM BlogCategory WHERE id='" + id + "'";
         System.out.println(sql);
@@ -146,7 +147,7 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
             pstm = conn.prepareStatement(sql);
             pstm.setString(1, blogCat.getName());
             pstm.setString(2, blogCat.getDescription());
-            pstm.setInt(3, blogCat.getId());
+            pstm.setString(3, blogCat.getId());
             pstm.executeUpdate();
             result = true;
             db.closeConnection(conn, pstm);
@@ -202,5 +203,10 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
             e.getStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public BlogCategory get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

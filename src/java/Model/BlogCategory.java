@@ -9,7 +9,7 @@ package Model;
  * @author Admin
  */
 public class BlogCategory {
-    private int id;
+    private String id;
     private String name;
     private String description;
 
@@ -22,11 +22,11 @@ public class BlogCategory {
         super();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

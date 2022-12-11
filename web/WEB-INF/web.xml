@@ -116,14 +116,26 @@
     <servlet>
         <servlet-name>DetailStaff</servlet-name>
         <servlet-class>Controller.Admin.DetailStaff</servlet-class>
-</servlet>
-<servlet>
+    </servlet>
+    <servlet>
         <servlet-name>ListCancel</servlet-name>
         <servlet-class>Controller.staff.ListCancel</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CancelDetail</servlet-name>
         <servlet-class>Controller.staff.CancelDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBlogCategory</servlet-name>
+        <servlet-class>Controller.Blog.AddBlogCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditBlogCategory</servlet-name>
+        <servlet-class>Controller.Blog.EditBlogCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBlogCategory</servlet-name>
+        <servlet-class>Controller.Blog.DeleteBlogCategory</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
@@ -240,8 +252,7 @@
     <servlet-mapping>
         <servlet-name>DetailStaff</servlet-name>
         <url-pattern>/DetailStaff</url-pattern>
-</servlet-mapping>
-
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListCancel</servlet-name>
         <url-pattern>/staff/cancel</url-pattern>
@@ -249,7 +260,18 @@
     <servlet-mapping>
         <servlet-name>CancelDetail</servlet-name>
         <url-pattern>/staff/cancel/detail</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlogCategory</servlet-name>
+        <url-pattern>/staff/blog/add-cat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditBlogCategory</servlet-name>
+        <url-pattern>/staff/blog/edit-cat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBlogCategory</servlet-name>
+        <url-pattern>/staff/blog/delete-cat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
