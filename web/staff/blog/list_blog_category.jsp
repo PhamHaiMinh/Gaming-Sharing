@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Blog Category List</title>
         <link rel="stylesheet" type="text/css"
-              href="<%=request.getContextPath()%>/assets/css/styles.css" />
+              href="<%=request.getContextPath()%>/assets/css/style.css" />
         <link rel="stylesheet" type="text/css"
               href="<%=request.getContextPath()%>/assets/css/bootstrap.min.css" />
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/js/check.js"></script>
@@ -42,7 +42,8 @@
 		
             %>
             <div>
-
+               
+                <br />
                 <div class="error" >
                     <span id="msg"><%if(error!=null) out.print(error); %></span>
                 </div>
@@ -94,6 +95,7 @@
                                 }
                         %>
                     </table>
+                   
                 </form>
             </div>
         </div>

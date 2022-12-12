@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -61,7 +62,7 @@ public class ListBlogCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -90,7 +91,7 @@ public class ListBlogCategory extends HttpServlet {
         int row_count = pagination.getRowCountAdmin();
         request.setAttribute("pages", pagination.getPages(total, row_count));
         request.setAttribute("current_page", current_page);
-        ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) blogCat.getAll();
+        List<BlogCategory> listCategory = blogCat.getAll();
         request.setAttribute("listCategory", listCategory);
         if (listCategory.size() == 0) {
             msg += "\nKhông tồn tại dữ liệu!";
@@ -98,7 +99,7 @@ public class ListBlogCategory extends HttpServlet {
             request.setAttribute("listCategory", listCategory);
         }
         request.setAttribute("error", msg);
-        request.getRequestDispatcher("list_blog_category.jsp").forward(request, response);
+        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
     }
 
     /**

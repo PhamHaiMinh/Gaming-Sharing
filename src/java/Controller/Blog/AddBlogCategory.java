@@ -57,7 +57,7 @@ public class AddBlogCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("add_blog_category.jsp").forward(request, response);
+        doPost(request, response);
     }
 
     /**

@@ -109,8 +109,9 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
             rs = stm.executeQuery(sql);
             while (rs.next()) {
                 BlogCategory blogCat = new BlogCategory();
-                blogCat.setName(rs.getString(1));
-                blogCat.setDescription(rs.getString(1));
+                blogCat.setId(rs.getString(1));
+                blogCat.setName(rs.getString(2));
+                blogCat.setDescription(rs.getString(3));
                 listCategory.add(blogCat);
             }
             db.closeConnection(conn, pstm, rs);
