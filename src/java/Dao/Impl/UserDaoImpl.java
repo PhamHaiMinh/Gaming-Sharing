@@ -216,4 +216,25 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
+
+    @Override
+    public int getNumberGenOfStaff(boolean gender) {
+        DBContext dBContext = new DBContext();
+        int output = -1;
+        try{
+            Connection connection = dBContext.getConnection();
+            String sql = "select count(id) as count from [dbo].[User] "
+                    + "where gender = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setBoolean(1, gender);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                output = rs.getInt("count");
+            }
+            dBContext.closeConnection(connection, ps);
+        }catch (SQLException e) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return output;
+    }
 }

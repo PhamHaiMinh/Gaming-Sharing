@@ -4,12 +4,17 @@
  */
 package Controller;
 
+import Dao.Impl.DateDAO;
+import Dao.Impl.OrderDAOImpl;
+import Dao.Impl.UserDaoImpl;
+import Model.Profit_day;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,6 +60,19 @@ public class DashBoardStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserDaoImpl ud = new UserDaoImpl();
+        OrderDAOImpl od = new OrderDAOImpl();
+        DateDAO da = new DateDAO();
+        int male = ud.getNumberGenOfStaff(true);
+        int female = ud.getNumberGenOfStaff(false);
+        request.setAttribute("male", male);
+        request.setAttribute("female", female);
+        ArrayList<java.sql.Date> dates = da.getDateOfLast7Day();
+        ArrayList<Profit_day> profits = new ArrayList<>();
+        for(java.sql.Date date : dates){
+            profits.add(new Profit_day(da.getDateFormat(date), od.getProfitFromDate(date)));
+        }
+        request.setAttribute("profits", profits);
          request.getRequestDispatcher("staff/dashBoard.jsp").forward(request, response);
     }
 
