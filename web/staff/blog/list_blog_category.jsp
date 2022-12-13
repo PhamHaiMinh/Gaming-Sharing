@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Blog Category List</title>
         <link rel="stylesheet" type="text/css"
-              href="<%=request.getContextPath()%>/assets/css/styles.css" />
+              href="<%=request.getContextPath()%>/assets/css/style.css" />
         <link rel="stylesheet" type="text/css"
               href="<%=request.getContextPath()%>/assets/css/bootstrap.min.css" />
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/js/check.js"></script>
@@ -29,7 +29,10 @@
     </head>
 
     <body class="container-fluid">
-        <div style="background-color: #f1f1f1;">
+        <div class="left" style="height: 100vh">
+            <jsp:include page="/staff/left.jsp"></jsp:include>
+        </div>
+            <div style="background-color: #f1f1f1;">
 
             <%
                     ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
@@ -43,6 +46,7 @@
             %>
             <div>
 
+                <br />
                 <div class="error" >
                     <span id="msg"><%if(error!=null) out.print(error); %></span>
                 </div>
@@ -94,6 +98,7 @@
                                 }
                         %>
                     </table>
+
                 </form>
             </div>
         </div>
@@ -110,5 +115,6 @@
                 return false;
             }
         </script>
+        
     </body>							
 </html>

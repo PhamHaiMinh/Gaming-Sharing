@@ -80,7 +80,7 @@ public class DeleteBlogCategory extends HttpServlet {
                 msg = "Dữ liệu không tồn tại để xóa!\n";
             }
             request.setAttribute("msg", msg);
-            request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
+            request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
         }
     }
 
