@@ -70,8 +70,8 @@
                     </div>
                     <table class="table table-bordered table-hover">
                         <tr>
+                            <th></th>
                             <th>STT</th>
-                            <th>Chọn</th>
                             <th>ID</th>
                             <th>Tên danh mục</th>
                             <th>Mô tả</th>
@@ -82,10 +82,10 @@
                                         for(BlogCategory blogCat:listCategory){
                         %>
                         <tr>
-                            <td><%=stt++ %></td>
                             <td>
                                 <input type="checkbox" name="check" value="<%=blogCat.getId() %>">
                             </td>
+                            <td><%=stt++ %></td>   
                             <td><%=blogCat.getId() %></td>
                             <td><%=blogCat.getName() %></td>
                             <td><%=blogCat.getDescription() %></td>
