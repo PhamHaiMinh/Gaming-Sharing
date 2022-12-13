@@ -1,6 +1,6 @@
---create database GamingSharing;
---use GamingSharing;
-create table Account (
+--create database GamingSharing1;
+--use GamingSharing1;
+create table Account1 (
 	id int not null identity(1,1) primary key,
 	username varchar(150) not null,
 	[password] varchar(150) not null,
@@ -8,7 +8,7 @@ create table Account (
 	rollid int not null,
 	active bit not null default 1,
 );
-create table [User] (
+create table User1 (
 	id int not null identity(1,1) primary key,
 	account_id int not null,
 	last_name varchar(150) not null,
@@ -16,29 +16,29 @@ create table [User] (
 	first_name varchar(255) not null,
 	gender bit not null,
 	phone varchar(150) not null,
-	CONSTRAINT FK_User_Account FOREIGN KEY (account_id)
-        REFERENCES Account (id)
+	CONSTRAINT FK_User1_Account1 FOREIGN KEY (account_id)
+        REFERENCES Account1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
-create table Role (
+create table Role1 (
 	id int not null identity(1,1) primary key,
 	name varchar(150) not null unique,
 );
 
-ALTER TABLE Account
-ADD CONSTRAINT FK_Account_Role FOREIGN KEY (rollid)
-REFERENCES Role (id)
+ALTER TABLE Account1
+ADD CONSTRAINT FK_Account1_Role1 FOREIGN KEY (rollid)
+REFERENCES Role1 (id)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 
-create table Category (
+create table Category1 (
 	id int not null identity(1,1) primary key,
 	name varchar(150) not null,
 );
 
-create table Product (
+create table Product1 (
 	id int not null identity(1,1) primary key,
 	category_id int not null,
 	name varchar(150) not null,
@@ -47,97 +47,97 @@ create table Product (
 	viewed int not null default 0, 
 	description nvarchar(MAX),
 	image varchar(150),
-	CONSTRAINT FK_Product_Category FOREIGN KEY (category_id)
-        REFERENCES Category (id)
+	CONSTRAINT FK_Product1_Category1 FOREIGN KEY (category_id)
+        REFERENCES Category1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
-create table Cart (
+create table Cart1 (
 	id int not null identity(1,1) primary key,
 	user_id int not null,
-	CONSTRAINT FK_Cart_User FOREIGN KEY (user_id)
-        REFERENCES [User] (id)
+	CONSTRAINT FK_Cart1_User1 FOREIGN KEY (user_id)
+        REFERENCES User1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
-create table CartDetail (
+create table Cart1Detail (
 	id int not null identity(1,1) primary key,
 	cart_id int not null,
 	product_id int not null,
 	quantity int not null,
-	CONSTRAINT FK_CartDetail_Product FOREIGN KEY (product_id)
-        REFERENCES Product (id)
+	CONSTRAINT FK_Cart1Detail_Product1 FOREIGN KEY (product_id)
+        REFERENCES Product1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-	CONSTRAINT FK_CartDetail_Cart FOREIGN KEY (cart_id)
-        REFERENCES Cart (id)
+	CONSTRAINT FK_Cart1Detail_Cart1 FOREIGN KEY (cart_id)
+        REFERENCES Cart1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
 );
 
-create table Cancel (
+create table Cancel1 (
 	id int not null identity(1,1) primary key,
 	name varchar(150) not null unique,
 );
 
-create table [Order] (
+create table Order1 (
 	id int not null identity(1,1) primary key,
 	user_id int not null,
 	create_time date not null,
 	status_id int not null,
 	cancel_id int,
-	CONSTRAINT FK_Order_User FOREIGN KEY (user_id)
-        REFERENCES [User] (id)
+	CONSTRAINT FK_Order1_User1 FOREIGN KEY (user_id)
+        REFERENCES User1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-	CONSTRAINT FK_Order_Cancel FOREIGN KEY (cancel_id)
-        REFERENCES Cancel (id)
+	CONSTRAINT FK_Order1_Cancel1 FOREIGN KEY (cancel_id)
+        REFERENCES Cancel1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
-create table OrderDetail (
+create table Order1Detail (
 	id int not null identity(1,1) primary key,
 	order_id int not null,
 	product_id int not null,
 	quantity int not null,
-	CONSTRAINT FK_OrderDetail_Product FOREIGN KEY (product_id)
-        REFERENCES Product (id)
+	CONSTRAINT FK_Order1Detail_Product1 FOREIGN KEY (product_id)
+        REFERENCES Product1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-	CONSTRAINT FK_OrderDetail_Order FOREIGN KEY (order_id)
-        REFERENCES [Order] (id)
+	CONSTRAINT FK_Order1Detail_Order1 FOREIGN KEY (order_id)
+        REFERENCES Order1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
 );
 
-create table StatusOrder (
+create table StatusOrder1 (
 	id int not null identity(1,1) primary key,
 	name varchar(150) not null unique,
 );
 
-ALTER TABLE [Order]
-ADD CONSTRAINT FK_Order_StatusOrder FOREIGN KEY (status_id)
-REFERENCES StatusOrder (id)
+ALTER TABLE Order1
+ADD CONSTRAINT FK_Order1_StatusOrder1 FOREIGN KEY (status_id)
+REFERENCES StatusOrder1 (id)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 
-create table Blog (
+create table Blog1 (
 	id int not null identity(1,1) primary key,
 	tittle varchar(150) not null unique,
 	[content] varchar(Max) not null,
 	create_time date not null,
 );
 
-create table Address (
+create table Address1 (
 	id int not null identity(1,1) primary key,
 	user_id int not null,
 	ward_code nvarchar(20),
 	address_detail varchar(150),
-	CONSTRAINT FK_Address_User FOREIGN KEY (user_id)
-        REFERENCES [User] (id)
+	CONSTRAINT FK_Address1_User1 FOREIGN KEY (user_id)
+        REFERENCES User1 (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -210,9 +210,3 @@ CREATE TABLE wards (
 
 ALTER TABLE wards ADD CONSTRAINT wards_administrative_unit_id_fkey FOREIGN KEY (administrative_unit_id) REFERENCES administrative_units(id);
 ALTER TABLE wards ADD CONSTRAINT wards_district_code_fkey FOREIGN KEY (district_code) REFERENCES districts(code);
-
-ALTER TABLE Address
-ADD CONSTRAINT FK_Address_Wards FOREIGN KEY (ward_code)
-REFERENCES wards (code)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
