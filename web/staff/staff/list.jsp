@@ -13,8 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="../layout/index.jsp"  %>
-
+        <%@include file="../layout/left.jsp"%>
         <div class=" container p-4 d-flex flex-column mx-auto  ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
