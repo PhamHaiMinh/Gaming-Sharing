@@ -81,16 +81,6 @@ public class ListBlogCategory extends HttpServlet {
             msg = (String) request.getAttribute("msg");
         }
         BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
-        Pagination pagination = new Pagination();
-
-        int current_page = 1;
-        if (request.getParameter("page") != null) {
-            current_page = Integer.parseInt(request.getParameter("page"));
-        }
-        int total = blogCat.getTotalSearch("");
-        int row_count = pagination.getRowCountAdmin();
-        request.setAttribute("pages", pagination.getPages(total, row_count));
-        request.setAttribute("current_page", current_page);
         List<BlogCategory> listCategory = blogCat.getAll();
         request.setAttribute("listCategory", listCategory);
         if (listCategory.size() == 0) {

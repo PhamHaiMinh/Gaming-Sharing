@@ -9710,16 +9710,3 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
-
-table{
-	margin-top: 20px;
-}
-.left{
-	float:left;
-}
-.right{
-	float:right;
-}
-.clear{
-	clear: both;
-}

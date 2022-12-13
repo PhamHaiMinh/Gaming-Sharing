@@ -87,7 +87,7 @@ public class AddBlogCategory extends HttpServlet {
 					if(blogCat.insert(blogCategory)){
 						error += "Thêm danh mục thành công";
 						request.setAttribute("msg", error);
-						request.getRequestDispatcher("list_blog_category.jsp").forward(request, response);
+						request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
 						return;
 					}else{
 						error+="Thêm dữ liệu vào database thất bại";

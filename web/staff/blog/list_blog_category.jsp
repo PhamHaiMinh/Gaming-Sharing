@@ -29,7 +29,10 @@
     </head>
 
     <body class="container-fluid">
-        <div style="background-color: #f1f1f1;">
+        <div class="left" style="height: 100vh">
+            <jsp:include page="/staff/left.jsp"></jsp:include>
+        </div>
+            <div style="background-color: #f1f1f1;">
 
             <%
                     ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
@@ -42,7 +45,7 @@
 		
             %>
             <div>
-               
+
                 <br />
                 <div class="error" >
                     <span id="msg"><%if(error!=null) out.print(error); %></span>
@@ -95,7 +98,7 @@
                                 }
                         %>
                     </table>
-                   
+
                 </form>
             </div>
         </div>
@@ -112,5 +115,6 @@
                 return false;
             }
         </script>
+        
     </body>							
 </html>
