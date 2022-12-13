@@ -27,15 +27,15 @@
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
     </head>
 
-    <body class="container-fluid">
-
+    <body>
+        <%@include file="../layout/left.jsp"%>
         <%
                 ArrayList<Blog> listBlog = (ArrayList<Blog>) request.getAttribute("listBlog");
                 ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
                 int stt=1;
                 String msg = (String)request.getAttribute("msg");
         %>
-        <div style="background-color: #f1f1f1;">
+        <div style="background-color: #f1f1f1;" class="p-3">
             <div>            
                 <br />
                 <div class="error" id="msg">
