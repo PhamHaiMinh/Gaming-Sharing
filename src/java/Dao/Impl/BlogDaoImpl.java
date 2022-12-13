@@ -59,52 +59,65 @@ public class BlogDaoImpl implements BlogDao {
 
     @Override
     public ArrayList<Blog> getListBlogStaff(String title, String catId, String create_time) {
-ArrayList<Blog> listBlog = new ArrayList<Blog>();
-		String sql = "SELECT b.id, b.title, c.name, b.thoigiandang,"
-				+ " b.viewed, b.image, b.browser FROM Blog AS b, BlogCategory AS c"
-				+ " WHERE b.userId = u.iduser AND b.categoryId = c.id";
-		if (!"".equals(title)) {
-			sql += " AND b.title LIKE '%" + title + "%'";
-		}
-		if (!"".equals(catId)) {
-			sql += " AND b.categoryId='" + catId + "'";
-		}
-		if (!"".equals(create_time)) {
-			sql += " AND b.create_time ='" + create_time + "'";
-		}
-		sql += " ORDER BY b.create_time DESC LIMIT ";
-		try {
-			Connection conn = db.getConnection();
-			stm = conn.createStatement();
-			rs = stm.executeQuery(sql);
-			while (rs.next()) {
-				Blog blog = new Blog();
-				blog.setId(rs.getString(1));
-				blog.setTittle(rs.getString(2));
-				blog.setAuthor(rs.getString(3));
-				blog.setCategory(rs.getString(4));
+        ArrayList<Blog> listBlog = new ArrayList<Blog>();
+        String sql = "SELECT b.id, b.title, c.name, b.create_time,"
+                + " b.viewed, b.image, b.browser FROM Blog AS b, BlogCategory AS c"
+                + " WHERE b.categoryId = c.id"
+                + " ORDER BY b.create_time DESC ";
+        try {
+            Connection conn = db.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getString(1));
+                blog.setTitle(rs.getString(2));
+                blog.setCategory(rs.getString(3));
 
-				String[] tg = rs.getString(5).split("-");
-				tg[2] += "/" + tg[1] + "/" + tg[0];				
-				blog.setCreate_time(tg[2]);
+                String[] tg = rs.getString(4).split("-");
+                tg[2] += "/" + tg[1] + "/" + tg[0];
+                blog.setCreate_time(tg[2]);
 
-				blog.setViewed(rs.getInt(6));
-				blog.setImage(rs.getString(7));
-				blog.setUserId(rs.getString(8));
-				blog.setBrowser(rs.getInt(9));
-				listBlog.add(blog);
-			}
-			db.closeConnection(conn, pstm, rs);
-			pstm.close();
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		return listBlog;
+                blog.setViewed(rs.getInt(5));
+                blog.setImage(rs.getString(6));
+                blog.setBrowser(rs.getInt(7));
+                listBlog.add(blog);
+            }
+            db.closeConnection(conn, pstm, rs);
+            pstm.close();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return listBlog;
     }
 
     @Override
     public ArrayList<Blog> getListBlog(String catId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Blog> listBlog = new ArrayList<Blog>();
+        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time, b.image,b.viewed FROM Blog AS b"
+                + " WHERE b.categoryId='" + catId + "' AND b.browser=1 ORDER BY t.create_time DESC,b.prioritized DESC LIMIT ";
+        try {
+            Connection conn = db.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getString(1));
+                blog.setCatId(rs.getString(2));
+                blog.setTitle(rs.getString(3));
+                blog.setBody(rs.getString(4));
+                String[] tg = rs.getString(5).split("-");
+                tg[2] += "-" + tg[1] + "-" + tg[0];
+                blog.setCreate_time(tg[2]);
+                blog.setImage(rs.getString(6));
+                blog.setViewed(rs.getInt(7));
+                listBlog.add(blog);
+            }
+            db.closeConnection(conn, pstm, rs);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return listBlog;
     }
 
     @Override

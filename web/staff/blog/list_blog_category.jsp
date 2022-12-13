@@ -72,6 +72,7 @@
                         <tr>
                             <th></th>
                             <th>STT</th>
+                            <th>ID</th>
                             <th>Tên danh mục</th>
                             <th>Mô tả</th>
                             <th>Sửa</th>
@@ -84,7 +85,8 @@
                             <td>
                                 <input type="checkbox" name="check" value="<%=blogCat.getId() %>">
                             </td>
-                            <td><%=stt++ %></td>                          
+                            <td><%=stt++ %></td>   
+                            <td><%=blogCat.getId() %></td>
                             <td><%=blogCat.getName() %></td>
                             <td><%=blogCat.getDescription() %></td>
                             <td>

@@ -79,7 +79,7 @@ crossorigin="anonymous"></script>
                     </a>
                 </li>
                 <li>
-                    <a href="<%= request.getContextPath()%>/staff/blog" class="nav-link text-white">
+                    <a href="<%= request.getContextPath()%>/staff/blog/list-blog" class="nav-link text-white">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                         Blogs
                     </a>

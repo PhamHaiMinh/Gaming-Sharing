@@ -11,7 +11,7 @@ package Model;
 public class Blog {
 
     private String id;
-    private String tittle;
+    private String title;
     private String body;
     private String create_time;
     private String category;
@@ -27,9 +27,9 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String tittle, String body, String create_time, String category, String image, String catId, int viewed, int prioritized, String source, String userId, int browser, String author) {
+    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int prioritized, String source, String userId, int browser, String author) {
         this.id = id;
-        this.tittle = tittle;
+        this.title = title;
         this.body = body;
         this.create_time = create_time;
         this.category = category;
@@ -59,12 +59,12 @@ public class Blog {
         this.id = id;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getBody() {
