@@ -171,5 +171,30 @@ public class AccountDaoImpl implements AccountDao {
         }
         return null;
     }
-   
+
+    @Override
+    public Account get(int id) {
+        String sql = "SELECT [id]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[email]\n"
+                + "      ,[active]\n"
+                + "      ,[role_id]\n"
+                + "  FROM [dbo].[Account]\n"
+                + "  where id = ?";
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new Account(id,rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
 }

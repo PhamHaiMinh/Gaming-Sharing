@@ -20,4 +20,5 @@ public interface UserDao extends BaseDao<User>{
     public User getById(String id);
     public List<Role> getAllRole();
     public int getNumberGenOfStaff(boolean gender);
+    public User get2(int user_id);
 }

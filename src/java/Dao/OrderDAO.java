@@ -5,6 +5,8 @@
 package Dao;
 
 import Model.Order;
+import Model.Product;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,4 +14,7 @@ import Model.Order;
  */
 public interface OrderDAO extends BaseDao<Order>{
     public int getProfitFromDate(java.sql.Date date);
+    public ArrayList<Order> getPendingCancelOrderID();
+    public int getUserID(int order_id);
+    public Product getProductbyID(int order_id);
 }

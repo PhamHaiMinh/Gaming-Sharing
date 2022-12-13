@@ -5,6 +5,11 @@
 
 package Controller.staff;
 
+import Dao.Impl.OrderDAOImpl;
+import Dao.Impl.ProductDaoImpl;
+import Dao.Impl.UserDaoImpl;
+import Model.Product;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -27,7 +32,7 @@ public class CancelDetail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("/staff/cancel/detail.jsp").forward(request, response);
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -41,7 +46,15 @@ public class CancelDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        UserDaoImpl ud = new UserDaoImpl();
+        OrderDAOImpl od = new OrderDAOImpl();
+        ProductDaoImpl pd = new ProductDaoImpl();
+        User u = ud.get2(od.getUserID(id));
+        request.setAttribute("user", u);
+        Product p = pd.getProductbyOrder(od.getProductbyID(id));
+        request.setAttribute("product", p);
+        request.getRequestDispatcher("/staff/cancel/detail.jsp").forward(request, response);
     } 
 
     /** 

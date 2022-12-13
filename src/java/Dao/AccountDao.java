@@ -23,6 +23,6 @@ public interface AccountDao {
     void changePassword(Account a);
 
     Account check(String username, String password);
-    
-   
+
+    Account get(int id);
 }

@@ -20,5 +20,5 @@ public interface ProductDao extends BaseDao<Product>, BaseImageDao<Product> {
 
     public Product getLast();
     public Product getProductById(String id);
-
+    public Product getProductbyOrder(Product input);
 }
