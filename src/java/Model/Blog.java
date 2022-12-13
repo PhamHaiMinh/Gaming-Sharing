@@ -4,38 +4,58 @@
  */
 package Model;
 
-import java.sql.Date;
-
 /**
  *
  * @author LENOVO
  */
 public class Blog {
-    private int id;
+
+    private String id;
     private String tittle;
-    private String content;
+    private String body;
     private String create_time;
     private String category;
     private String image;
-    private int catID;        
+    private String catId;
+    private int viewed;
+    private int prioritized;
+    private String source;
+    private String userId;
+    private int browser;
+    private String author;
+
     public Blog() {
     }
 
-    public Blog(int id, String tittle, String content, String create_time, String category, String image, int catID) {
+    public Blog(String id, String tittle, String body, String create_time, String category, String image, String catId, int viewed, int prioritized, String source, String userId, int browser, String author) {
         this.id = id;
         this.tittle = tittle;
-        this.content = content;
+        this.body = body;
         this.create_time = create_time;
         this.category = category;
         this.image = image;
-        this.catID = catID;
+        this.catId = catId;
+        this.viewed = viewed;
+        this.prioritized = prioritized;
+        this.source = source;
+        this.userId = userId;
+        this.browser = browser;
+        this.author = author;
     }
 
-    public int getId() {
+    public int getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(int browser) {
+        this.browser = browser;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,12 +67,12 @@ public class Blog {
         this.tittle = tittle;
     }
 
-    public String getContent() {
-        return content;
+    public String getBody() {
+        return body;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getCreate_time() {
@@ -79,12 +99,52 @@ public class Blog {
         this.image = image;
     }
 
-    public int getCatID() {
-        return catID;
+    public String getCatId() {
+        return catId;
     }
 
-    public void setCatID(int catID) {
-        this.catID = catID;
+    public void setCatId(String catId) {
+        this.catId = catId;
+    }
+
+    public int getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(int viewed) {
+        this.viewed = viewed;
+    }
+
+    public int getPrioritized() {
+        return prioritized;
+    }
+
+    public void setPrioritized(int prioritized) {
+        this.prioritized = prioritized;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
 }

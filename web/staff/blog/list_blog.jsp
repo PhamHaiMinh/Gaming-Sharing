@@ -1,5 +1,5 @@
 <%-- 
-    Document   : list_news
+    Document   : list_blog
     Created on : Dec 5, 2022, 12:10:01 PM
     Author     : Admin
 --%>

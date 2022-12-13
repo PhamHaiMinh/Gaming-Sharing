@@ -27,56 +27,6 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
     DBContext db = new DBContext();
 
     @Override
-    public int getTotalSearch(String catName) {
-        int total = 0;
-        String sq = "";
-        if (!"".equals(catName)) {
-            sq += " AND name LIKE '%" + catName + "%'";
-        }
-        String sql = "SELECT COUNT(id) AS total FROM BlogCategory WHERE 1" + sq;
-        // System.out.println(sql);
-        try {
-            Connection conn = db.getConnection();
-            stm = conn.createStatement();
-            rs = stm.executeQuery(sql);
-            if (rs.next()) {
-                total = rs.getInt("total");
-            }
-            db.closeConnection(conn, pstm, rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        // System.out.println(total);
-        return total;
-    }
-
-    @Override
-    public ArrayList<BlogCategory> searchCategory(String name, int offset, int row_count) {
-        ArrayList<BlogCategory> listCategory = new ArrayList<BlogCategory>();
-        String sqlLimit = " ORDER BY id LIMIT " + offset + "," + row_count;
-        String sq = "";
-        if (!"".equals(name)) {
-            sq += " AND name LIKE '%" + name + "%'";
-        }
-        String sql = "SELECT * FROM BlogCategory WHERE 1" + sq + sqlLimit;
-        try {
-            Connection conn = db.getConnection();
-            stm = conn.createStatement();
-            rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                BlogCategory blogCat = new BlogCategory();
-                blogCat.setName(rs.getString(1));
-                blogCat.setDescription(rs.getString(2));
-                listCategory.add(blogCat);
-            }
-            db.closeConnection(conn, pstm, rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listCategory;
-    }
-
-    @Override
     public BlogCategory getCategory(String id) {
         BlogCategory blogCat = null;
         String sql = "SELECT * FROM BlogCategory WHERE id='" + id + "'";
@@ -201,6 +151,23 @@ public class BlogCategoryDaoImpl implements BlogCategoryDao {
                 result = true;
             }
             db.closeConnection(conn, pstm, rs);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean viewed(String id) {
+        String sql = "UPDATE BlogCategory SET viewed=viewed+1 WHERE id=? LIMIT 1";
+        boolean result = false;
+        try {
+            Connection conn = db.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, id);
+            pstm.executeUpdate();
+            result = true;
+            db.closeConnection(conn, pstm);
         } catch (Exception e) {
             e.getStackTrace();
         }
