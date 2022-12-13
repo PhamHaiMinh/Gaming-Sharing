@@ -40,7 +40,7 @@ public class ChangePassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePassword</title>");            
+            out.println("<title>Servlet ChangePassword</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ChangePassword at " + request.getContextPath() + "</h1>");
@@ -61,22 +61,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("user");
-        String oldpassword = request.getParameter("opass");
-        String newpassword = request.getParameter("npass");
-        AccountDao aDAO = new AccountDaoImpl();
-        Account a = aDAO.check(username, oldpassword);
-        if(a == null){
-            String msg = "Username or Password are incorrect";
-            request.setAttribute("msg", msg);
-            request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
-        }else{
-             Account acc = new Account(a.getId(), username, newpassword, a.getRole(), a.getEmail(), a.isActive());
-             aDAO.changePassword(acc);
-            HttpSession session = request.getSession();
-            session.setAttribute("account", acc);
-            response.sendRedirect("login.jsp");
-        }
+        request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
     }
 
     /**
@@ -90,7 +75,23 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        AccountDao aDAO = new AccountDaoImpl();
+        HttpSession session = request.getSession();
+        String oldpass = request.getParameter("oldpass");
+        String newpass = request.getParameter("newpass");
+        String renewpass = request.getParameter("renewpass");
+        Account account = (Account) request.getSession().getAttribute("account");
+        if (!oldpass.equals(account.getPassword())) {
+            request.setAttribute("mess", "OldPassword not match");
+            request.getRequestDispatcher("Changepassword.jsp").forward(request, response);
+        } else if (!newpass.equals(renewpass)) {
+            request.setAttribute("mess", "New password not match wwith re password");
+            request.getRequestDispatcher("Changepassword.jsp").forward(request, response);
+        } else {
+            aDAO.changePassword(newpass, account.getId());
+            request.setAttribute("mess", "Password change successfully!");
+            request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
+        }
     }
 
     /**

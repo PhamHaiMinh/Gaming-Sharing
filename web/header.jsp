@@ -69,7 +69,7 @@ s<%--
                         <span class="badge text-secondary border border-secondary rounded-circle"
                               style="padding-bottom: 2px;">0</span>
                     </a>
-                    <a href="" class="btn px-0 ml-3">
+                    <a href="ViewCart" class="btn px-0 ml-3">
                         <i class="fas fa-shopping-cart text-primary"></i>
                         <span class="badge text-secondary border border-secondary rounded-circle"
                               style="padding-bottom: 2px;">0</span>
@@ -86,6 +86,7 @@ s<%--
                         <a  class="nav-item nav-link ml-3"  data-toggle="dropdown">${account.username}</a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/profile'">Thông tin tài khoản</button>
+                            <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/ChangePassword'">Change PassWord</button>
                             <button class="dropdown-item" type="button" onclick="window.location.href = '<%=request.getContextPath()%>/logout'">Đăng xuất</button>
                         </div>
                     </div>

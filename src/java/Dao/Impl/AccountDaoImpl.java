@@ -134,14 +134,14 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void changePassword(Account a) {
+    public void changePassword(String passString, int id) {
         DBContext dBContext = new DBContext();
         Connection connection = dBContext.getConnection();
-        String sql = "update account set password=? where username=?";
+        String sql = "update Account set [password]=? where [id]=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, a.getPassword());
-            st.setString(2, a.getUsername());
+            st.setString(1, passString);
+            st.setInt(2, id);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

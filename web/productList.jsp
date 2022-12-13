@@ -123,8 +123,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <div class="d-flex align-items-center justify-content-center mt-2">
                                             <a class="h5 text-decoration-none text-truncate" href="<%=request.getContextPath()%>/product/${p.id}">${p.name}</a>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <div class="d-flex align-items-center justify-content-center mt-2" style="flex-direction: column;">
                                             <h6>${p.price}vnd</h6>
+                                            <a href="./cart?pid=${p.getId()}&quantity=1" class="btn btn-warning">ADD TO CART</a>
                                         </div>
                                     </div>
                                 </div>

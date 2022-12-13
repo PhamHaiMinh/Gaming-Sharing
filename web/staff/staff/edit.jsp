@@ -11,7 +11,7 @@
                         <img style="margin-left: 40%" width="90px" height="90px" src="${user.avt}">
                         <h4 class="font-500">Email</h4>
                         <input name="username" class="form-control form-control-lg mb-3" type="text" required readonly placeholder="Emaill " value="${user.account.email}" >
-                        <input name="uid" type="hidden" required readonly value="${user.id}" >
+                        <input name="uid" type="hidden" required readonly value="${param.sid}" >
                         <h4 class="font-500">User Name</h4>
                         <input name="username" class="form-control form-control-lg mb-3" type="text" required readonly maxlength="50" placeholder="User Name" value="${user.account.username}" >
                         <h4 class="font-500">First Name</h4>

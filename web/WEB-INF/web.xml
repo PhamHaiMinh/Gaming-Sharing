@@ -137,6 +137,14 @@
         <servlet-name>DeleteBlogCategory</servlet-name>
         <servlet-class>Controller.Blog.DeleteBlogCategory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>Controller.ChangePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>Controller.Checkout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
         <url-pattern>/Activation</url-pattern>
@@ -223,7 +231,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
-        <url-pattern>/AddToCart</url-pattern>
+        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCartItem</servlet-name>
@@ -272,6 +280,14 @@
     <servlet-mapping>
         <servlet-name>DeleteBlogCategory</servlet-name>
         <url-pattern>/staff/blog/delete-cat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

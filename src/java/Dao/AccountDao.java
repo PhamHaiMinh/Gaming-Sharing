@@ -20,7 +20,7 @@ public interface AccountDao {
 
     String register(Account acc);
 
-    void changePassword(Account a);
+    void changePassword(String passString, int id);
 
     Account check(String username, String password);
     
