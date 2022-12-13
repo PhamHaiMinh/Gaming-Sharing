@@ -28,11 +28,9 @@
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
     </head>
 
-    <body class="container-fluid">
-        <div class="left" style="height: 100vh">
-            <jsp:include page="/staff/left.jsp"></jsp:include>
-        </div>
-            <div style="background-color: #f1f1f1;">
+    <body>
+        <%@include file="../layout/left.jsp"%>
+        <div style="background-color: #f1f1f1" class="p-3">
 
             <%
                     ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
