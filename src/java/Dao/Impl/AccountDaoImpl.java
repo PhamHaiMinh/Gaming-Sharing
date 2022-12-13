@@ -66,29 +66,39 @@ public class AccountDaoImpl implements AccountDao {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String checkUser = rs.getString("username");
-                String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
                     //                } else if (email.equals(checkMail)) {
                     //                    return "Email already exist";
-                } else {
-                    st = connection.prepareStatement("INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)");
-                    st.setString(1, username);
-                    st.setString(2, password);
-                    st.setInt(3, 3);
-                    st.setString(4, email);
-                    int i = st.executeUpdate();
-
-                    if (i != 0) {
-                        SendEmail se = new SendEmail(email, username);
-                        se.sendMail();
-                        return "Success";
-                    }
+                }
+            } else {
+                st = connection.prepareStatement("INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)");
+                st.setString(1, username);
+                st.setString(2, password);
+                st.setInt(3, 3);
+                st.setString(4, email);
+                int i = st.executeUpdate();
+                if (i != 0) {
+                    SendEmail se = new SendEmail(email, username);
+                    se.sendMail();
+                    return "Success";
                 }
             }
+
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return "error";
+    }
+
+    public static void main(String[] args) {
+        String email = "philonghiryu@gmail.com";
+        String username = "longnt2";
+        String password = "Ryu@0000";
+        AccountDaoImpl accDao = new AccountDaoImpl();
+        Account acc = new Account(username, password, 3, email);
+        String msg = accDao.register(acc);
+        System.out.println(msg);
     }
 
     @Override
@@ -169,5 +179,5 @@ public class AccountDaoImpl implements AccountDao {
         }
         return null;
     }
-   
+
 }

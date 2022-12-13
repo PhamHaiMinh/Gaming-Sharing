@@ -98,7 +98,7 @@
                             <td><%=blog.getViewed() %></td>
                             <td><img src="<%=request.getContextPath() %>/files/<%=blog.getImage() %> " width="150px" height="120px"></td>
                             <td>
-                                <a href="edit-news?showedit=1&id=<%=blog.getId()%>">Sửa</a>
+                                <a href="edit-news?showedit=1&id=<%=blog.getId()%>" style="color: blue">Sửa</a>
                             </td>
                         </tr>
                         <%	
