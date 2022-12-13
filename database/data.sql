@@ -1,142 +1,142 @@
-﻿--use GamingSharing1;
+﻿--use GamingSharing;
 
 --role
-INSERT INTO Role1(name) VALUES ('admin');
-INSERT INTO Role1(name) VALUES ('staff');
-INSERT INTO Role1(name) VALUES ('user');
+INSERT INTO Role(name) VALUES ('admin');
+INSERT INTO Role(name) VALUES ('staff');
+INSERT INTO Role(name) VALUES ('user');
 
 --account
-INSERT INTO Account1(username, password, email, rollid, active)
+INSERT INTO Account(username, password, email, rollid, active)
 VALUES ('gura','123456Aa@','ducanhedison@gmail.com', 1, 1);
 
-INSERT INTO Account1(username, password, email, rollid, active)
+INSERT INTO Account(username, password, email, rollid, active)
 VALUES ('laplus','123456Aa@','ducanhedison@gmail.com', 2, 1);
 
-INSERT INTO Account1(username, password, email, rollid, active)
+INSERT INTO Account(username, password, email, rollid, active)
 VALUES ('iroha','123456Aa@','ducanhedison@gmail.com', 3, 1);
 
 --user
-INSERT INTO User1(account_id, last_name, middle_name, first_name, gender, phone)
+INSERT INTO [User](account_id, last_name, middle_name, first_name, gender, phone)
 VALUES (1,'Gawr',null,'Gura',0,'0393354261');
 
-INSERT INTO User1(account_id, last_name, middle_name, first_name, gender, phone)
+INSERT INTO [User](account_id, last_name, middle_name, first_name, gender, phone)
 VALUES (2,'Darkness',null,'Laplus',0,'+8493354261');
 
-INSERT INTO User1(account_id, last_name, middle_name, first_name, gender, phone)
+INSERT INTO [User](account_id, last_name, middle_name, first_name, gender, phone)
 VALUES (3,'Kazama',null,'Iroha',0,'0364484151');
 
 --category
-INSERT INTO Category1(name) VALUES ('keyboard');
-INSERT INTO Category1(name) VALUES ('headphone');
-INSERT INTO Category1(name) VALUES ('mouse');
+INSERT INTO Category(name) VALUES ('keyboard');
+INSERT INTO Category(name) VALUES ('headphone');
+INSERT INTO Category(name) VALUES ('mouse');
 
 --product
 -- INSERT INTO Product1(category_id, name, price, quantity, viewed, description, image)
-INSERT INTO Product1(category_id, name, price, quantity)
+INSERT INTO Product(category_id, name, price, quantity)
 VALUES (1,'AKKO 3084B',2099000,100);
 
-INSERT INTO Product1(category_id, name, price, quantity)
+INSERT INTO Product(category_id, name, price, quantity)
 VALUES (1,'AKKO 3068',1399000,100);
 
-INSERT INTO Product1(category_id, name, price, quantity)
+INSERT INTO Product(category_id, name, price, quantity)
 VALUES (1,'AKKO 3084',1599000,100);
 
-INSERT INTO Product1(category_id, name, price, quantity)
+INSERT INTO Product(category_id, name, price, quantity)
 VALUES (2,'Logitech Zone Vibe 100',3090000,100);
 
-INSERT INTO Product1(category_id, name, price, quantity)
+INSERT INTO Product(category_id, name, price, quantity)
 VALUES (2,'Sony 69',1000000,100);
 
-INSERT INTO Product1(category_id, name, price, quantity)
+INSERT INTO Product(category_id, name, price, quantity)
 VALUES (3,'Ryzer alpha',5000000,100);
 
 --cart
-INSERT INTO Cart1(user_id) VALUES (1);
-INSERT INTO Cart1(user_id) VALUES (2);
-INSERT INTO Cart1(user_id) VALUES (3);
+INSERT INTO Cart(user_id) VALUES (1);
+INSERT INTO Cart(user_id) VALUES (2);
+INSERT INTO Cart(user_id) VALUES (3);
 
 --cartdetail
-INSERT INTO Cart1Detail(cart_id, product_id, quantity) 
+INSERT INTO CartDetail(cart_id, product_id, quantity) 
 VALUES (1,1,1);
 
-INSERT INTO Cart1Detail(cart_id, product_id, quantity) 
+INSERT INTO CartDetail(cart_id, product_id, quantity) 
 VALUES (1,4,2);
 
-INSERT INTO Cart1Detail(cart_id, product_id, quantity) 
+INSERT INTO CartDetail(cart_id, product_id, quantity) 
 VALUES (3,5,3);
 
-INSERT INTO Cart1Detail(cart_id, product_id, quantity) 
+INSERT INTO CartDetail(cart_id, product_id, quantity) 
 VALUES (3,6,1);
 
 --statusorder
-INSERT INTO StatusOrder1(name) VALUES ('to pay');
-INSERT INTO StatusOrder1(name) VALUES ('to ship');
-INSERT INTO StatusOrder1(name) VALUES ('to receive');
-INSERT INTO StatusOrder1(name) VALUES ('completed');
-INSERT INTO StatusOrder1(name) VALUES ('pending cancel');
-INSERT INTO StatusOrder1(name) VALUES ('cancelled');
+INSERT INTO StatusOrder(name) VALUES ('to pay');
+INSERT INTO StatusOrder(name) VALUES ('to ship');
+INSERT INTO StatusOrder(name) VALUES ('to receive');
+INSERT INTO StatusOrder(name) VALUES ('completed');
+INSERT INTO StatusOrder(name) VALUES ('pending cancel');
+INSERT INTO StatusOrder(name) VALUES ('cancelled');
 
 --cancel
-INSERT INTO Cancel1(name) VALUES ('Tôi không thích thuê nữa');
-INSERT INTO Cancel1(name) VALUES ('Tôi không cần thuê nữa');
-INSERT INTO Cancel1(name) VALUES ('Tôi muốn thuê thêm');
-INSERT INTO Cancel1(name) VALUES ('Tôi muốn đổi đồ thuê');
+INSERT INTO Cancel(name) VALUES ('Tôi không thích thuê nữa');
+INSERT INTO Cancel(name) VALUES ('Tôi không cần thuê nữa');
+INSERT INTO Cancel(name) VALUES ('Tôi muốn thuê thêm');
+INSERT INTO Cancel(name) VALUES ('Tôi muốn đổi đồ thuê');
 
 --order
---INSERT INTO Order1(user_id, create_time, status_id, cancel_id) 
-INSERT INTO Order1(user_id, create_time, status_id) 
+--INSERT INTO Order(user_id, create_time, status_id, cancel_id) 
+INSERT INTO [Order](user_id, create_time, status_id) 
 VALUES (1,'2022-12-13',1);
 
-INSERT INTO Order1(user_id, create_time, status_id) 
+INSERT INTO [Order](user_id, create_time, status_id) 
 VALUES (1,'2022-12-13',2);
 
-INSERT INTO Order1(user_id, create_time, status_id) 
+INSERT INTO [Order](user_id, create_time, status_id) 
 VALUES (2,'2022-12-13',3);
 
-INSERT INTO Order1(user_id, create_time, status_id) 
+INSERT INTO [Order](user_id, create_time, status_id) 
 VALUES (2,'2022-12-13',4);
 
-INSERT INTO Order1(user_id, create_time, status_id) 
+INSERT INTO [Order](user_id, create_time, status_id) 
 VALUES (3,'2022-12-13',5);
 
-INSERT INTO Order1(user_id, create_time, status_id, cancel_id) 
+INSERT INTO [Order](user_id, create_time, status_id, cancel_id) 
 VALUES (3,'2022-12-13',6, 1);
 
 --orderdetail
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (1,1,1);
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (1,2,1);
 
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (2,3,1);
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (2,6,1);
 
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (3,5,3);
 
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (4,1,1);
 
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (5,2,1);
 
-INSERT INTO Order1Detail(order_id, product_id, quantity) 
+INSERT INTO OrderDetail(order_id, product_id, quantity) 
 VALUES (6,2,1);
 
 --address
-INSERT INTO Address1(user_id, ward_code, address_detail) 
+INSERT INTO Address(user_id, ward_code, address_detail) 
 VALUES (1,'09542','siêu thị Vinmart');
 
-INSERT INTO Address1(user_id, ward_code, address_detail) 
-VALUES (1,'09542','ngân hàng VPBank');
+INSERT INTO Address(user_id, ward_code, address_detail) 
+VALUES (2,'09542','ngân hàng VPBank');
 
-INSERT INTO Address1(user_id, ward_code, address_detail) 
-VALUES (1,'09542','siêu thị Coopmart');
+INSERT INTO Address(user_id, ward_code, address_detail) 
+VALUES (3,'09542','siêu thị Coopmart');
 
 --blog
-INSERT INTO Blog1(tittle, [content], create_time) 
+INSERT INTO Blog(tittle, [content], create_time) 
 VALUES ('Em thích cô giáo lớp em'
 	,'Cô em rất xinh. Cô có tâm hồn to tròn. Đêm nào em ngủ cũng mơ về cô. Em mong sau này có thể kiếm được 
 	nhiều tiền để cùng cô xây dựng tổ ấm hạnh phúc. Tổ ấm đó sẽ gồm có em, cô và 2 đứa con. Chỉ nghĩ đến thôi
