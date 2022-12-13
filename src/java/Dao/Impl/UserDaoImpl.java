@@ -96,9 +96,11 @@ public class UserDaoImpl implements UserDao {
                     + "  left join [Role] r on r.id = a.role_id \n"
                     + "  where a.role_id like  '%" + roleId + "%'  and u.gender like  '%" + gender + "%'  and a.active like  '%" + active + "%' ";
             PreparedStatement ps = connection.prepareStatement(sql);
+            System.out.println("sql");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
+                user.setId(rs.getInt(1));
                 user.setFirst_name(rs.getString(3));
                 user.setMiddle_name(rs.getString(4));
                 user.setLast_name(rs.getString(5));
@@ -122,7 +124,7 @@ public class UserDaoImpl implements UserDao {
         DBContext dBContext = new DBContext();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "   delete [User] where account_id = ? go\n"
+            String sql = "   delete [User] where account_id = ? \n"
                     + "  delete Account where id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, id);
@@ -201,6 +203,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();
+                user.setId(rs.getInt(1));
                 user.setFirst_name(rs.getString(3));
                 user.setMiddle_name(rs.getString(4));
                 user.setLast_name(rs.getString(5));
@@ -217,6 +220,7 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
+
 
     @Override
     public int getNumberGenOfStaff(boolean gender) {
@@ -287,5 +291,10 @@ public class UserDaoImpl implements UserDao {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
         }
         return user;
+
+    public static void main(String[] args) {
+        new UserDaoImpl().updateStaff("1", "0", "2");
+
+
     }
 }

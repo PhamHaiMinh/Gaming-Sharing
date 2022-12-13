@@ -10,11 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Category</title>
     </head>
     <body>
-        <%@include file="../layout/index.jsp"  %>
-
+        <%@include file="../layout/left.jsp"%>
         <div class=" container p-4 d-flex flex-column mx-auto  ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/category/create" role="button">Create</a>
@@ -71,6 +70,7 @@
                 </div>
             </div>
         </div>
+        <%@include file="../layout/footer.jsp"%>
         <div class="position-fixed w-100" id="alert-div">
             <c:if test="${status.equals('true')}">
                 <button class="alert alert-success d-flex align-items-center position-absolute ms-3 pe-auto" id="alert" role="alert" onclick="closeAlertModal()">

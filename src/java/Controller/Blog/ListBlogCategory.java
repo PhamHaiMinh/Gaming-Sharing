@@ -6,7 +6,6 @@ package Controller.Blog;
 
 import Dao.Impl.BlogCategoryDaoImpl;
 import Model.BlogCategory;
-import Model.Pagination;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -61,7 +60,7 @@ public class ListBlogCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -80,17 +79,7 @@ public class ListBlogCategory extends HttpServlet {
             msg = (String) request.getAttribute("msg");
         }
         BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
-        Pagination pagination = new Pagination();
-
-        int current_page = 1;
-        if (request.getParameter("page") != null) {
-            current_page = Integer.parseInt(request.getParameter("page"));
-        }
-        int total = blogCat.getTotalSearch("");
-        int row_count = pagination.getRowCountAdmin();
-        request.setAttribute("pages", pagination.getPages(total, row_count));
-        request.setAttribute("current_page", current_page);
-        ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) blogCat.getAll();
+        List<BlogCategory> listCategory = blogCat.getAll();
         request.setAttribute("listCategory", listCategory);
         if (listCategory.size() == 0) {
             msg += "\nKhông tồn tại dữ liệu!";
@@ -98,7 +87,7 @@ public class ListBlogCategory extends HttpServlet {
             request.setAttribute("listCategory", listCategory);
         }
         request.setAttribute("error", msg);
-        request.getRequestDispatcher("list_blog_category.jsp").forward(request, response);
+        request.getRequestDispatcher("blog/list_blog_category.jsp").forward(request, response);
     }
 
     /**

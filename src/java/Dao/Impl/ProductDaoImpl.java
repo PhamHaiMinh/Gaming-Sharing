@@ -41,16 +41,17 @@ public class ProductDaoImpl implements ProductDao {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"),
-                        rs.getInt("viewed"),
-                        rs.getInt("quantity"),
-                        rs.getString("description"),
-                        rs.getInt("category_id"),
-                        rs.getString("image")
-                );
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
             }
             product = getCategoryProduct(connection, product);
             dBContext.closeConnection(connection, ps, rs);
@@ -71,22 +72,25 @@ public class ProductDaoImpl implements ProductDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
-                product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"),
-                        rs.getInt("viewed"),
-                        rs.getInt("quantity"),
-                        rs.getString("description"),
-                        rs.getInt("category_id"),
-                        rs.getString("image")
-                );
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
                 product = getCategoryProduct(connection, product);
                 products.add(product);
             }
             dBContext.closeConnection(connection, ps, rs);
         } catch (SQLException e) {
-            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
         }
         return products;
     }
@@ -94,7 +98,8 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public boolean insert(Product item) {
         DBContext dBContext = new DBContext();
-        String sql = "INSERT INTO [dbo].[Product]\n"
+        String sql
+                = "INSERT INTO [dbo].[Product]\n"
                 + "           ([category_id]\n"
                 + "           ,[name]\n"
                 + "           ,[price]\n"
@@ -112,12 +117,17 @@ public class ProductDaoImpl implements ProductDao {
             ps.setInt(4, 0);
             ps.setInt(5, item.getQuantity());
             ps.setString(6, item.getDescription());
-            ps.setString(7, "https://res.cloudinary.com/dphdoh9qo/image/upload/v1670173476/Home/Images/Product/demo_k91l2y.png");
+            ps.setString(
+                    7,
+                    "https://res.cloudinary.com/dphdoh9qo/image/upload/v1670173476/Home/Images/Product/demo_k91l2y.png"
+            );
             ps.executeUpdate();
             dBContext.closeConnection(connection, ps);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -127,7 +137,8 @@ public class ProductDaoImpl implements ProductDao {
         DBContext dBContext = new DBContext();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "UPDATE Product\n"
+            String sql
+                    = "UPDATE Product\n"
                     + "   SET [category_id] = ?\n"
                     + "      ,[name] = ?\n"
                     + "      ,[price] =?\n"
@@ -147,7 +158,9 @@ public class ProductDaoImpl implements ProductDao {
             dBContext.closeConnection(connection, ps);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -175,7 +188,8 @@ public class ProductDaoImpl implements ProductDao {
         List<Product> products = new ArrayList<>();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "select * from Product\n"
+            String sql
+                    = "select * from Product\n"
                     + "order by id\n"
                     + "offset ? rows fetch next 5 rows only";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -183,16 +197,17 @@ public class ProductDaoImpl implements ProductDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
-                product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"),
-                        rs.getInt("viewed"),
-                        rs.getInt("quantity"),
-                        rs.getString("description"),
-                        rs.getInt("category_id"),
-                        rs.getString("image")
-                );
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
                 product = getCategoryProduct(connection, product);
                 products.add(product);
             }
@@ -204,29 +219,49 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public String uploadImage(Part filePart, HttpServletRequest request, Product item) {
+    public String uploadImage(
+            Part filePart,
+            HttpServletRequest request,
+            Product item
+    ) {
         if (filePart.getSize() == 0) {
             return new ProductDaoImpl().get(item.getId()).getImage();
         } else {
             if (item.getId() != 0) {
                 try {
-                    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                            "cloud_name", "dphdoh9qo",
-                            "api_key", "899222149965195",
-                            "api_secret", "MtwIam7__8S6GKlnSEPxG-6Akl0"));
+                    String fileName = Paths
+                            .get(filePart.getSubmittedFileName())
+                            .getFileName()
+                            .toString();
+                    Cloudinary cloudinary = new Cloudinary(
+                            ObjectUtils.asMap(
+                                    "cloud_name",
+                                    "dphdoh9qo",
+                                    "api_key",
+                                    "899222149965195",
+                                    "api_secret",
+                                    "MtwIam7__8S6GKlnSEPxG-6Akl0"
+                            )
+                    );
                     cloudinary.config.secure = true;
                     filePart.write(request.getRealPath("/image") + fileName);
                     Map path = ObjectUtils.asMap(
-                            "public_id", "Home/Images/Product/" + item.getId(),
-                            "overwrite", true,
-                            "resource_type", "image"
+                            "public_id",
+                            "Home/Images/Product/" + item.getId(),
+                            "overwrite",
+                            true,
+                            "resource_type",
+                            "image"
                     );
-                    Map uploadResult = cloudinary.uploader().upload(request.getRealPath("image") + fileName, path);
+                    Map uploadResult = cloudinary
+                            .uploader()
+                            .upload(request.getRealPath("image") + fileName, path);
                     filePart.delete();
                     return uploadResult.get("secure_url").toString();
                 } catch (IOException ex) {
-                    Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger
+                            .getLogger(ProductDaoImpl.class.getName())
+                            .log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -236,17 +271,25 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public void destroyImage(int id) {
         try {
-            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                    "cloud_name", "dphdoh9qo",
-                    "api_key", "899222149965195",
-                    "api_secret", "MtwIam7__8S6GKlnSEPxG-6Akl0"));
-            cloudinary.config.secure = true;
-            Map path = ObjectUtils.asMap(
-                    "resource_type", "image"
+            Cloudinary cloudinary = new Cloudinary(
+                    ObjectUtils.asMap(
+                            "cloud_name",
+                            "dphdoh9qo",
+                            "api_key",
+                            "899222149965195",
+                            "api_secret",
+                            "MtwIam7__8S6GKlnSEPxG-6Akl0"
+                    )
             );
-            cloudinary.uploader().destroy("Home/Images/Product/" + Integer.toString(id), path);
+            cloudinary.config.secure = true;
+            Map path = ObjectUtils.asMap("resource_type", "image");
+            cloudinary
+                    .uploader()
+                    .destroy("Home/Images/Product/" + Integer.toString(id), path);
         } catch (IOException ex) {
-            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
     }
 
@@ -260,16 +303,17 @@ public class ProductDaoImpl implements ProductDao {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"),
-                        rs.getInt("viewed"),
-                        rs.getInt("quantity"),
-                        rs.getString("description"),
-                        rs.getInt("category_id"),
-                        rs.getString("image")
-                );
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
                 product = getCategoryProduct(connection, product);
             }
             dBContext.closeConnection(connection, ps, rs);
@@ -280,11 +324,16 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> search(String sort,
-            int categoryId, long minPrice, long maxPrice, String name) {
+    public List<Product> search(
+            String sort,
+            int categoryId,
+            long minPrice,
+            long maxPrice,
+            String name
+    ) {
         DBContext dBContext = new DBContext();
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM Product p WHERE 1=1";
+        String sql = "SELECT * FROM product p WHERE 1=1";
         sql = addCategoryID(sql, categoryId); // WHERE CategoryID=
         sql = addUnitPrice(sql, minPrice, maxPrice); // WHERE UnitsPrice BETWEEN
         sql = addSearchByName(sql, name);
@@ -302,7 +351,8 @@ public class ProductDaoImpl implements ProductDao {
                         rs.getInt("quantity"),
                         rs.getString("description"),
                         rs.getInt("category_id"),
-                        rs.getString("image"));
+                        rs.getString("image")
+                );
                 product = getCategoryProduct(connection, product);
                 products.add(product);
             }
@@ -313,10 +363,198 @@ public class ProductDaoImpl implements ProductDao {
         return products;
     }
 
-    private String addCategoryID(String sql, int CategoryID) {
+    @Override
+    public Product getProductById(String id) {
+        DBContext dBContext = new DBContext();
+        Product product = new Product();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select * from Product where id = " + id;
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+                product = getCategoryProduct(connection, product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return product;
+    }
+
+    @Override
+    public List<Product> getofCategory(int categoryId, int page) {
+        DBContext dBContext = new DBContext();
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql
+                    = "select * from Product\n"
+                    + "where category_id = ?\n"
+                    + "order by id\n"
+                    + "offset ? rows fetch next 5 rows only";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ps.setInt(2, (page - 1) * 5);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+                product = getCategoryProduct(connection, product);
+                products.add(product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> getofCategory(int categoryId) {
+        DBContext dBContext = new DBContext();
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select * from Product\n" + "where category_id = ?\n";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+                product = getCategoryProduct(connection, product);
+                products.add(product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> getTop5OfCategory(int categoryId) {
+        DBContext dBContext = new DBContext();
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select top 5 * from Product where category_id = ? ORDER BY id DESC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+                product = getCategoryProduct(connection, product);
+                products.add(product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return products;
+    }
+
+    @Override
+    public Product getofUser(int id) {
+        DBContext dBContext = new DBContext();
+        Product product = new Product();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select * from Product where id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+            }
+            product = getCategoryProduct(connection, product);
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        updateview(product);
+        return product;
+    }
+
+    private boolean updateview(Product product) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql
+                    = "UPDATE Product\n"
+                    + "   SET [viewed] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, product.getViewed() + 1);
+            ps.setInt(2, product.getId());
+            ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException ex) {
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    private String addCategoryID(String sql, int categoryId) {
         StringBuilder sb = new StringBuilder(sql);
-        if (CategoryID > 0) {
-            sb.append(" AND id=").append(CategoryID);
+        if (categoryId > 0) {
+            sb.append(" AND category_id=").append(categoryId);
         }
         return sb.toString();
     }
@@ -324,7 +562,11 @@ public class ProductDaoImpl implements ProductDao {
     private String addUnitPrice(String sql, long begin, long end) {
         StringBuilder sb = new StringBuilder(sql);
         if (end > 0) {
-            sb.append(" AND price BETWEEN ").append(begin).append(" AND ").append(end);
+            sb
+                    .append(" AND price BETWEEN ")
+                    .append(begin)
+                    .append(" AND ")
+                    .append(end);
         }
         return sb.toString();
     }
@@ -356,11 +598,15 @@ public class ProductDaoImpl implements ProductDao {
                 sb.append(" ORDER BY price DESC");
                 break;
             }
-
             case "sortNew": {
-                sb.append(" ORDER BY id ASC");
+                sb.append(" ORDER BY id DESC");
                 break;
             }
+            case "sortView": {
+                sb.append(" ORDER BY viewed DESC");
+                break;
+            }
+
             default: {
                 sb.append(" ORDER BY id DESC");
                 break;
@@ -371,7 +617,6 @@ public class ProductDaoImpl implements ProductDao {
 
     private Product getCategoryProduct(Connection connection, Product product) {
         try {
-
             String quesry = "select * from Category where id=?";
             PreparedStatement prS = connection.prepareStatement(quesry);
             prS.setInt(1, product.getCategoryId());
@@ -383,36 +628,9 @@ public class ProductDaoImpl implements ProductDao {
                 product.setCategory(category);
             }
         } catch (SQLException e) {
-            Logger.getLogger(ProductDaoImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return product;
-    }
-
-    @Override
-    public Product getProductById(String id) {
-          DBContext dBContext = new DBContext();
-        Product product = new Product();
-        try {
-            Connection connection = dBContext.getConnection();
-            String sql = "select * from Product where id = " +  id;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"),
-                        rs.getInt("viewed"),
-                        rs.getInt("quantity"),
-                        rs.getString("description"),
-                        rs.getInt("category_id"),
-                        rs.getString("image")
-                );
-                product = getCategoryProduct(connection, product);
-            }
-            dBContext.closeConnection(connection, ps, rs);
-        } catch (SQLException e) {
-            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
         }
         return product;
     }

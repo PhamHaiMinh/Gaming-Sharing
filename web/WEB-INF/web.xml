@@ -137,6 +137,14 @@
         <servlet-name>DeleteBlogCategory</servlet-name>
         <servlet-class>Controller.Blog.DeleteBlogCategory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListBlogStaff</servlet-name>
+        <servlet-class>Controller.Blog.ListBlogStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailProduct</servlet-name>
+        <servlet-class>Controller.DetailProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
         <url-pattern>/Activation</url-pattern>
@@ -272,6 +280,14 @@
     <servlet-mapping>
         <servlet-name>DeleteBlogCategory</servlet-name>
         <url-pattern>/staff/blog/delete-cat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBlogStaff</servlet-name>
+        <url-pattern>/staff/blog/list-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailProduct</servlet-name>
+        <url-pattern>/product/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

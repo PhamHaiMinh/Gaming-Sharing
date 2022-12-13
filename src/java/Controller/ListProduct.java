@@ -47,8 +47,8 @@ public class ListProduct extends HttpServlet {
         String name = request.getParameter("search") != null
                 ? request.getParameter("search").trim()
                 : "";
-        int categoryId = request.getParameter("category") != null
-                ? Integer.parseInt(request.getParameter("category"))
+        int categoryId = request.getParameter("categoryId") != null
+                ? Integer.parseInt(request.getParameter("categoryId"))
                 : 0;
         int minPrice = request.getParameter("minPrice") != null
                 && !"".equals(request.getParameter("minPrice"))
@@ -80,6 +80,6 @@ public class ListProduct extends HttpServlet {
         request.setAttribute("maxPrice", maxPrice);
         request.setAttribute("categories", categories);
         request.setAttribute("products", products);
-        request.getRequestDispatcher("productList.jsp").forward(request, response);
+        request.getRequestDispatcher("product/productList.jsp").forward(request, response);
     }
 }

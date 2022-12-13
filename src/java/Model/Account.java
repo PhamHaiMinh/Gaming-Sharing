@@ -40,6 +40,14 @@ public class Account {
     public Account() {
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     public Account(String username, String password, int role, String email) {
         this.username = username;
         this.password = password;
