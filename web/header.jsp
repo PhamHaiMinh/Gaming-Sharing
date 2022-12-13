@@ -22,6 +22,7 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <!-- Libraries Stylesheet -->
+    <link href="<%=request.getContextPath()%>/assets/lib/animate/animate.min.css" rel="stylesheet" />
     <link href="<%=request.getContextPath()%>/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -95,5 +96,5 @@
             </div>
         </nav>
     </div>
-</div>
+
 <!-- Navbar End -->    
