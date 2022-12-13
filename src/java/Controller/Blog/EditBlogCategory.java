@@ -57,7 +57,7 @@ public class EditBlogCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("edit_blog_category.jsp").forward(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -82,25 +82,26 @@ public class EditBlogCategory extends HttpServlet {
 				}else{
 					description = request.getParameter("description");
 					BlogCategory blogCategory = new BlogCategory();
+                                        blogCategory.setId(id);
 					blogCategory.setName(catName);
 					blogCategory.setDescription(description);
 					
 					if(blogCat.update(blogCategory)){
 						error += "Sửa danh mục thành công";
 						request.setAttribute("msg", error);
-						request.getRequestDispatcher("list_blog_category").forward(request, response);
+						request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
 						return;
 					}else{
 						error+="Thêm dữ liệu vào database thất bại";
 					}
 				}
 				request.setAttribute("error", error);
-				request.getRequestDispatcher("add_blog_category.jsp").forward(request, response);
+				request.getRequestDispatcher("add-cat").forward(request, response);
 			}
 			if(request.getParameter("showedit")!=null&&id!=null){
 				BlogCategory blogCategory = blogCat.getCategory(id);
-				request.setAttribute("blogCat",blogCategory);
-				request.getRequestDispatcher("edit_blog_category.jsp.jsp").forward(request, response);
+				request.setAttribute("blogCategory",blogCategory);
+				request.getRequestDispatcher("edit_blog_category.jsp").forward(request, response);
 			}
     }
 
