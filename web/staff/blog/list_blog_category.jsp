@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Blog Category List</title>
         <link rel="stylesheet" type="text/css"
-              href="<%=request.getContextPath()%>/assets/css/styles.css" />
+              href="<%=request.getContextPath()%>/assets/css/style.css" />
         <link rel="stylesheet" type="text/css"
               href="<%=request.getContextPath()%>/assets/css/bootstrap.min.css" />
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/js/check.js"></script>
@@ -28,8 +28,9 @@
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
     </head>
 
-    <body class="container-fluid">
-        <div style="background-color: #f1f1f1;">
+    <body>
+        <%@include file="../layout/left.jsp"%>
+        <div style="background-color: #f1f1f1" class="p-3">
 
             <%
                     ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
@@ -43,6 +44,7 @@
             %>
             <div>
 
+                <br />
                 <div class="error" >
                     <span id="msg"><%if(error!=null) out.print(error); %></span>
                 </div>
@@ -66,8 +68,8 @@
                     </div>
                     <table class="table table-bordered table-hover">
                         <tr>
+                            <th></th>
                             <th>STT</th>
-                            <th>Chọn</th>
                             <th>ID</th>
                             <th>Tên danh mục</th>
                             <th>Mô tả</th>
@@ -78,10 +80,10 @@
                                         for(BlogCategory blogCat:listCategory){
                         %>
                         <tr>
-                            <td><%=stt++ %></td>
                             <td>
                                 <input type="checkbox" name="check" value="<%=blogCat.getId() %>">
                             </td>
+                            <td><%=stt++ %></td>   
                             <td><%=blogCat.getId() %></td>
                             <td><%=blogCat.getName() %></td>
                             <td><%=blogCat.getDescription() %></td>
@@ -94,6 +96,7 @@
                                 }
                         %>
                     </table>
+
                 </form>
             </div>
         </div>
@@ -110,5 +113,6 @@
                 return false;
             }
         </script>
+        
     </body>							
 </html>

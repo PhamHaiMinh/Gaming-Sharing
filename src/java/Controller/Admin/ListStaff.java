@@ -22,7 +22,6 @@ import java.util.List;
  */
 public class ListStaff extends HttpServlet {
 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -35,14 +34,15 @@ public class ListStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String roleId =request.getParameter("roleId"); 
-        String gender=request.getParameter("gender");
-        String active=request.getParameter("active");
+        String roleId = request.getParameter("roleId")==null?"":request.getParameter("roleId");
+        String gender = request.getParameter("gender")==null?"":request.getParameter("gender");
+        String active = request.getParameter("active")==null?"":request.getParameter("active");
         UserDao dao = new UserDaoImpl();
-         List<User> list = dao.getListUser(roleId, gender, active);
-         List<Role> listRole = dao.getAllRole();
-         request.setAttribute("list", list);
-         request.getRequestDispatcher("list.jsp").forward(request, response);
+        List<User> list = dao.getListUser(roleId, gender, active);
+        List<Role> listRole = dao.getAllRole();
+        request.setAttribute("listRole", listRole);
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("/staff/staff/list.jsp").forward(request, response);
     }
 
     /**

@@ -1,4 +1,4 @@
-s<%-- 
+<%-- 
     Document   : header
     Created on : Dec 5, 2022, 10:15:42 AM
     Author     : Admin
@@ -22,6 +22,7 @@ s<%--
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <!-- Libraries Stylesheet -->
+    <link href="<%=request.getContextPath()%>/assets/lib/animate/animate.min.css" rel="stylesheet" />
     <link href="<%=request.getContextPath()%>/assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
@@ -41,9 +42,10 @@ s<%--
             </a> 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="<%=request.getContextPath()%>/home" class="nav-item nav-link active">Trang chủ</a>
-                    <a href="<%=request.getContextPath()%>/product" class="nav-item nav-link">Sản phẩm</a>
-                    <a href="<%=request.getContextPath()%>/blog" class="nav-item nav-link">Blog</a>
+                    
+                    <a href="<%=request.getContextPath()%>/home" class="nav-item nav-link <%=request.getServletPath().startsWith("/home")?"active":""%>">Trang chủ</a>
+                    <a href="<%=request.getContextPath()%>/product" class="nav-item nav-link <%=request.getServletPath().startsWith("/product")?"active":""%>">Sản phẩm</a>
+                    <a href="<%=request.getContextPath()%>/blog" class="nav-item nav-link <%=request.getServletPath().startsWith("/blog")?"active":""%>">Blog</a>
                     <div class="d-block">
                         <a class="nav-item nav-link" data-toggle="collapse"
                            href="#navbar-vertical">
@@ -94,5 +96,5 @@ s<%--
             </div>
         </nav>
     </div>
-</div>
+
 <!-- Navbar End -->    

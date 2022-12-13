@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Model.BlogCategory"%>
+<%@page import="Model.Blog"%>
 <!DOCTYPE html>
 <html>
     <html>
@@ -29,7 +31,7 @@
         <body class="container-fluid">
             <div style="background-color: #f1f1f1;">
                 <%
-                    BlogCategory blogCategory = (blogCategory) request.getAttribute("blogCategory");
+                    BlogCategory blogCategory = (BlogCategory) request.getAttribute("blogCategory");
                     String error = (String) request.getAttribute("error");
                 %>
                 <h2>Thêm danh mục</h2>
@@ -37,7 +39,7 @@
                     <span> <% if (error != null) out.print(error); %>
                     </span>
                 </div>
-                <form action="<%= request.getContextPath()%>/staff/blog/edit-cat?edit=1&id=<%=blogCategory.getID() %>" method="post" class="form-horizontal" onsubmit="return checkAdd()">
+                <form action="<%= request.getContextPath()%>/staff/blog/edit-cat?edit=1&id=<%=blogCategory.getId() %>" method="post" class="form-horizontal" onsubmit="return checkAdd()">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tên danh mục *</label>
                         <div class="col-sm-4">

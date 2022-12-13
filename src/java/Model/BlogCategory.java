@@ -9,13 +9,25 @@ package Model;
  * @author Admin
  */
 public class BlogCategory {
+
     private String id;
     private String name;
     private String description;
+    private int viewed;
 
-    public BlogCategory(String name, String description) {
+    public BlogCategory(String id, String name, String description, int viewed) {
+        this.id = id;
         this.name = name;
         this.description = description;
+        this.viewed = viewed;
+    }
+
+    public int getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(int viewed) {
+        this.viewed = viewed;
     }
 
     public BlogCategory() {
@@ -45,5 +57,5 @@ public class BlogCategory {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 }
