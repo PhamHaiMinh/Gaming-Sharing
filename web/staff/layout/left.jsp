@@ -61,49 +61,50 @@ crossorigin="anonymous"></script>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="<%= request.getContextPath()%>/staff" class="nav-link active" aria-current="page">
+            <a href="<%= request.getContextPath()%>/staff" class="nav-link <%=request.getServletPath().equals("/staff/dashBoard.jsp")?"active":""%>" aria-current="page">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                 Dashboard
             </a>
         </li>
+        <%=request.getServletPath()%>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/category" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/category" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/category")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
                 Category
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/product" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/product" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/product")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
                 Product
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/ListBlogCategory")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                 Blog Categories 
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/blog" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/blog" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/blog")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                 Blogs
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/customer" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/customer" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/customer")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                 Customers 
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/order" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/order" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/order")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                 Orders
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/cancel" class="nav-link text-white">
+            <a href="<%= request.getContextPath()%>/staff/cancel" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/cancel")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                 Cancel
             </a>

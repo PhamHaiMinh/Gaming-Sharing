@@ -13,8 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="../layout/index.jsp"  %>
-
+        <%@include file="../layout/left.jsp"%>
         <div class=" container p-4 d-flex flex-column mx-auto  ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
@@ -75,11 +74,12 @@
                     <ul class="pagination justify-content-center">
                         <c:forEach   items="${pages}" var="p">
                             <li class="page-item"><a class="page-link  ${page == p ? "active":""}  ${p}" href="product?page=${p}">${p == "disabled"? "..." : p}</a></li>
-                        </c:forEach>
+                            </c:forEach>
                     </ul>
                 </div>
             </div>
         </div>
+        <%@include file="../layout/footer.jsp"%>
         <div class="position-fixed w-100" id="alert-div">
             <c:if test="${status.equals('true')}">
                 <button class="alert alert-success d-flex align-items-center position-absolute ms-3 pe-auto" id="alert" role="alert" onclick="closeAlertModal()">
