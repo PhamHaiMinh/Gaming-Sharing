@@ -9,8 +9,8 @@ package Model;
  * @author LENOVO
  */
 public class Role {
-    private int rid;
-    private String name;
+    public int rid;
+    public String name;
 
     public Role() {
     }

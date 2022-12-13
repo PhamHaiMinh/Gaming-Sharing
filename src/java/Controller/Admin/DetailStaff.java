@@ -6,6 +6,7 @@ package Controller.Admin;
 
 import Dao.Impl.UserDaoImpl;
 import Dao.UserDao;
+import Model.Role;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -34,8 +36,10 @@ public class DetailStaff extends HttpServlet {
         String sid = request.getParameter("sid");
         UserDao dao = new UserDaoImpl();
         User u = dao.getById(sid);
-        request.setAttribute("u", u);
-        request.getRequestDispatcher("").forward(request, response);
+        List<Role> listRole = dao.getAllRole();
+        request.setAttribute("listRole", listRole);
+        request.setAttribute("user", u);
+        request.getRequestDispatcher("/staff/staff/detail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
