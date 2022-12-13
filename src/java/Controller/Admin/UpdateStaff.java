@@ -6,6 +6,8 @@ package Controller.Admin;
 
 import Dao.Impl.UserDaoImpl;
 import Dao.UserDao;
+import Model.Role;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -38,7 +41,7 @@ public class UpdateStaff extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateStaff</title>");            
+            out.println("<title>Servlet UpdateStaff</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateStaff at " + request.getContextPath() + "</h1>");
@@ -59,7 +62,14 @@ public class UpdateStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         String sid = request.getParameter("sid");
+        UserDao dao = new UserDaoImpl();
+        User u = dao.getById(sid);
+        List<Role> listRole = dao.getAllRole();
+        request.setAttribute("listRole", listRole);
+        request.setAttribute("user", u);
+        request.getRequestDispatcher("/staff/staff/edit.jsp").forward(request, response);
+  
     }
 
     /**
@@ -73,11 +83,12 @@ public class UpdateStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           String roleId = request.getParameter("roleId");
-        String gender = request.getParameter("gender");
-        String active = request.getParameter("active");
+        String uid = request.getParameter("uid");
+        String roleId = request.getParameter("role");
+        String status = request.getParameter("status");
         UserDao dao = new UserDaoImpl();
-        response.sendRedirect(active);
+        dao.updateStaff(uid, status, roleId);
+        response.sendRedirect("ListStaff");
     }
 
     /**

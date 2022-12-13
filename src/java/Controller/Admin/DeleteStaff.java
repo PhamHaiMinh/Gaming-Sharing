@@ -57,9 +57,10 @@ public class DeleteStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sid = request.getParameter("sid");
+        String sid = request.getParameter("uid");
         UserDao dao = new UserDaoImpl();
-        response.sendRedirect("");
+        dao.deleteStaff(sid);
+        response.sendRedirect("ListStaff");
     }
 
     /**

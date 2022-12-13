@@ -57,11 +57,11 @@ public class EditStaffStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String roleId = request.getParameter("roleId");
-        String gender = request.getParameter("gender");
+        String uid = request.getParameter("uid");
         String active = request.getParameter("active");
         UserDao dao = new UserDaoImpl();
-        response.sendRedirect(active);
+        dao.changeStatus(uid, active);
+        response.sendRedirect("ListStaff");
     }
 
     /**
@@ -75,7 +75,7 @@ public class EditStaffStatus extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   
+
     }
 
     /**
