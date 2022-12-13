@@ -60,65 +60,40 @@
             }
         </script>
         <style>
-            .all{
-                display: flex;
-            }
-            .left{
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
-            .right{
-                width: 100%;
-                flex: 6;
-                display: flex;
-                flex-direction: column;
-            }
             .diagram{
                 display: flex;
                 flex-direction: row;
                 flex: 1;
                 width: -webkit-fill-available;
             }
-            
+
             .content{
                 display: flex;
                 flex: 1;
                 flex-direction: column;
                 width: 100%;
             }
-            
+
             .diagram1{
                 flex: 1;
             }
             .diagram2{
                 flex: 1;
             }
-            .footer{
-                position: absolute;
-                width: -webkit-fill-available;
-                bottom: 0;
-            }
         </style>
     </head>
     <body>
-       <div class="all">
-            <div class="left">
-                <jsp:include page="left.jsp"></jsp:include>
+        <jsp:include page="layout/left.jsp"></jsp:include>
+            <div class="d-flex flex-column mx-auto ">
+                <div class="diagram">
+                    <div class="diagram1" id="piechart" style="width: 50%; height: 99%;"></div>
+                    <div class="diagram2" id="curve_chart" style="width: 50%; height: 99%"></div> 
                 </div>
-                <div class="right">
-                    <div class="diagram">
-                        <div class="diagram1" id="piechart" style="width: 50%; height: 99%;"></div>
-                        <div class="diagram2" id="curve_chart" style="width: 50%; height: 99%"></div> 
-                    </div>
-                    <div class="content">
-                        <h1>sdasahdusahudhsuahduhuh</h1>
-                        <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
-                    </div>
-                    <div class="footer">
-                    <jsp:include page="footer.jsp"></jsp:include>
-                </div>      
+                <div class="content">
+                    <h1>sdasahdusahudhsuahduhuh</h1>
+                    <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
+                </div>
             </div>
-        </div>
+        <jsp:include page="layout/footer.jsp"></jsp:include>
     </body>
 </html>

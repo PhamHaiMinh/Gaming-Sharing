@@ -50,17 +50,5 @@ public class Category {
     this.name = name;
     this.totalOfProduct = totalOfProduct;
   }
-}
-    return totalOfProduct;
-  }
-
-  public void setTotalOfProduct(int totalOfProduct) {
-    this.totalOfProduct = totalOfProduct;
-  }
-
-  public Category(int id, String name, int totalOfProduct) {
-    this.id = id;
-    this.name = name;
-    this.totalOfProduct = totalOfProduct;
-  }
+ 
 }
