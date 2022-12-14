@@ -136,12 +136,7 @@ INSERT INTO Address(user_id, ward_code, address_detail)
 VALUES (3,'09542','siêu thị Coopmart');
 
 --blog
-INSERT INTO Blog(tittle, [content], create_time) 
-VALUES ('Em thích cô giáo lớp em'
-	,'Cô em rất xinh. Cô có tâm hồn to tròn. Đêm nào em ngủ cũng mơ về cô. Em mong sau này có thể kiếm được 
-	nhiều tiền để cùng cô xây dựng tổ ấm hạnh phúc. Tổ ấm đó sẽ gồm có em, cô và 2 đứa con. Chỉ nghĩ đến thôi
-	em đã cảm thấy mãn nguyện vô cùng. Đó là động lực để em code ngày code đêm pass SWP391 block 5 này.'
-	,'2022-12-13');
+
 
 -- DATA for administrative_regions
 INSERT INTO administrative_regions (id,name,name_en,code_name,code_name_en) VALUES

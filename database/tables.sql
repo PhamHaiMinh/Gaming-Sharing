@@ -127,8 +127,21 @@ ON UPDATE CASCADE;
 create table Blog (
 	id int not null identity(1,1) primary key,
 	tittle nvarchar(150) not null unique,
-	[content] varchar(Max) not null,
+	[body] nvarchar(Max) not null,
 	create_time date not null,
+	viewed int not null,
+	category_id int not null,
+	browser int not null,
+	[priority] int not null,
+	[image] nvarchar(50) not null,
+	[source] nvarchar(50) not null,
+);
+
+create table BlogCategory (
+	id int not null identity(1,1) primary key,
+	[name] nvarchar(50) not null,
+	description nvarchar(50) not null,
+	viewed int default 0 not null,
 );
 
 create table Address (

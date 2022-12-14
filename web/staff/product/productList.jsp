@@ -29,7 +29,7 @@
                             <th scope="col">Category</th>
                             <th scope="col">Quantity</th>                       
                             <th scope="col">Price</th>
-                            <th scope="col">Iamge</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Viewed</th>
                             <th scope="col"></th>
                         </tr>
