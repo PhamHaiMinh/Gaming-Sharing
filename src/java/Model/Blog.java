@@ -22,12 +22,11 @@ public class Blog {
     private String source;
     private String userId;
     private int browser;
-    private String author;
 
     public Blog() {
     }
 
-    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int priority, String source, String userId, int browser, String author) {
+    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int priority, String source, String userId, int browser) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -40,7 +39,18 @@ public class Blog {
         this.source = source;
         this.userId = userId;
         this.browser = browser;
-        this.author = author;
+    }
+
+    public Blog(String id, String title, String body, String create_time, String image, String catId, int viewed, int priority, String source) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.create_time = create_time;
+        this.image = image;
+        this.catId = catId;
+        this.viewed = viewed;
+        this.priority = priority;
+        this.source = source;
     }
 
     public int getBrowser() {
@@ -137,14 +147,6 @@ public class Blog {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
 }

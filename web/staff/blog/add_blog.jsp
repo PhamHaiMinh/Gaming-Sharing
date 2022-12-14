@@ -26,7 +26,7 @@
         src="<%=request.getContextPath()%>/assets/js/ckeditor/ckeditor.js"></script>
         <script type="text/javascript"
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
-       <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
     </head>
 
     <body>
@@ -39,7 +39,7 @@
             <span><%if(error!=null) out.print(error); %></span>
         </div>
         <div style="background-color: #f1f1f1;" class="p-3">
-            <form action="<%= request.getContextPath()%>/staff/blog/add-blog?add=1" method="post" class="form-horizontal" onsubmit="return checkAdd()">
+            <form action="<%= request.getContextPath()%>/staff/blog/add-blog?add=1" method="post" class="form-horizontal" enctype="multipart/form-data" onsubmit="return checkAdd()">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Tiêu đề *</label>
                     <div class="col-sm-4">
@@ -80,20 +80,32 @@
                         </select>
                     </div>
                 </div>
-                        
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Hình ảnh *</label>
+                    <div class="col-sm-10">
+                        <label  class="form-label">Select image:</label ><br/>
+                        <input type="file" required id="img" name="image" required accept="image/*"> 
+                        <div class="valid-feedback">
+                            Valid
+                        </div>
+                        <div class="invalid-feedback">
+                            Please input Image
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Nội dung *</label>
                     <div class="col-sm-10">
                         <textarea id="editor" name="body" required></textarea>
                         <script>
                             ClassicEditor
-                                .create( document.querySelector( '#editor' ) )
-                                .then( editor => {
-                                        console.log( editor );
-                                } )
-                                .catch( error => {
-                                        console.error( error );
-                                } );
+                                    .create(document.querySelector('#editor'))
+                                    .then(editor => {
+                                        console.log(editor);
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                         </script>
                     </div>
                 </div>

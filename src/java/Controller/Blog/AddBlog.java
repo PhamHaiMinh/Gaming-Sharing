@@ -11,14 +11,18 @@ import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import java.util.List;
+
 /**
  *
  * @author Admin
  */
+@MultipartConfig
 public class AddBlog extends HttpServlet {
 
     /**
@@ -74,15 +78,15 @@ public class AddBlog extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("add") != null) {
-            System.out.println("vao 0");
             BlogDaoImpl blogDao = new BlogDaoImpl();
-            String title , source , body , category;
+            String title, source, body, category;
             int priority = 0;
 
             title = request.getParameter("title");
             category = request.getParameter("category");
             source = request.getParameter("source");
             body = request.getParameter("body");
+            Part filePart = request.getPart("image");
             Blog blog = new Blog();
             blog.setCatId(category);
             blog.setTitle(title);
@@ -91,9 +95,11 @@ public class AddBlog extends HttpServlet {
             blog.setPriority(priority);
             blog.setViewed(0);
             blog.setSource(source);
-            System.out.println("vao 1");
 
             if (blogDao.insert(blog)) {
+                blog = blogDao.getLast();
+                String image = blogDao.uploadImage(filePart, request, blog);
+                blog.setImage(image);
                 response.sendRedirect("list-blog");
             } else {
                 request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
@@ -105,7 +111,6 @@ public class AddBlog extends HttpServlet {
             BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
             List<BlogCategory> listCategory = blogCat.getAll();
             request.setAttribute("listCategory", listCategory);
-            System.out.println("2");
             request.getRequestDispatcher("add_blog.jsp").forward(request, response);
         }
     }
