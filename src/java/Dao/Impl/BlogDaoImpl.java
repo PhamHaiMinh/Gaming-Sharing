@@ -63,7 +63,26 @@ public class BlogDaoImpl implements BlogDao {
 
     @Override
     public boolean deleteBlog(String[] listIdDelete) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String str = "";
+        if (listIdDelete.length == 1) {
+            str = "'" + listIdDelete[0] + "'";
+        } else {
+            for (int i = 0; i < listIdDelete.length - 1; i++) {
+                str += "'" + listIdDelete[i] + "',";
+            }
+            str += "'" + listIdDelete[listIdDelete.length - 1] + "'";
+        }
+        String sql = "DELETE FROM Blog WHERE id IN (" + str + ")";
+        int delete = 0;
+        try {
+            Connection conn = db.getConnection();
+            stm = conn.createStatement();
+            delete = stm.executeUpdate(sql);
+            db.closeConnection(conn, pstm, rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return delete != 0;
     }
 
     @Override
