@@ -7,23 +7,23 @@
     </servlet>
     <servlet>
         <servlet-name>ListCategoryStaff</servlet-name>
-        <servlet-class>Controller.ListCategoryStaff</servlet-class>
+        <servlet-class>Controller.category.ListCategoryStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateCategoryStaff</servlet-name>
-        <servlet-class>Controller.CreateCategoryStaff</servlet-class>
+        <servlet-class>Controller.category.CreateCategoryStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCategoryStaff</servlet-name>
-        <servlet-class>Controller.DeleteCategoryStaff</servlet-class>
+        <servlet-class>Controller.category.DeleteCategoryStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCategoryStaff</servlet-name>
-        <servlet-class>Controller.UpdateCategoryStaff</servlet-class>
+        <servlet-class>Controller.category.UpdateCategoryStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailCategoryStaff</servlet-name>
-        <servlet-class>Controller.DetailCategoryStaff</servlet-class>
+        <servlet-class>Controller.category.DetailCategoryStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
@@ -31,31 +31,31 @@
     </servlet>
     <servlet>
         <servlet-name>ListProductStaff</servlet-name>
-        <servlet-class>Controller.ListProductStaff</servlet-class>
+        <servlet-class>Controller.product.ListProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DashBoardStaff</servlet-name>
-        <servlet-class>Controller.DashBoardStaff</servlet-class>
+        <servlet-class>Controller.staff.DashBoardStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateProductStaff</servlet-name>
-        <servlet-class>Controller.CreateProductStaff</servlet-class>
+        <servlet-class>Controller.staff.CreateProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailProductStaff</servlet-name>
-        <servlet-class>Controller.DetailProductStaff</servlet-class>
+        <servlet-class>Controller.product.DetailProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProductStaff</servlet-name>
-        <servlet-class>Controller.UpdateProductStaff</servlet-class>
+        <servlet-class>Controller.product.UpdateProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteProductStaff</servlet-name>
-        <servlet-class>Controller.DeleteProductStaff</servlet-class>
+        <servlet-class>Controller.product.DeleteProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListProduct</servlet-name>
-        <servlet-class>Controller.ListProduct</servlet-class>
+        <servlet-class>Controller.product.ListProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>dashboard</servlet-name>
@@ -87,19 +87,19 @@
     </servlet>
     <servlet>
         <servlet-name>AddToCart</servlet-name>
-        <servlet-class>Controller.AddToCart</servlet-class>
+        <servlet-class>Controller.cart.AddToCart</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCartItem</servlet-name>
-        <servlet-class>Controller.DeleteCartItem</servlet-class>
+        <servlet-class>Controller.category.DeleteCartItem</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCartItemQuantity</servlet-name>
-        <servlet-class>Controller.UpdateCartItemQuantity</servlet-class>
+        <servlet-class>Controller.category.UpdateCartItemQuantity</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewCart</servlet-name>
-        <servlet-class>Controller.ViewCart</servlet-class>
+        <servlet-class>Controller.cart.ViewCart</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListStaff</servlet-name>
@@ -144,10 +144,10 @@
     <servlet>
         <servlet-name>AddBlog</servlet-name>
         <servlet-class>Controller.Blog.AddBlog</servlet-class>
-</servlet>
+    </servlet>
     <servlet>
         <servlet-name>DetailProduct</servlet-name>
-        <servlet-class>Controller.DetailProduct</servlet-class>
+        <servlet-class>Controller.product.DetailProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
@@ -292,7 +292,7 @@
     <servlet-mapping>
         <servlet-name>AddBlog</servlet-name>
         <url-pattern>/staff/blog/add-blog</url-pattern>
-</servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailProduct</servlet-name>
         <url-pattern>/product/detail</url-pattern>
