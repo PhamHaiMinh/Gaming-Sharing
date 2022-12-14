@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.product;
 
 import Dao.CategoryDao;
 import Dao.Impl.CategoryDaoImpl;
@@ -24,7 +24,7 @@ import java.util.List;
  * @author haimi
  */
 @MultipartConfig
-public class CreateProductStaff extends HttpServlet {
+public class UpdateProductStaff extends HttpServlet {
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
@@ -40,11 +40,17 @@ public class CreateProductStaff extends HttpServlet {
     HttpServletRequest request,
     HttpServletResponse response
   ) throws ServletException, IOException {
+    ProductDao productDaoImpl = new ProductDaoImpl();
+    int id = request.getParameter("id") != null
+      ? Integer.parseInt(request.getParameter("id"))
+      : 0;
+    Product product = productDaoImpl.get(id);
     CategoryDao categoryDaoImpl = new CategoryDaoImpl();
     List<Category> categories = categoryDaoImpl.getAll();
     request.setAttribute("categories", categories);
+    request.setAttribute("product", product);
     request
-      .getRequestDispatcher("/staff/product/productAdd.jsp")
+      .getRequestDispatcher("productUpdate.jsp")
       .forward(request, response);
   }
 
@@ -62,40 +68,28 @@ public class CreateProductStaff extends HttpServlet {
     HttpServletResponse response
   ) throws ServletException, IOException {
     ProductDao dao = new ProductDaoImpl();
+    int id = request.getParameter("id") != null
+      ? Integer.parseInt(request.getParameter("id"))
+      : 0;
     String name = request.getParameter("name").trim();
     Part filePart = request.getPart("image");
-    int categoryId = request.getParameter("categoryId") != null
-      ? Integer.parseInt(request.getParameter("categoryId"))
-      : 0;
-    int quantity = request.getParameter("quantity") != null
-      ? Integer.parseInt(request.getParameter("quantity"))
-      : 0;
-    int price = request.getParameter("price") != null
-      ? Integer.parseInt(request.getParameter("price"))
-      : 0;
+    int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+    int price = Integer.parseInt(request.getParameter("price"));
     String description = request.getParameter("description").trim();
+    int quantity = Integer.parseInt(request.getParameter("quantity"));
     Product product = new Product(
+      id,
       name,
       price,
       quantity,
       description,
       categoryId
     );
-    if (dao.insert(product)) {
-      product = dao.getLast();
-      String image = dao.uploadImage(filePart, request, product);
-      product.setImage(image);
-      boolean status = dao.update(product);
-      response.sendRedirect(
-        request.getContextPath() + "/staff/product?status=" + status
-      );
-    } else {
-      CategoryDao categoryDaoImpl = new CategoryDaoImpl();
-      List<Category> categories = categoryDaoImpl.getAll();
-      request.setAttribute("categories", categories);
-      request
-        .getRequestDispatcher("/staff/product/productAdd.jsp")
-        .forward(request, response);
-    }
+    String image = dao.uploadImage(filePart, request, product);
+    product.setImage(image);
+    boolean status = dao.update(product);
+    response.sendRedirect(
+      request.getContextPath() + "/staff/product?status=" + status
+    );
   }
 }

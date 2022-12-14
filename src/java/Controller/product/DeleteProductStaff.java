@@ -2,27 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.product;
 
-import Dao.CategoryDao;
-import Dao.Impl.CategoryDaoImpl;
 import Dao.Impl.ProductDaoImpl;
-import Dao.ProductDao;
-import Model.Category;
-import Model.Page;
-import Model.Product;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import java.io.IOException;
-import java.util.List;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author haimi
  */
-public class DetailCategoryStaff extends HttpServlet {
+public class DeleteProductStaff extends HttpServlet {
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
@@ -38,30 +38,14 @@ public class DetailCategoryStaff extends HttpServlet {
     HttpServletRequest request,
     HttpServletResponse response
   ) throws ServletException, IOException {
-    CategoryDao categoryDaoImpl = new CategoryDaoImpl();
+    ProductDaoImpl productDaoImpl = new ProductDaoImpl();
     int id = request.getParameter("id") != null
       ? Integer.parseInt(request.getParameter("id"))
       : 0;
-    ProductDao productDaoImpl = new ProductDaoImpl();
-    int page = request.getParameter("page") != null
-      ? Integer.parseInt(request.getParameter("page"))
-      : 1;
-    List<Product> products = productDaoImpl.getofCategory(id, page);
-    int count = productDaoImpl.getofCategory(id).size();
-    int endpage = count / 5;
-    if (count % 5 != 0) {
-      endpage++;
-    }
-    Category category = categoryDaoImpl.get(id);
-
-    Page pageClass = new Page(page, endpage);
-    List<String> pages = pageClass.listPage();
-    request.setAttribute("pages", pages);
-    request.setAttribute("page", Integer.toString(page));
-    request.setAttribute("products", products);
-    request.setAttribute("category", category);
-    request
-      .getRequestDispatcher("categoryDetail.jsp")
-      .forward(request, response);
+    productDaoImpl.destroyImage(id);
+    boolean status = productDaoImpl.delete(id);
+    response.sendRedirect(
+      request.getContextPath() + "/staff/product?status=" + status
+    );
   }
 }

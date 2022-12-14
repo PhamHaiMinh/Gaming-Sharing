@@ -2,25 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.category;
 
-import Dao.Impl.DateDAO;
-import Dao.Impl.OrderDAOImpl;
-import Dao.Impl.UserDaoImpl;
-import Model.Profit_day;
+import Model.Cart;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 /**
  *
- * @author haimi
+ * @author Admin
  */
-public class DashBoardStaff extends HttpServlet {
+public class DeleteCartItem extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,18 +31,16 @@ public class DashBoardStaff extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DashBoardStaff</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DashBoardStaff at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            try {
+            HttpSession session = request.getSession();
+            Object object = session.getAttribute("cart");
+            int productId = Integer.parseInt(request.getParameter("pid"));
+            Cart cart = (Cart) object;
+            cart.removeItem(productId);
+            response.sendRedirect("./ViewCart");
+        } catch (Exception e) {
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,20 +55,7 @@ public class DashBoardStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDaoImpl ud = new UserDaoImpl();
-        OrderDAOImpl od = new OrderDAOImpl();
-        DateDAO da = new DateDAO();
-        int male = ud.getNumberGenOfStaff(true);
-        int female = ud.getNumberGenOfStaff(false);
-        request.setAttribute("male", male);
-        request.setAttribute("female", female);
-        ArrayList<java.sql.Date> dates = da.getDateOfLast7Day();
-        ArrayList<Profit_day> profits = new ArrayList<>();
-        for(java.sql.Date date : dates){
-            profits.add(new Profit_day(da.getDateFormat(date), od.getProfitFromDate(date)));
-        }
-        request.setAttribute("profits", profits);
-         request.getRequestDispatcher("staff/dashBoard.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
