@@ -96,7 +96,7 @@
                             <td><%=blog.getCategory() %></td>
                             <td><%=blog.getCreate_time() %></td>
                             <td><%=blog.getViewed() %></td>
-                            <td><img src="<%=request.getContextPath() %>/files/<%=objTinTuc.getHinhAnh() %> " width="150px" height="120px"></td>
+                            <td><img src="<%=request.getContextPath() %>/files/<%=blog.getImage() %> " width="150px" height="120px"></td>
                             <td>
                                 <a href="edit-news?showedit=1&id=<%=blog.getId()%>" style="color: blue">Sửa</a>
                             </td>
