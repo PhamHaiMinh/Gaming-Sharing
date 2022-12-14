@@ -177,7 +177,6 @@
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary btn-block btn-lg" name="btn-register" value="Register">
                                 </div>
-
                             </form>
                             <div id="message">
                                 <h3>Password must contain:</h3>

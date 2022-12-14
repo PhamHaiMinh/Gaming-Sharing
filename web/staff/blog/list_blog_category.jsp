@@ -88,7 +88,7 @@
                             <td><%=blogCat.getName() %></td>
                             <td><%=blogCat.getDescription() %></td>
                             <td>
-                                <a href="<%= request.getContextPath()%>/staff/blog/edit-cat?showedit=1&id=<%=blogCat.getId()%>">Sửa</a>
+                                <a href="<%= request.getContextPath()%>/staff/blog/edit-cat?showedit=1&id=<%=blogCat.getId()%>" style="color:blue">Sửa</a>
                             </td>
                         </tr>
                         <%	

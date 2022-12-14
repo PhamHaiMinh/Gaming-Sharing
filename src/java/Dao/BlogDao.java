@@ -17,7 +17,7 @@ public interface BlogDao extends BaseDao<Blog> {
 
     public int getTotal(String title, String catId, String create_time);
 
-    public boolean deleteTinTucAdmin(String[] listIdDelete);
+    public boolean deleteBlog(String[] listIdDelete);
 
     public ArrayList<Blog> getListBlogStaff(String title, String catId, String create_time);
 

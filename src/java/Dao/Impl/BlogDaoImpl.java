@@ -53,7 +53,7 @@ public class BlogDaoImpl implements BlogDao {
     }
 
     @Override
-    public boolean deleteTinTucAdmin(String[] listIdDelete) {
+    public boolean deleteBlog(String[] listIdDelete) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -61,7 +61,7 @@ public class BlogDaoImpl implements BlogDao {
     public ArrayList<Blog> getListBlogStaff(String title, String catId, String create_time) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
         String sql = "SELECT b.id, b.title, c.name, b.create_time,"
-                + " b.viewed, b.image, b.browser FROM Blog AS b, BlogCategory AS c"
+                + " b.viewed, b.browser FROM Blog AS b, BlogCategory AS c"
                 + " WHERE b.categoryId = c.id"
                 + " ORDER BY b.create_time DESC ";
         try {
@@ -79,8 +79,7 @@ public class BlogDaoImpl implements BlogDao {
                 blog.setCreate_time(tg[2]);
 
                 blog.setViewed(rs.getInt(5));
-                blog.setImage(rs.getString(6));
-                blog.setBrowser(rs.getInt(7));
+                blog.setBrowser(rs.getInt(6));
                 listBlog.add(blog);
             }
             db.closeConnection(conn, pstm, rs);
@@ -94,8 +93,8 @@ public class BlogDaoImpl implements BlogDao {
     @Override
     public ArrayList<Blog> getListBlog(String catId) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
-        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time, b.image,b.viewed FROM Blog AS b"
-                + " WHERE b.categoryId='" + catId + "' AND b.browser=1 ORDER BY t.create_time DESC,b.prioritized DESC LIMIT ";
+        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,b.viewed FROM Blog AS b"
+                + " WHERE b.categoryId='" + catId + "' AND b.browser=1 ORDER BY t.create_time DESC,b.priority DESC ";
         try {
             Connection conn = db.getConnection();
             stm = conn.createStatement();
@@ -109,8 +108,7 @@ public class BlogDaoImpl implements BlogDao {
                 String[] tg = rs.getString(5).split("-");
                 tg[2] += "-" + tg[1] + "-" + tg[0];
                 blog.setCreate_time(tg[2]);
-                blog.setImage(rs.getString(6));
-                blog.setViewed(rs.getInt(7));
+                blog.setViewed(rs.getInt(6));
                 listBlog.add(blog);
             }
             db.closeConnection(conn, pstm, rs);
@@ -169,8 +167,27 @@ public class BlogDaoImpl implements BlogDao {
     }
 
     @Override
-    public boolean insert(Blog item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean insert(Blog blog) {
+		String sql = "INSERT INTO Blog (categoryId,title,body,"
+				+ "create_time,priority,viewed,source) VALUES (?,?,?,FORMAT(GetDate(),'yyyy-MM-dd'),?,?,?)";
+		boolean result = false;
+		try {
+			Connection conn = db.getConnection();
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, blog.getCatId());
+			pstm.setString(2, blog.getTitle());
+			pstm.setString(3, blog.getBody());
+			pstm.setInt(4, blog.getPriority());
+			pstm.setInt(5, blog.getViewed());
+			pstm.setString(6, blog.getSource());
+			pstm.executeUpdate();
+			result = true;
+			db.closeConnection(conn, pstm);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		System.out.println(blog.toString());
+		return result;
     }
 
     @Override
