@@ -14,7 +14,7 @@
     </head>
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div class=" container py-5 d-flex justify-content-center" style="flex-direction: column;">
+        <div class="container-80 py-5 d-flex justify-content-center" style="flex-direction: column;">
             <div class="text-center">
                 <h1 class="title">Update Category</h1>
             </div>

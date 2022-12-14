@@ -14,11 +14,11 @@
     </head>
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div class=" container pb-5 d-flex justify-content-center " style="flex-direction: column;">
+        <div class="container-80 pb-5 d-flex justify-content-center " style="flex-direction: column;">
             <div class="text-center py-3">
                 <h1 class="title">New Product</h1>
             </div>
-            <form id="form" action="create" method="POST"  class=" card p-3 needs-validation" novalidate   enctype="multipart/form-data">
+            <form id="form" action="create" method="POST"  class=" card p-3 needs-validation mx-3" novalidate   enctype="multipart/form-data">
                 <div class="row my-2" >
                     <div class="col">
                         <label  class="form-label">Name</label ><br/>
@@ -35,7 +35,7 @@
                 <div class="row my-2">
                     <div class="col-6" >
                         <label  class="form-label">Category:</label ><br/>
-                        <select class="form-select form-select-sm" required aria-label=".form-select-sm example" name="categoryId">
+                        <select class="form-select form-select-sm" required aria-label=".form-select-sm example"  name="categoryId">
                             <c:forEach items="${requestScope.categories}" var="o">
                                 <option value="${o.id}">${o.name}</option>     
                             </c:forEach>

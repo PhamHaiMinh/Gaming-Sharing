@@ -13,7 +13,7 @@
     </head>
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div class=" container d-flex justify-content-center flex-column">
+        <div class="container-80 d-flex justify-content-center flex-column">
             <div class="text-center">
                 <h1 class="title">New Category</h1>
             </div>
