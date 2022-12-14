@@ -14,7 +14,7 @@
     </head>
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div class=" container p-4 d-flex flex-column mx-auto  ">
+        <div class=" container-70 d-flex justify-content-center flex-column ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/category/create" role="button">Create</a>
             </div>
