@@ -45,7 +45,7 @@
                     
                     <a href="<%=request.getContextPath()%>/home" class="nav-item nav-link <%=request.getServletPath().startsWith("/home")?"active":""%>">Trang chủ</a>
                     <a href="<%=request.getContextPath()%>/product" class="nav-item nav-link <%=request.getServletPath().startsWith("/product")?"active":""%>">Sản phẩm</a>
-                    <a href="<%=request.getContextPath()%>/blog" class="nav-item nav-link <%=request.getServletPath().startsWith("/blog")?"active":""%>">Blog</a>
+                    <a href="<%=request.getContextPath()%>/list-blog" class="nav-item nav-link <%=request.getServletPath().startsWith("/blog")?"active":""%>">Blog</a>
                     <div class="d-block">
                         <a class="nav-item nav-link" data-toggle="collapse"
                            href="#navbar-vertical">

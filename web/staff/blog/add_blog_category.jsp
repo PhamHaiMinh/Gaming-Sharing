@@ -25,8 +25,9 @@
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
     </head>
 
-    <body class="container-fluid">
-        <div style="background-color: #f1f1f1;">
+    <body>
+        <%@include file="../layout/left.jsp"%>
+        <div class="container-80 pb-5 d-flex justify-content-center p-3" style="flex-direction: column;">
 
             <div>
                 <%

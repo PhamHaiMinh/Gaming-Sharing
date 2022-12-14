@@ -30,7 +30,7 @@
 
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div style="background-color: #f1f1f1" class="p-3">
+        <div class="container-80 pb-5 d-flex justify-content-center p-3" style="flex-direction: column;">
 
             <%
                     ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");

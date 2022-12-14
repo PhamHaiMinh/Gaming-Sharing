@@ -35,7 +35,7 @@
                 int stt=1;
                 String msg = (String)request.getAttribute("msg");
         %>
-        <div style="background-color: #f1f1f1;" class="p-3">
+        <div class="container-80 pb-5 d-flex justify-content-center p-3" style="flex-direction: column;">
             <div>            
                 <br />
                 <div class="error" id="msg">
@@ -63,13 +63,12 @@
                         <tr>
                             <th></th>
                             <th>STT</th>                         
-                            <th>Hiển thị</th>
                             <th>ID</th>
                             <th>Tiêu đề</th>
                             <th>Danh mục</th>
                             <th>Thời gian đăng</th>
                             <th>Luợt xem</th>
-                            <th>Hình ảnh</th>
+<!--                            <th>Hình ảnh</th>-->
                             <th>Sửa</th>
                         </tr>
                         <%
@@ -81,24 +80,14 @@
                                 <input type="checkbox" name="check" value="<%=blog.getId() %>">
                             </td>
                             <td><%=stt++ %></td>
-
-                            <td align="center" id="setactive-<%=blog.getCatId()%>">
-                                <a href="javascript:void(0)" onclick="return setActive('<%=blog.getId()%>')" title="">
-                                    <%if (blog.getBrowser() == 1){%>
-                                    <img alt="" src="<%=request.getContextPath()%>/assets/img/tick-circle.gif">
-                                    <%} else {%>
-                                    <img alt="" src="<%=request.getContextPath()%>/assets/img/minus-circle.gif">
-                                    <%}%>
-                                </a>
-                            </td>
                             <td><%=blog.getId() %></td>
                             <td><%=blog.getTitle() %></td>
                             <td><%=blog.getCategory() %></td>
                             <td><%=blog.getCreate_time() %></td>
                             <td><%=blog.getViewed() %></td>
-                            <td><img src="<%=request.getContextPath() %>/files/<%=blog.getImage() %> " width="150px" height="120px"></td>
+<!--                            <td><img src="<%=request.getContextPath() %>/files/<%=blog.getImage() %> " width="150px" height="120px"></td>-->
                             <td>
-                                <a href="edit-news?showedit=1&id=<%=blog.getId()%>" style="color: blue">Sửa</a>
+                                <a href="edit-blog?showedit=1&id=<%=blog.getId()%>" style="color: blue">Sửa</a>
                             </td>
                         </tr>
                         <%	

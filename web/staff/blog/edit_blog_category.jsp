@@ -13,7 +13,7 @@
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Add Blog Category </title>
+            <title>Edit Blog Category </title>
             <link rel="stylesheet" type="text/css"
                   href="<%=request.getContextPath()%>/assets/css/styles.css" />
             <link rel="stylesheet" type="text/css"
@@ -28,8 +28,9 @@
             src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
         </head>
 
-        <body class="container-fluid">
-            <div style="background-color: #f1f1f1;">
+        <body>
+            <%@include file="../layout/left.jsp"%>
+            <div class="container-80 pb-5 d-flex justify-content-center p-3" style="flex-direction: column;">
                 <%
                     BlogCategory blogCategory = (BlogCategory) request.getAttribute("blogCategory");
                     String error = (String) request.getAttribute("error");

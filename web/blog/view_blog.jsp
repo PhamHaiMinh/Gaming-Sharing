@@ -4,14 +4,77 @@
     Author     : Admin
 --%>
 
+<%@page import="Dao.DBContext"%>
+<%@page import="Model.BlogCategory"%>
+<%@page import="Model.Blog"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>GSharing</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free HTML Templates" name="keywords">
+        <meta content="Free HTML Templates" name="description">
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <style>
+            .content{
+                display: none;
+            }
+        </style>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%@include file="../header.jsp"  %>
+        <%
+            ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
+                String title = request.getParameter("title");
+            Blog blog = (Blog) request.getAttribute("blog");
+                ArrayList<Blog> listBlog = (ArrayList<Blog>) request.getAttribute("listBlog");
+        %>
+        <style>
+            .news_detail img{
+                width:100%;
+            }
+        </style>
+        <div id="body">
+            <div id="fb-root"></div>
+
+            <div class="content">
+                <div id="blog">
+                    <div class="news_detail">
+                        <h1><%=blog.getTitle() %></h1>
+                        <p class="date">Ngày đăng: <%=blog.getCreate_time() %> - Lượt xem: <%=blog.getViewed() %></p>
+                        <div class="news_content">
+                            <%=blog.getBody() %>
+                        </div>
+                        <p class="author">Nguồn: <%=blog.getSource() %></p>
+                    </div>
+
+                    <h2>Tin tức liên quan</h2>
+                    <ul>
+                        <%
+                                DBContext dbc = new DBContext();
+                                String urlDetail = request.getContextPath()+"/blog-detail/";
+                                for(Blog blog: listBlog){
+                        %>
+                        <li>
+                            <div class="article">
+                                <h3>
+                                    <a href="<%=urlDetail+dbc.createSlug(blog.getTitle())+"_"+blog.getId()+".html"%>">
+                                        <%=blog.getTitle() %></a></h3>
+                                <small>Ngày đăng: <%=blog.getCreate_time() %></small>
+                                <small>Lượt xem: <%=blog.getViewed()%></small>
+                               
+                            </div>
+                            
+                        </li>
+                        <%} %>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
     </body>
 </html>

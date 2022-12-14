@@ -22,7 +22,7 @@ public class Blog {
     private String source;
     private String userId;
     private int browser;
-
+    private BlogCategory blogCategory;
     public Blog() {
     }
 
@@ -147,6 +147,10 @@ public class Blog {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public void setBlogCategory(BlogCategory blogCategory) {
+        this.blogCategory = blogCategory;
     }
 
 }

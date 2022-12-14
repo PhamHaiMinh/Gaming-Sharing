@@ -7,6 +7,8 @@ package Dao.Impl;
 import Dao.BlogDao;
 import Dao.DBContext;
 import Model.Blog;
+import Model.BlogCategory;
+import Model.Category;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -89,7 +91,7 @@ public class BlogDaoImpl implements BlogDao {
     public ArrayList<Blog> getListBlogStaff(String title, String catId, String create_time) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
         String sql = "SELECT b.id, b.title, c.name, b.create_time,"
-                + " b.viewed, b.browser FROM Blog AS b, BlogCategory AS c"
+                + " b.viewed FROM Blog AS b, BlogCategory AS c"
                 + " WHERE b.categoryId = c.id"
                 + " ORDER BY b.create_time DESC ";
         try {
@@ -107,7 +109,7 @@ public class BlogDaoImpl implements BlogDao {
                 blog.setCreate_time(tg[2]);
 
                 blog.setViewed(rs.getInt(5));
-                blog.setBrowser(rs.getInt(6));
+
                 listBlog.add(blog);
             }
             db.closeConnection(conn, pstm, rs);
@@ -122,7 +124,38 @@ public class BlogDaoImpl implements BlogDao {
     public ArrayList<Blog> getListBlog(String catId) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
         String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,b.viewed FROM Blog AS b"
-                + " WHERE b.categoryId='" + catId + "' AND b.browser=1 ORDER BY t.create_time DESC,b.priority DESC ";
+                + " WHERE b.categoryId='" + catId + "'  ORDER BY b.create_time DESC,b.priority DESC ";
+        try {
+            Connection conn = db.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getString(1));
+                blog.setCatId(rs.getString(2));
+                blog.setTitle(rs.getString(3));
+                blog.setBody(rs.getString(4));
+                String[] tg = rs.getString(5).split("-");
+                tg[2] += "/" + tg[1] + "/" + tg[0];
+                blog.setCreate_time(tg[2]);
+                blog.setViewed(rs.getInt(6));
+//                blog.setImage(rs.getString(7));
+                listBlog.add(blog);
+            }
+            db.closeConnection(conn, pstm, rs);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return listBlog;
+    }
+
+    @Override
+    public ArrayList<Blog> getRelatedBlog(String id, String catId) {
+        ArrayList<Blog> listBlog = new ArrayList<Blog>();
+        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,"
+                + " b.viewed FROM Blog AS b "
+                + " WHERE b.categoryId='" + catId + "' AND b.id!='" + id
+                + "' ORDER BY t.thoigiandang DESC";
         try {
             Connection conn = db.getConnection();
             stm = conn.createStatement();
@@ -147,18 +180,53 @@ public class BlogDaoImpl implements BlogDao {
     }
 
     @Override
-    public ArrayList<Blog> getRelatedBlog(String id, String catId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public ArrayList<Blog> getRecommendBlog(String relate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<Blog> getRecommendBlog(String recommend) {
+        String sort = "b.priority DESC,b.viewed DESC";
+        if ("viewed".equals(recommend)) {
+            sort = "b.viewed DESC,b.priority DESC";
+        }
+        ArrayList<Blog> listBlog = new ArrayList<Blog>();
+        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,"
+                + " b.viewed FROM Blog AS b ORDER BY " + sort;
+        try {
+            Connection conn = db.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getString(1));
+                blog.setCatId(rs.getString(2));
+                blog.setTitle(rs.getString(3));
+                blog.setBody(rs.getString(4));
+                String[] tg = rs.getString(5).split("-");
+                tg[2] += "-" + tg[1] + "-" + tg[0];
+                blog.setCreate_time(tg[2]);
+                blog.setViewed(rs.getInt(6));
+                listBlog.add(blog);
+            }
+            db.closeConnection(conn, pstm, rs);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return listBlog;
     }
 
     @Override
     public boolean viewed(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "UPDATE Blog SET viewed=viewed+1 WHERE id=? LIMIT 1";
+
+        boolean result = false;
+        try {
+            Connection conn = db.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, id);
+            pstm.executeUpdate();
+            result = true;
+            db.closeConnection(conn, pstm);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return result;
     }
 
     @Override
@@ -208,6 +276,7 @@ public class BlogDaoImpl implements BlogDao {
             pstm.setInt(4, blog.getPriority());
             pstm.setInt(5, blog.getViewed());
             pstm.setString(6, blog.getSource());
+//            pstm.setString(7, blog.getImage());
             pstm.executeUpdate();
             result = true;
             db.closeConnection(conn, pstm);
@@ -219,8 +288,27 @@ public class BlogDaoImpl implements BlogDao {
     }
 
     @Override
-    public boolean update(Blog item) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(Blog blog) {
+        String sql = "UPDATE Blog SET categoryId=?, title=?,body=?,priority=?,source=? WHERE id=?";
+        boolean result = false;
+        try {
+            Connection conn = db.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, blog.getCatId());
+            pstm.setString(2, blog.getTitle());
+            pstm.setString(3, blog.getBody());
+            pstm.setInt(4, blog.getPriority());
+            pstm.setString(5, blog.getSource());
+//            pstm.setString(6, blog.getImage());
+            pstm.executeUpdate();
+            result = true;
+            db.closeConnection(conn, pstm);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        System.out.println("UPDATE Blog SET categoryId='" + blog.getCatId() + "',title=" + blog.getTitle() + ",body='" + blog.getBody() + "',priority='" + blog.getPriority() + "',source='" + blog.getSource() + "' WHERE id='" + blog.getId() + "'");
+        System.out.println(blog.toString() + "\n" + result);
+        return result;
     }
 
     @Override
@@ -241,6 +329,26 @@ public class BlogDaoImpl implements BlogDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Blog getBlogCategory(Connection connection, Blog blog) {
+        try {
+            String quesry = "select * from BlogCategory where id=?";
+            PreparedStatement prS = connection.prepareStatement(quesry);
+            prS.setString(1, blog.getCatId());
+            ResultSet resultSet = prS.executeQuery();
+            while (resultSet.next()) {
+                BlogCategory blogCategory = new BlogCategory();
+                blogCategory.setId(resultSet.getString("id"));
+                blogCategory.setName(resultSet.getString("name"));
+                blog.setBlogCategory(blogCategory);
+            }
+        } catch (SQLException e) {
+            Logger
+                    .getLogger(BlogDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
+        }
+        return blog;
     }
 
     @Override
@@ -281,7 +389,7 @@ public class BlogDaoImpl implements BlogDao {
                     return uploadResult.get("secure_url").toString();
                 } catch (IOException ex) {
                     Logger
-                            .getLogger(ProductDaoImpl.class.getName())
+                            .getLogger(BlogDaoImpl.class.getName())
                             .log(Level.SEVERE, null, ex);
                 }
             }
@@ -309,7 +417,7 @@ public class BlogDaoImpl implements BlogDao {
                     .destroy("Home/Images/Blog/" + Integer.toString(id), path);
         } catch (IOException ex) {
             Logger
-                    .getLogger(ProductDaoImpl.class.getName())
+                    .getLogger(BlogDaoImpl.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
     }
@@ -335,11 +443,45 @@ public class BlogDaoImpl implements BlogDao {
                         rs.getInt("priority"),
                         rs.getString("source")
                 );
+                blog = getBlogCategory(connection, blog);
             }
             dBContext.closeConnection(connection, ps, rs);
         } catch (SQLException e) {
             Logger.getLogger(Blog.class.getName()).log(Level.SEVERE, null, e);
         }
+        return blog;
+    }
+
+    @Override
+    public Blog getBlogDetail(String id) {
+        String sql = "SELECT b.*, c.name FROM Blog AS b, BlogCategory AS c"
+                + " WHERE b.categoryId = c.id AND b.id ='" + id + "'";
+        //System.out.println(sql);
+        Blog blog = null;
+        try {
+            Connection conn = db.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                blog = new Blog();
+                blog.setCategory(rs.getString("name"));
+                blog.setId(rs.getString("id"));
+                blog.setCatId(rs.getString("categoryId"));
+                blog.setTitle(rs.getString("title"));
+                blog.setBody(rs.getString("body"));
+                String[] tg = rs.getString("create_time").split("-");
+                tg[2] += "-" + tg[1] + "-" + tg[0];
+
+                blog.setCreate_time(tg[2]);
+                blog.setViewed(rs.getInt("viewed"));
+                blog.setPriority(rs.getInt("priority"));
+                blog.setSource(rs.getString("source"));
+            }
+            db.closeConnection(conn, pstm, rs);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+     
         return blog;
     }
 

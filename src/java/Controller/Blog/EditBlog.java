@@ -11,7 +11,6 @@ import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,8 +21,7 @@ import java.util.List;
  *
  * @author Admin
  */
-@MultipartConfig
-public class AddBlog extends HttpServlet {
+public class EditBlog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class AddBlog extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddBlog</title>");
+            out.println("<title>Servlet EditBlog</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddBlog at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditBlog at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,27 +75,26 @@ public class AddBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("add") != null) {
-            BlogDaoImpl blogDao = new BlogDaoImpl();
+        BlogDaoImpl blogDao = new BlogDaoImpl();
+        String id = request.getParameter("id");
+        Blog old = blogDao.getBlogDetail(id);
+        if (request.getParameter("edit") != null) {
             String title, source, body, category;
-            int priority = 0;
-
+            int priority;
             title = request.getParameter("title");
             category = request.getParameter("category");
             source = request.getParameter("source");
             body = request.getParameter("body");
-            priority = Integer.parseInt(request.getParameter("priority"));
+            priority = 2;
             Part filePart = request.getPart("image");
             Blog blog = new Blog();
             blog.setCatId(category);
             blog.setTitle(title);
             blog.setBody(body);
-
             blog.setPriority(priority);
-            blog.setViewed(0);
             blog.setSource(source);
-
-            if (blogDao.insert(blog)) {
+            
+            if (blogDao.update(blog)) {
                 response.sendRedirect("list-blog");
 //                blog = blogDao.getLast();
 //                String image = blogDao.uploadImage(filePart, request, blog);
@@ -107,15 +104,26 @@ public class AddBlog extends HttpServlet {
 //                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
             } else {
                 request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
-                request.getRequestDispatcher("add_blog.jsp").forward(request, response);
+                BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+                List<BlogCategory> listCategory = blogCat.getAll();
+                request.setAttribute("listCategory", listCategory);
+                if (old != null) {
+                    request.setAttribute("blog", old);
+                    request.getRequestDispatcher("edit_blog.jsp").forward(request, response);
+                }
             }
-        }
 
-        if (request.getParameter("showadd") != null) {
+        }
+        if (request.getParameter("showedit") != null) {
             BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
             List<BlogCategory> listCategory = blogCat.getAll();
             request.setAttribute("listCategory", listCategory);
-            request.getRequestDispatcher("add_blog.jsp").forward(request, response);
+            if (old != null) {
+                request.setAttribute("blog", old);
+                request.getRequestDispatcher("edit_blog.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("list-blog");
+            }
         }
     }
 

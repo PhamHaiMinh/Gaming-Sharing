@@ -11,19 +11,17 @@ import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-@MultipartConfig
-public class AddBlog extends HttpServlet {
+public class ViewBlog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class AddBlog extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddBlog</title>");
+            out.println("<title>Servlet ViewBlog</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddBlog at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ViewBlog at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -77,45 +75,27 @@ public class AddBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("add") != null) {
-            BlogDaoImpl blogDao = new BlogDaoImpl();
-            String title, source, body, category;
-            int priority = 0;
-
-            title = request.getParameter("title");
-            category = request.getParameter("category");
-            source = request.getParameter("source");
-            body = request.getParameter("body");
-            priority = Integer.parseInt(request.getParameter("priority"));
-            Part filePart = request.getPart("image");
-            Blog blog = new Blog();
-            blog.setCatId(category);
-            blog.setTitle(title);
-            blog.setBody(body);
-
-            blog.setPriority(priority);
-            blog.setViewed(0);
-            blog.setSource(source);
-
-            if (blogDao.insert(blog)) {
-                response.sendRedirect("list-blog");
-//                blog = blogDao.getLast();
-//                String image = blogDao.uploadImage(filePart, request, blog);
-//                blog.setImage(image);
-//                boolean status = blogDao.update(blog);
-//                
-//                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
-            } else {
-                request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
-                request.getRequestDispatcher("add_blog.jsp").forward(request, response);
-            }
-        }
-
-        if (request.getParameter("showadd") != null) {
+        String id = request.getParameter("id");
+        if (id != null) {
             BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+            BlogDaoImpl blogDao = new BlogDaoImpl();
             List<BlogCategory> listCategory = blogCat.getAll();
             request.setAttribute("listCategory", listCategory);
-            request.getRequestDispatcher("add_blog.jsp").forward(request, response);
+
+            Blog blog = blogDao.getBlogDetail(id);
+            blogDao.viewed(id);
+            blogCat.viewed(blog.getCatId());
+
+            ArrayList<Blog> listRelated = blogDao.getRelatedBlog(id, blog.getCatId());
+
+            ArrayList<Blog> listRecommend = blogDao.getRecommendBlog("priority");
+            ArrayList<Blog> listMostview = blogDao.getRecommendBlog("viewed");
+            request.setAttribute("listRecommend", listRecommend);
+            request.setAttribute("listMostview", listMostview);
+
+            request.setAttribute("listRelated", listRelated);
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("blog/view_blog.jsp").forward(request, response);
         }
     }
 
