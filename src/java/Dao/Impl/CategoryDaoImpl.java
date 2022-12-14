@@ -152,7 +152,7 @@ public class CategoryDaoImpl implements CategoryDao {
       Connection connection = dBContext.getConnection();
       String sql =
         "select * from Category\n" +
-        "order by id\n" +
+        "order by id asc\n" +
         "offset ? rows fetch next 5 rows only";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, (page - 1) * 5);

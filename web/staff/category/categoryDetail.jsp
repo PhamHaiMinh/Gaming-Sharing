@@ -14,7 +14,7 @@
     </head>
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div class=" container d-flex justify-content-center pb-5" style="flex-direction: column;">
+        <div class="container-80 d-flex justify-content-center pb-5" style="flex-direction: column;">
             <div>
                 <a class="btn btn-info m-3 mx-5" href="<%= request.getContextPath()%>/staff/category/update?id=${category.id}" role="button">Update</a>
             </div>
@@ -35,7 +35,10 @@
             <div  class="card mt-3 p-4 d-flex flex-column mx-auto" style="width: 50rem;
                   margin: 0 auto;">
                 <div class="d-flex justify-content-center">
-                    <h3 class="title">Product of Category</h3s>
+                    <h3 class="title">Product of Category</h3>
+                </div>
+                <div>
+                    <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
                 </div>
                 <div class="card my-3">
 

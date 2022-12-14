@@ -14,7 +14,7 @@
     <body>
         <%@include file="../layout/left.jsp"%>
 
-        <div class=" container py-5 d-flex justify-content-center" style="flex-direction: column;">
+        <div class="container-80 py-5 d-flex justify-content-center" style="flex-direction: column;">
             <div>
                 <a class="btn btn-info m-3 mx-5" href="<%= request.getContextPath()%>/staff/product/update?id=${product.id}" role="button">Update</a>
             </div>
@@ -43,7 +43,12 @@
                         </div>
                         <div class="d-flex align-items-end">
                             <h4>Price:</h4>
-                            <h5 class="mx-2">${product.getPrice()}</h5>
+                            <h5 class="mx-2">
+                                <script type="text/javascript">
+                                        var str = parseInt(${product.getPrice()})
+                                        document.write(str.toLocaleString('vi', {style: 'currency', currency: 'VND'}));
+                                </script>
+                            </h5>
                         </div>
                         <div class="d-flex align-items-end">
                             <h4>Viewed:</h4>

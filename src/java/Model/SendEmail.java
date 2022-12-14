@@ -33,24 +33,17 @@ public class SendEmail {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
-        props.put(
-                "mail.smtp.socketFactory.class",
-                "jakarta.net.ssl.SSLSocketFactory"
+        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory"
         );
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.starttls.enable", "true");
 
-        Session session = Session.getDefaultInstance(
-                props,
-                new jakarta.mail.Authenticator() {
+        Session session = Session.getDefaultInstance(props, new jakarta.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(
-                        "philonghiryu@gmail.com",
-                        "gijm efvt cutv ojsh"
-                );
+                return new PasswordAuthentication("philonghiryu@gmail.com", "gijm efvt cutv ojsh");
             }
-        }
-        );
+        });
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));

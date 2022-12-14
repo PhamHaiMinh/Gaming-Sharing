@@ -18,7 +18,7 @@ public class Blog {
     private String image;
     private String catId;
     private int viewed;
-    private int prioritized;
+    private int priority;
     private String source;
     private String userId;
     private int browser;
@@ -27,7 +27,7 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int prioritized, String source, String userId, int browser, String author) {
+    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int priority, String source, String userId, int browser, String author) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -36,7 +36,7 @@ public class Blog {
         this.image = image;
         this.catId = catId;
         this.viewed = viewed;
-        this.prioritized = prioritized;
+        this.priority = priority;
         this.source = source;
         this.userId = userId;
         this.browser = browser;
@@ -115,12 +115,12 @@ public class Blog {
         this.viewed = viewed;
     }
 
-    public int getPrioritized() {
-        return prioritized;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setPrioritized(int prioritized) {
-        this.prioritized = prioritized;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public String getSource() {
