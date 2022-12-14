@@ -55,6 +55,10 @@ public class Account {
         this.email = email;
     }
 
+    public Account(int id, String email) {
+        this.id = id;
+        this.email = email;
+    }
 
     public boolean isActive() {
         return active;

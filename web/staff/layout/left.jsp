@@ -80,13 +80,13 @@ crossorigin="anonymous"></script>
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/blog/list_blog_category")?"active":""%>">
+            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="nav-link text-white <%=request.getServletPath().equals("/staff/blog/list_blog_category.jsp")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                 Blog Categories 
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/blog/list-blog" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/blog/list_blog")?"active":""%>">
+            <a href="<%= request.getContextPath()%>/staff/blog/list-blog" class="nav-link text-white <%=request.getServletPath().equals("/staff/blog/list_blog.jsp")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                 Blogs
             </a>

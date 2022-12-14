@@ -142,6 +142,10 @@
         <servlet-class>Controller.Blog.ListBlogStaff</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddBlog</servlet-name>
+        <servlet-class>Controller.Blog.AddBlog</servlet-class>
+</servlet>
+    <servlet>
         <servlet-name>DetailProduct</servlet-name>
         <servlet-class>Controller.DetailProduct</servlet-class>
     </servlet>
@@ -285,6 +289,10 @@
         <servlet-name>ListBlogStaff</servlet-name>
         <url-pattern>/staff/blog/list-blog</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlog</servlet-name>
+        <url-pattern>/staff/blog/add-blog</url-pattern>
+</servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailProduct</servlet-name>
         <url-pattern>/product/detail</url-pattern>

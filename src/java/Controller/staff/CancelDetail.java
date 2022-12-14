@@ -5,12 +5,18 @@
 
 package Controller.staff;
 
+import Dao.Impl.OrderDAOImpl;
+import Dao.Impl.ProductDaoImpl;
+import Dao.Impl.UserDaoImpl;
+import Model.Product;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +33,7 @@ public class CancelDetail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("/staff/cancel/detail.jsp").forward(request, response);
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -41,7 +47,19 @@ public class CancelDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int order_id = Integer.parseInt(request.getParameter("id"));
+        UserDaoImpl ud = new UserDaoImpl();
+        OrderDAOImpl od = new OrderDAOImpl();
+        ProductDaoImpl pd = new ProductDaoImpl();
+        User u = ud.get2(od.getUserID(order_id));
+        request.setAttribute("user", u);
+        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Product> products_order = od.getListProductIDbyOrderID(order_id);
+        for(Product p : products_order){
+            products.add(pd.getProductbyOrder(p));
+        }
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("/staff/cancel/detail.jsp").forward(request, response);
     } 
 
     /** 

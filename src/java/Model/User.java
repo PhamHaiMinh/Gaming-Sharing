@@ -45,6 +45,17 @@ public class User {
         this.phone = phone;
         this.avt = avt;
     }
+    
+    public User(Account account, int id, String last_name, String middle_name, String first_name, boolean gender, String phone, Address address) {
+        this.account = account;
+        this.id = id;
+        this.last_name = last_name;
+        this.middle_name = middle_name;
+        this.first_name = first_name;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+    }
 
     public Account getAccount() {
         return account;

@@ -4,6 +4,7 @@
     Author     : LENOVO
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,51 +24,38 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <jsp:include page="../left.jsp"></jsp:include>
-            <div class="content">
+        <jsp:include page="../layout/left.jsp"></jsp:include>
+        <div class="container-70 d-flex justify-content-center flex-column">
                 <div class="container">
-                    <h2>Filterable Table</h2>
-                    <p>Type something in the input field to search the table for first names, last names or emails:</p>  
+                    <h2>Đơn chờ xử lý</h2>
                     <input class="form-control" id="myInput" type="text" placeholder="Search..">
                     <br>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Firstname</th>
-                                <th>Lastname</th>
-                                <th>Email</th>
+                                <th>STT</th>
+                                <th>Mã đơn</th>
+                                <th>Tình trạng</th>
+                                <th>Thời gian đặt</th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
+                        <c:set var="i" value="0"></c:set>
+                        <c:forEach items="${requestScope.orders}" var="o">
+                            <c:set var="i" value="${i+1}"/>  
                             <tr>
-                                <td>
-                                    <a href="<%= request.getContextPath()%>/staff/cancel/detail">John</a>
-                            </td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                            <td>Mary</td>
-                            <td>Moe</td>
-                            <td>mary@mail.com</td>
-                        </tr>
-                        <tr>
-                            <td>July</td>
-                            <td>Dooley</td>
-                            <td>july@greatstuff.com</td>
-                        </tr>
-                        <tr>
-                            <td>Anja</td>
-                            <td>Ravendale</td>
-                            <td>a_r@test.com</td>
-                        </tr>
+                                <td>${i}</td>
+                                <td><a href="<%= request.getContextPath()%>/staff/cancel/detail?id=${o.id}">${o.id}</a></td>
+                                <td>${o.status}</td>
+                                <td>${o.day_create}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
-
-                <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
             </div>
         </div>
-        <jsp:include page="../footer.jsp"></jsp:include>
+        <jsp:include page="../layout/footer.jsp"></jsp:include>
+
         <script>
             $(document).ready(function () {
                 $("#myInput").on("keyup", function () {

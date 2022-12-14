@@ -7,6 +7,7 @@ package Dao.Impl;
 import Dao.DBContext;
 import Dao.UserDao;
 import Model.Account;
+import Model.Address;
 import Model.Role;
 import Model.User;
 import java.sql.Connection;
@@ -220,8 +221,75 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
-    public static void main(String[] args) {
-        new UserDaoImpl().updateStaff("1", "0", "2");
 
+    @Override
+    public int getNumberGenOfStaff(boolean gender) {
+        DBContext dBContext = new DBContext();
+        int output = -1;
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select count(id) as count from [dbo].[User] "
+                    + "where gender = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setBoolean(1, gender);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                output = rs.getInt("count");
+            }
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return output;
+    }
+
+    @Override
+    public User get2(int user_id) {
+        DBContext dBContext = new DBContext();
+        User user = new User();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "SELECT u.[id]\n"
+                    + "                      ,[account_id]\n"
+                    + "                         ,[last_name]\n"
+                    + "                         ,[middle_name]\n"
+                    + "                          ,[first_name]\n"
+                    + "                          ,[gender]\n"
+                    + "                         ,[phone]\n"
+                    + "                    	  ,a.email\n"
+                    + "						  ,p.full_name as province\n"
+                    + "						  ,d.full_name as district\n"
+                    + "						  ,w.full_name as ward\n"
+                    + "						  ,address_detail\n"
+                    + "                     FROM [dbo].[User] u left join Account a\n"
+                    + "                     on u.account_id = a.id left join Address ad\n"
+                    + "					 on u.id = ad.user_id left join wards w\n"
+                    + "					 on ad.ward_code = w.code left join districts d\n"
+                    + "					 on w.district_code = d.code left join provinces p\n"
+                    + "					 on d.province_code = p.code\n"
+                    + "                      where u.id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, user_id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user.setFirst_name(rs.getString("first_name"));
+                user.setMiddle_name(rs.getString("middle_name"));
+                user.setLast_name(rs.getString("last_name"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setPhone(rs.getString("phone"));
+                user.setAccount(new Account(rs.getInt("account_id"), rs.getString("email")));
+                user.setId(user_id);
+                user.setAddress(new Address(
+                        rs.getString("province"),
+                        rs.getString("district"),
+                        rs.getString("ward"),
+                        rs.getString("address_detail")
+                ));
+            }
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return user;
     }
 }
