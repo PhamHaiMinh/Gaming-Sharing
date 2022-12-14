@@ -15,42 +15,21 @@
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
-
             function drawChart() {
 
-                var data = google.visualization.arrayToDataTable([
-                    ['Gender', 'Number'],
-                    ['Male', ${requestScope.male}],
-                    ['Female', ${requestScope.female}]
-                ]);
-
-                var options = {
-                    title: 'Staff Gender'
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                chart.draw(data, options);
+            var data = google.visualization.arrayToDataTable([
+            ['Gender', 'Number'],
+            ['Male', ${requestScope.male}],
+            ['Female', ${requestScope.female}]
+            ]);
+            var options = {
+            title: 'Staff Gender'
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
             }
         </script>
         <style>
-
-            .all{
-                display: flex;
-                background-color: white; 
-            }
-            .left{
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-            }
-            .right{
-                width: 100%;
-                flex: 6;
-                display: flex;
-                flex-direction: column;
-            }
-
             .diagram{
                 display: flex;
                 flex-direction: row;
@@ -71,62 +50,45 @@
             .diagram2{
                 flex: 1;
             }
+
         </style>
     </head>
     <body>
         <jsp:include page="layout/left.jsp"></jsp:include>
-            <div class="d-flex flex-column mx-auto ">
-                <div class="diagram">
-                    <div class="diagram1" id="piechart" style="width: 50%; height: 99%;"></div>
-                    <div class="diagram2" id="curve_chart" style="width: 50%; height: 99%"></div> 
-                </div>
-                <div class="content">
-                    <h1>sdasahdusahudhsuahduhuh</h1>
-                    <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
-                </div>
-
-                <div class="right">
+            <div class="container-70 d-flex justify-content-center flex-column">
+                <div class="container">
                     <div class="diagram">
                         <div class="diagram1" id="piechart" style="width: 50%; height: 99%;"></div>
                         <div class="diagram2" id="linechart" style="width: 50%; height: 99%;"><canvas id="myChart"></canvas></div> 
                     </div>
-                    <div class="content">
-                        
-                    </div>
-                    <div class="footer">
-                    <jsp:include page="footer.jsp"></jsp:include>
-                </div>      
+                </div>
             </div>
-        </div>
-       <script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [<c:forEach items="${requestScope.profits}" var="p">
-            '${p.date}',
-        </c:forEach>],
-      datasets: [{
-        label: 'Profit(đ)',
-        data: [<c:forEach items="${requestScope.profits}" var="p">
-            '${p.profit}',
-        </c:forEach>],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>  
-
-            </div>
-        <jsp:include page="layout/footer.jsp"></jsp:include>
-
-    </body>
+        <jsp:include page="layout/footer.jsp"></jsp:include>   
+            <script>
+                const ctx = document.getElementById('myChart');
+                new Chart(ctx, {
+                type: 'bar',
+                        data: {
+                        labels: [<c:forEach items="${requestScope.profits}" var="p">
+                        '${p.date}',
+            </c:forEach>],
+                                datasets: [{
+                                label: 'Profit(đ)',
+                                        data: [<c:forEach items="${requestScope.profits}" var="p">
+                                        '${p.profit}',
+            </c:forEach>],
+                                        borderWidth: 1
+                                }]
+                        },
+                        options: {
+                        scales: {
+                        y: {
+                        beginAtZero: true
+                        }
+                        }
+                        }
+                });
+        </script>  
+    </div>
+</body>
 </html>

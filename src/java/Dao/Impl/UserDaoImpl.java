@@ -291,10 +291,5 @@ public class UserDaoImpl implements UserDao {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
         }
         return user;
-
-    public static void main(String[] args) {
-        new UserDaoImpl().updateStaff("1", "0", "2");
-
-
     }
 }
