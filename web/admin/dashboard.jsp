@@ -4,6 +4,7 @@
     Author     : LENOVO
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
         <title>Admin Dashboard</title>
         <link href="/assets/css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" type="text/javascript"></script>
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -19,13 +21,13 @@
             function drawChart() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    ['Attendance', 11],
-                    ['Absent', 2]
+                    ['Gender', 'Number'],
+                    ['Male', ${requestScope.male}],
+                    ['Female', ${requestScope.female}]
                 ]);
 
                 var options = {
-                    title: 'Staff Attendance status'
+                    title: 'Staff Gender'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -33,36 +35,10 @@
                 chart.draw(data, options);
             }
         </script>
-        <script type="text/javascript">
-            google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Year', 'Sales', 'Expenses'],
-                    ['2004', 1000, 400],
-                    ['2005', 1170, 460],
-                    ['2006', 660, 1120],
-                    ['2006', 660, 1120],
-                    ['2006', 660, 1120],
-                    ['2006', 660, 1120],
-                    ['2007', 1030, 540]
-                ]);
-
-                var options = {
-                    title: 'Company Performance',
-                    curveType: 'function',
-                    legend: {position: 'bottom'}
-                };
-
-                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                chart.draw(data, options);
-            }
-        </script>
         <style>
             .all{
                 display: flex;
+                background-color: white; 
             }
             .left{
                 flex: 1;
@@ -110,16 +86,45 @@
                 <div class="right">
                     <div class="diagram">
                         <div class="diagram1" id="piechart" style="width: 50%; height: 99%;"></div>
-                        <div class="diagram2" id="curve_chart" style="width: 50%; height: 99%"></div> 
+                        <div class="diagram2" id="linechart" style="width: 50%; height: 99%;"><canvas id="myChart"></canvas></div> 
                     </div>
                     <div class="content">
-                        <h1>sdasahdusahudhsuahduhuh</h1>
-                        <p style="text-align: left">sdajhsaiufiuhsudhuhdash</p>
+                        
                     </div>
                     <div class="footer">
                     <jsp:include page="footer.jsp"></jsp:include>
                 </div>      
             </div>
         </div>
+                
+
+
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<c:forEach items="${requestScope.profits}" var="p">
+            '${p.date}',
+        </c:forEach>],
+      datasets: [{
+        label: 'Profit(đ)',
+        data: [<c:forEach items="${requestScope.profits}" var="p">
+            '${p.profit}',
+        </c:forEach>],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
     </body>
 </html>

@@ -4,12 +4,15 @@
  */
 package Controller.staff;
 
+import Dao.Impl.OrderDAOImpl;
+import Model.Order;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,6 +60,11 @@ public class ListCancel extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        OrderDAOImpl od = new OrderDAOImpl();
+        ArrayList<Order> orders = od.getPendingCancelOrderID();
+        
+        request.setAttribute("orders", orders);
+        
         request
                 .getRequestDispatcher("/staff/cancel/list.jsp")
                 .forward(request, response);

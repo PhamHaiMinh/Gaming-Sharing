@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Product;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,9 @@ public interface ProductDao extends BaseDao<Product>, BaseImageDao<Product> {
 
     public Product getProductById(String id);
 
+    public Product getProductbyOrder(Product input);
+
+
     public List<Product> getofCategory(int categoryId, int page);
 
     public List<Product> getofCategory(int id);
@@ -34,4 +38,5 @@ public interface ProductDao extends BaseDao<Product>, BaseImageDao<Product> {
     public List<Product> getTop5OfCategory(int id);
 
     public Product getofUser(int id);
+
 }
