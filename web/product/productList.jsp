@@ -205,7 +205,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             <a class="h5 text-decoration-none text-truncate" href="<%=request.getContextPath()%>/product/detail?id=${p.id}">${p.name}</a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-2">
-                                            <h6>${p.price}vnd</h6>
+                                            <h6>
+                                                <script type="text/javascript">
+                                                    var str = parseInt(${p.price})
+                                                    document.write(str.toLocaleString('vi', {style: 'currency', currency: 'VND'}));
+                                                </script>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>

@@ -36,8 +36,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     <div class="d-flex mb-3">
                         <small class="pt-1">${product.viewed} người xem</small>
                     </div>
-                    <h3 class="font-weight-semi-bold mb-4 text-success">${product.price} vnd</h3>
-
+                    <h3 class="font-weight-semi-bold mb-4 text-success">
+                        <script type="text/javascript">
+                            var str = parseInt(${product.getPrice()})
+                            document.write(str.toLocaleString('vi', {style: 'currency', currency: 'VND'}));
+                        </script>
+                    </h3>
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Danh mục:</strong>
                         ${product.category.name}

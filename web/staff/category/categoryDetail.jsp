@@ -35,7 +35,10 @@
             <div  class="card mt-3 p-4 d-flex flex-column mx-auto" style="width: 50rem;
                   margin: 0 auto;">
                 <div class="d-flex justify-content-center">
-                    <h3 class="title">Product of Category</h3s>
+                    <h3 class="title">Product of Category</h3>
+                </div>
+                <div>
+                    <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
                 </div>
                 <div class="card my-3">
 

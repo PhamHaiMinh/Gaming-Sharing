@@ -43,7 +43,12 @@
                         </div>
                         <div class="d-flex align-items-end">
                             <h4>Price:</h4>
-                            <h5 class="mx-2">${product.getPrice()}</h5>
+                            <h5 class="mx-2">
+                                <script type="text/javascript">
+                                        var str = parseInt(${product.getPrice()})
+                                        document.write(str.toLocaleString('vi', {style: 'currency', currency: 'VND'}));
+                                </script>
+                            </h5>
                         </div>
                         <div class="d-flex align-items-end">
                             <h4>Viewed:</h4>
