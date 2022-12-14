@@ -1,4 +1,4 @@
-﻿--use GamingSharing;
+﻿--use GamingSharing1;
 
 --role
 INSERT INTO Role(name) VALUES ('admin');

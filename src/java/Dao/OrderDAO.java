@@ -16,5 +16,5 @@ public interface OrderDAO extends BaseDao<Order>{
     public int getProfitFromDate(java.sql.Date date);
     public ArrayList<Order> getPendingCancelOrderID();
     public int getUserID(int order_id);
-    public Product getProductbyID(int order_id);
+    public ArrayList<Product> getListProductIDbyOrderID(int order_id);
 }

@@ -5,7 +5,7 @@ create table Account (
 	username varchar(150) not null,
 	[password] varchar(150) not null,
 	email varchar(255) not null,
-	rollid int not null,
+	role_id int not null,
 	active bit not null default 1,
 );
 create table [User] (

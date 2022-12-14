@@ -69,20 +69,23 @@
                     </thead>
                     <tbody>
                         <c:set var="i" value="0"></c:set>
+                        <c:forEach items="${products}" var="p">
+                            <c:set var="i" value="${i+1}"/>
                             <tr>
-                                <th scope="col">1</th>
-                                <th scope="col">${product.name}</th>                           
-                            <th scope="col">${product.category.name}</th>
-                            <th scope="col">${product.quantity}</th>                       
-                            <th scope="col">${product.price}</th>
-                            <th scope="col">${product.image}</th>
-                            <th scope="col">${product.quantity*product.price}</th>
-                        </tr>
-                    </tbody>
-                </table>
-                <a class="btn btn-primary" href="#" role="button">Accept</a>
+                                <th scope="col">${i}</th>
+                                <th scope="col">${p.name}</th>                           
+                                <th scope="col">${p.category.name}</th>
+                                <th scope="col">${p.quantity}</th>                       
+                                <th scope="col">${p.price}</th>
+                                <th scope="col">${p.image}</th>
+                                <th scope="col">${p.quantity*p.price}</th>
+                            </tr>
+                        </c:forEach>                       
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary" href="#" role="button">Accept</a>
+                </div>
             </div>
-        </div>
         <jsp:include page="../layout/footer.jsp"></jsp:include>     
 
     </body>

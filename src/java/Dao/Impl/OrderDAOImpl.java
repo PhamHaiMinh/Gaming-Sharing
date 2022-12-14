@@ -126,32 +126,35 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Product getProductbyID(int order_id) {
+    public ArrayList<Product> getListProductIDbyOrderID(int order_id) {
         DBContext dBContext = new DBContext();
-        Product p = new Product();
+        ArrayList<Product> output = new ArrayList<>();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "SELECT [id]\n"
-                    + "      ,[user_id]\n"
-                    + "      ,[product_id]\n"
-                    + "      ,[quantity]\n"
-                    + "      ,[create_time]\n"
-                    + "      ,[status_id]\n"
-                    + "      ,[cancel_id]\n"
-                    + "  FROM [dbo].[Order]\n"
-                    + "  where id = ?";
+            String sql = "SELECT o.[id]\n"
+                    + "       ,[user_id]\n"
+                    + "       ,[product_id]\n"
+                    + "       ,[quantity]\n"
+                    + "       ,[create_time]\n"
+                    + "       ,[status_id]\n"
+                    + "       ,[cancel_id]\n"
+                    + "       FROM [dbo].[Order] o left join OrderDetail od\n"
+                    + "	   on o.id = od.order_id\n"
+                    + "       where o.id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, order_id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                p.setId(rs.getInt("product_id"));
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(order_id);
                 p.setQuantity(rs.getInt("quantity"));
+                output.add(p);
             }
             dBContext.closeConnection(connection, ps);
         } catch (SQLException e) {
             System.out.println("Error at orderimpl");
         }
-        return p;
+        return output;
     }
 
 }
