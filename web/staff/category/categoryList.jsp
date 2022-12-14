@@ -64,7 +64,7 @@
                 <div class="paging">
                     <ul class="pagination justify-content-center">
                         <c:forEach   items="${pages}" var="p">
-                            <li class="page-item"><a class="page-link  ${page == p ? "active":""}  ${p}" href="product?page=${p}">${p == "disabled"? "..." : p}</a></li>
+                            <li class="page-item"><a class="page-link  ${page == p ? "active":""}  ${p}" href="category?page=${p}">${p == "disabled"? "..." : p}</a></li>
                             </c:forEach>
                     </ul>
                 </div>
