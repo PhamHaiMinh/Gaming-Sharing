@@ -154,10 +154,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                         <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Danh Mục</span></h5>
                         <div class="bg-light p-2 mb-30">
                             <c:forEach items="${categories}" var="c">
-                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                    <input type="radio"  name="categoryId" value="${c.id}"  ${c.id == categoryId? 'checked':''}>
-                                    <label class="custom-control-label" for="price-all">${c.name}</label>
-                                </div>
+                                <div class="form-check">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input
+                                            type="radio"
+                                            class="custom-control-input"
+                                            id="${c.id}"
+                                            name="categoryId"
+                                            ${c.id == categoryId? 'checked':''}
+                                            value="${c.id}"
+                                            />
+                                        <label class="custom-control-label" for="${c.id}"> 
+                                            ${c.name}
+                                        </label>
+                                    </div>
+                                </div> 
                             </c:forEach>
                         </div>
                         <div class="row">
@@ -180,7 +191,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                                   if (account != null && account.getRole()== 2) {
                                                 %>
                                             <a class="btn btn-outline-dark btn-square" href="<%=request.getContextPath()%>/staff/product/detail?id=${p.id}"><i class="fa fa-tools"></i></a>
-                                            <%}%>
+                                                <%}%>
                                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
 
 
@@ -194,7 +205,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             <a class="h5 text-decoration-none text-truncate" href="<%=request.getContextPath()%>/product/detail?id=${p.id}">${p.name}</a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-2">
-                                            <h6>${p.price}vnd</h6>
+                                            <h6>
+                                                <script type="text/javascript">
+                                                    var str = parseInt(${p.price})
+                                                    document.write(str.toLocaleString('vi', {style: 'currency', currency: 'VND'}));
+                                                </script>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>

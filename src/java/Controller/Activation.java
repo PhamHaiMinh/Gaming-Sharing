@@ -12,6 +12,7 @@ import jakarta.servlet.http.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.sql.ResultSet;
  */
 public class Activation extends HttpServlet {
     DBContext dbc = new DBContext();
-    Connection connection = dbc.connection;
+    Connection connection = dbc.getConnection();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,13 +37,16 @@ public class Activation extends HttpServlet {
                 ps.setString(1, email);
                 ps.setString(2, username);
                 int i = ps.executeUpdate();
+                
+                 response.setContentType("text/html");
                 if(i==1){
-                    response.sendRedirect("login.jsp");
+                    response.sendRedirect("login");
                 }else{
-                    response.sendRedirect("register.jsp");
+                    response.sendRedirect("register");
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException | SQLException e) {
+            System.out.println("Error "+e);
         }
     }
 }

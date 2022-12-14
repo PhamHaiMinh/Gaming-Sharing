@@ -1,4 +1,4 @@
-<%@page import="Model.*" import="Dao.*" import="Dao.Impl.*" import="java.util.ArrayList" %>
+<%@page import="Model.*" import="Dao.*" import="Dao.Impl.*" import="java.util.ArrayList" import="java.text.DecimalFormat" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -39,11 +39,11 @@ crossorigin="anonymous"></script>
         background-color: aliceblue;
     }
 </style>
+
 <div style="
      float: left;
      height: 100vh;
      width: 20%;
-     margin-right: 20px;
      ">
 
 </div>
@@ -80,13 +80,13 @@ crossorigin="anonymous"></script>
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/blog/list_blog_category")?"active":""%>">
+            <a href="<%= request.getContextPath()%>/staff/ListBlogCategory" class="nav-link text-white <%=request.getServletPath().equals("/staff/blog/list_blog_category.jsp")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                 Blog Categories 
             </a>
         </li>
         <li>
-            <a href="<%= request.getContextPath()%>/staff/blog/list-blog" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/blog/list_blog")?"active":""%>">
+            <a href="<%= request.getContextPath()%>/staff/blog/list-blog" class="nav-link text-white <%=request.getServletPath().equals("/staff/blog/list_blog.jsp")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                 Blogs
             </a>

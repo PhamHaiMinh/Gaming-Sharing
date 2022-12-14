@@ -15,7 +15,7 @@
     <body>
         <%@include file="../layout/left.jsp"%>
 
-        <div class=" container-70 d-flex justify-content-center flex-column">
+        <div class="container-80 p-4 d-flex flex-column mx-auto  ">
             <div class="d-flex">
                 <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
             </div>
@@ -43,7 +43,13 @@
                                 <th>${c.name}</th>                       
                                 <th>${c.getCategory().getName()}</th>
                                 <th>${c.quantity}</th>
-                                <th>${c.price}</th>
+                                <th>  
+                                    <script type="text/javascript">
+                                        var str = parseInt(${c.price})
+                                                document.write(str.toLocaleString('vi', {style : 'currency', currency : 'VND'}));
+                                    </script>
+                                </th>
+
                                 <th ><img src="${c.image}" width="120" alt="${c.name}"/></th>  
                                 <th>${c.viewed}</th>
                                 <th>
@@ -84,15 +90,15 @@
         <div class="position-fixed w-100" id="alert-div">
             <c:if test="${status.equals('true')}">
                 <button class="alert alert-success d-flex align-items-center position-absolute ms-3 pe-auto" id="alert" role="alert" onclick="closeAlertModal()">
-                    <svg id="suc" class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                    <div>
-                        Successful!
-                    </div>
+                    <svg id="suc" class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></s                        vg>
+                    <d                            iv>
+                        Successf                        ul!
+                    </d                    iv>
                 </button>
             </c:if>
             <c:if test="${status.equals('false')}">
-                <button class="alert alert-danger d-flex align-items-center position-absolute ms-3 pe-auto" id="alert" role="alert" onclick="closeAlertModal()">
-                    <svg id="fa" class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <button class="alert alert-danger d-flex align-items-center position-absolute ms-3 pe-auto" id="alert" role="alert" onclick="closeAlertMo                            dal()">
+                    <svg id="fa" class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/                            ></svg>
                     <div>
                         Failed!
                     </div>
@@ -101,11 +107,11 @@
         </div>
 
         <script >
-            setTimeout(closeAlertModal, 2000);
-            function closeAlertModal() {
-                let modal = document.getElementById("alert");
-                modal.classList.add("fadeOutLeft");
+            setTimeout(closeAle                        rtModal, 2000);
+            function clos                            eAlertModal() {
+            let modal = document.getElemen                            tById("alert");
+            modal.classList.add("fadeOutLeft");
             }
-        </script>             
-    </body>
-</html>
+            </scrip                        t>
+                    </body>
+                    </html>
