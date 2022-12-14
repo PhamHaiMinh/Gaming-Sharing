@@ -108,6 +108,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                     <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href="<%=request.getContextPath()%>/product/detail?id=${p.id}"><i class="fa fa-search"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                        <%
+                                                 if (account != null && account.getRole()== 2) {
+                                        %>
+                                    <a class="btn btn-outline-dark btn-square" href="<%=request.getContextPath()%>/staff/product/detail?id=${p.id}"><i class="fa fa-tools"></i></a>
+                                        <%}%>
                                 </div>
                             </div>
                             <div class="text-center py-4">

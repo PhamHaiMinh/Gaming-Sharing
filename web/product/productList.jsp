@@ -187,16 +187,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                         <img class="img-fluid w-100" src="${p.image}" alt="">
                                         <div class="product-action">
                                             <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
-                                                <%
-                                                  if (account != null && account.getRole()== 2) {
-                                                %>
-                                            <a class="btn btn-outline-dark btn-square" href="<%=request.getContextPath()%>/staff/product/detail?id=${p.id}"><i class="fa fa-tools"></i></a>
-                                                <%}%>
                                             <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-shopping-cart"></i></a>
-
-
                                             <a class="btn btn-outline-dark btn-square" href="<%=request.getContextPath()%>/product/detail?id=${p.id}"><i class="fa fa-search"></i></a>
-
+                                            <%
+                                              if (account != null && account.getRole()== 2) {
+                                            %>
+                                            <a class="btn btn-outline-dark btn-square" href="<%=request.getContextPath()%>/staff/product/detail?id=${p.id}"><i class="fa fa-tools"></i></a>
+                                            <%}%>
                                         </div>
                                     </div>
                                     <div class="text-center py-4">
@@ -205,7 +202,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                                             <a class="h5 text-decoration-none text-truncate" href="<%=request.getContextPath()%>/product/detail?id=${p.id}">${p.name}</a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-2">
-                                            <h6>
+                                            <h6> 
                                                 <script type="text/javascript">
                                                     var str = parseInt(${p.price})
                                                     document.write(str.toLocaleString('vi', {style: 'currency', currency: 'VND'}));

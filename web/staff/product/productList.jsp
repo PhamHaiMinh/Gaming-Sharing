@@ -49,7 +49,6 @@
                                                 document.write(str.toLocaleString('vi', {style : 'currency', currency : 'VND'}));
                                     </script>
                                 </th>
-
                                 <th ><img src="${c.image}" width="120" alt="${c.name}"/></th>  
                                 <th>${c.viewed}</th>
                                 <th>
