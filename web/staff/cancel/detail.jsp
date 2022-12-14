@@ -34,6 +34,7 @@
     </head>
     <body>
         <jsp:include page="../layout/left.jsp"></jsp:include>
+
             <div class="container-70 d-flex justify-content-center flex-column">
                 <div class="container">
                     <h2>Thanh toán</h2>
@@ -81,12 +82,15 @@
                                 <th scope="col">${p.quantity*p.price}</th>
                             </tr>
                         </c:forEach>                       
-                        </tbody>
-                    </table>
-                    <a class="btn btn-primary" href="#" role="button">Accept</a>
-                </div>
+                    </tbody>
+                </table>
+                <a class="btn btn-primary" style="position: absolute;
+                   right: 150px;" href="#" role="button">Reject</a>
+                <a class="btn btn-primary" style="position: absolute;
+                   right: 60px;" href="#" role="button">Accept</a>
+
             </div>
-        <jsp:include page="../layout/footer.jsp"></jsp:include>     
+            <jsp:include page="../layout/footer.jsp"></jsp:include>     
 
     </body>
 </html>

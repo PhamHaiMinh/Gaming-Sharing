@@ -1,13 +1,13 @@
+package Controller.category;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
-
-import Dao.Impl.ProductDaoImpl;
-import Dao.ProductDao;
+import Dao.CategoryDao;
+import Dao.Impl.CategoryDaoImpl;
+import Model.Category;
 import Model.Page;
-import Model.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +19,10 @@ import java.util.List;
  *
  * @author haimi
  */
-public class ListProductStaff extends HttpServlet {
+public class ListCategoryStaff extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
+    // + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -35,13 +36,14 @@ public class ListProductStaff extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        ProductDao productDaoImpl = new ProductDaoImpl();
+        CategoryDao categoryDaoImpl = new CategoryDaoImpl();
+
         int page = request.getParameter("page") != null
                 ? Integer.parseInt(request.getParameter("page"))
                 : 1;
         String status = request.getParameter("status");
-        List<Product> products = productDaoImpl.getAll(page);
-        int count = productDaoImpl.getAll().size();
+        List<Category> categories = categoryDaoImpl.getAll(page);
+        int count = categoryDaoImpl.getAll().size();
         int endpage = count / 5;
         if (count % 5 != 0) {
             endpage++;
@@ -50,10 +52,10 @@ public class ListProductStaff extends HttpServlet {
         List<String> pages = pageClass.listPage();
         request.setAttribute("page", Integer.toString(page));
         request.setAttribute("pages", pages);
-        request.setAttribute("products", products);
+        request.setAttribute("categories", categories);
         request.setAttribute("status", status);
         request
-                .getRequestDispatcher("product/productList.jsp")
+                .getRequestDispatcher("category/categoryList.jsp")
                 .forward(request, response);
     }
 }

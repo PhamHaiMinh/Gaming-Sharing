@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.cart;
 
+import Dao.Impl.ProductDaoImpl;
+import Dao.ProductDao;
 import Model.Cart;
+import Model.CartItem;
+import Model.Product;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,12 +16,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DeleteCartItem extends HttpServlet {
+public class AddToCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +37,31 @@ public class DeleteCartItem extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            try {
+        try {
             HttpSession session = request.getSession();
             Object object = session.getAttribute("cart");
-            int productId = Integer.parseInt(request.getParameter("pid"));
-            Cart cart = (Cart) object;
-            cart.removeItem(productId);
-            response.sendRedirect("./ViewCart");
-        } catch (Exception e) {
-        }
+            ProductDao pdao = new ProductDaoImpl();
+            Cart cart = null;
+            List<CartItem> items = new ArrayList<>();
+            // Check the variable object is not null or not
+            if (object != null) {
+                cart = (Cart) object;
+            } else {
+                cart = new Cart(items);
+            }
+            String productId = request.getParameter("pid");
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
 
+            Product product = pdao.getProductById(productId);
+            CartItem item = new CartItem(product, quantity);
+
+            cart.addItem(item);
+            session.setAttribute("cart", cart);
+            response.sendRedirect("./ProductList?index=1");
+
+        } catch (Exception e) {
+            response.sendRedirect("./404.html");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
