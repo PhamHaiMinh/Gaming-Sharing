@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public interface BlogDao extends BaseDao<Blog> {
+public interface BlogDao extends BaseDao<Blog>, BaseImageDao<Blog> {
 
     public void setActive(String id, int browser);
 
@@ -30,4 +30,5 @@ public interface BlogDao extends BaseDao<Blog> {
     public boolean viewed(String id);
 
     public int getTotal(String title, String catId);
+    public Blog getLast();
 }

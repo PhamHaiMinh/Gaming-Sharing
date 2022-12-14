@@ -7,6 +7,12 @@ package Dao.Impl;
 import Dao.BlogDao;
 import Dao.DBContext;
 import Model.Blog;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Part;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +20,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -168,26 +177,26 @@ public class BlogDaoImpl implements BlogDao {
 
     @Override
     public boolean insert(Blog blog) {
-		String sql = "INSERT INTO Blog (categoryId,title,body,"
-				+ "create_time,priority,viewed,source) VALUES (?,?,?,FORMAT(GetDate(),'yyyy-MM-dd'),?,?,?)";
-		boolean result = false;
-		try {
-			Connection conn = db.getConnection();
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, blog.getCatId());
-			pstm.setString(2, blog.getTitle());
-			pstm.setString(3, blog.getBody());
-			pstm.setInt(4, blog.getPriority());
-			pstm.setInt(5, blog.getViewed());
-			pstm.setString(6, blog.getSource());
-			pstm.executeUpdate();
-			result = true;
-			db.closeConnection(conn, pstm);
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		System.out.println(blog.toString());
-		return result;
+        String sql = "INSERT INTO Blog (categoryId,title,body,"
+                + "create_time,priority,viewed,source) VALUES (?,?,?,FORMAT(GetDate(),'yyyy-MM-dd'),?,?,?)";
+        boolean result = false;
+        try {
+            Connection conn = db.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, blog.getCatId());
+            pstm.setString(2, blog.getTitle());
+            pstm.setString(3, blog.getBody());
+            pstm.setInt(4, blog.getPriority());
+            pstm.setInt(5, blog.getViewed());
+            pstm.setString(6, blog.getSource());
+            pstm.executeUpdate();
+            result = true;
+            db.closeConnection(conn, pstm);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        System.out.println(blog.toString());
+        return result;
     }
 
     @Override
@@ -213,6 +222,106 @@ public class BlogDaoImpl implements BlogDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String uploadImage(Part filePart, HttpServletRequest request, Blog item) {
+        if (filePart.getSize() == 0) {
+            return new BlogDaoImpl().get(Integer.parseInt(item.getId())).getImage();
+        } else {
+            if ((Integer.parseInt(item.getId())) != 0) {
+                try {
+                    String fileName = Paths
+                            .get(filePart.getSubmittedFileName())
+                            .getFileName()
+                            .toString();
+                    Cloudinary cloudinary = new Cloudinary(
+                            ObjectUtils.asMap(
+                                    "cloud_name",
+                                    "dphdoh9qo",
+                                    "api_key",
+                                    "899222149965195",
+                                    "api_secret",
+                                    "MtwIam7__8S6GKlnSEPxG-6Akl0"
+                            )
+                    );
+                    cloudinary.config.secure = true;
+                    filePart.write(request.getRealPath("/image") + fileName);
+                    Map path = ObjectUtils.asMap(
+                            "public_id",
+                            "Home/Images/Blog/" + item.getId(),
+                            "overwrite",
+                            true,
+                            "resource_type",
+                            "image"
+                    );
+                    Map uploadResult = cloudinary
+                            .uploader()
+                            .upload(request.getRealPath("image") + fileName, path);
+                    filePart.delete();
+                    return uploadResult.get("secure_url").toString();
+                } catch (IOException ex) {
+                    Logger
+                            .getLogger(ProductDaoImpl.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void destroyImage(int id) {
+        try {
+            Cloudinary cloudinary = new Cloudinary(
+                    ObjectUtils.asMap(
+                            "cloud_name",
+                            "dphdoh9qo",
+                            "api_key",
+                            "899222149965195",
+                            "api_secret",
+                            "MtwIam7__8S6GKlnSEPxG-6Akl0"
+                    )
+            );
+            cloudinary.config.secure = true;
+            Map path = ObjectUtils.asMap("resource_type", "image");
+            cloudinary
+                    .uploader()
+                    .destroy("Home/Images/Blog/" + Integer.toString(id), path);
+        } catch (IOException ex) {
+            Logger
+                    .getLogger(ProductDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public Blog getLast() {
+        DBContext dBContext = new DBContext();
+        Blog blog = new Blog();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select top 1  * from Blog ORDER BY id DESC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                blog = new Blog(
+                        rs.getString("id"),
+                        rs.getString("title"),
+                        rs.getString("body"),
+                        rs.getString("create_time"),
+                        rs.getString("image"),
+                        rs.getString("catId"),
+                        rs.getInt("viewed"),
+                        rs.getInt("priority"),
+                        rs.getString("source")
+                );
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Blog.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return blog;
     }
 
 }
