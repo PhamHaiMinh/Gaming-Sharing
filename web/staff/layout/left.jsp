@@ -43,7 +43,6 @@ crossorigin="anonymous"></script>
      float: left;
      height: 100vh;
      width: 20%;
-     margin-right: 20px;
      ">
 
 </div>

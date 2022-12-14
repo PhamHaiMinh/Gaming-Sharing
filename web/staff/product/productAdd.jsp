@@ -14,7 +14,7 @@
     </head>
     <body>
         <%@include file="../layout/left.jsp"%>
-        <div class=" container pb-5 d-flex justify-content-center " style="flex-direction: column;">
+        <div class="container-80 pb-5 d-flex justify-content-center " style="flex-direction: column;">
             <div class="text-center py-3">
                 <h1 class="title">New Product</h1>
             </div>

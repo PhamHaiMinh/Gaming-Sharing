@@ -14,7 +14,7 @@
     <body>
         <%@include file="../layout/left.jsp"%>
 
-        <div class=" container py-5 d-flex justify-content-center" style="flex-direction: column;">
+        <div class="container-80 py-5 d-flex justify-content-center" style="flex-direction: column;">
             <div>
                 <a class="btn btn-info m-3 mx-5" href="<%= request.getContextPath()%>/staff/product/update?id=${product.id}" role="button">Update</a>
             </div>
