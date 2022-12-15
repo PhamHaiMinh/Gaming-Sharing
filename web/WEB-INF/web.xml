@@ -39,7 +39,7 @@
     </servlet>
     <servlet>
         <servlet-name>CreateProductStaff</servlet-name>
-        <servlet-class>Controller.staff.CreateProductStaff</servlet-class>
+        <servlet-class>Controller.product.CreateProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailProductStaff</servlet-name>
@@ -118,12 +118,12 @@
         <servlet-class>Controller.Admin.DetailStaff</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListCancel</servlet-name>
-        <servlet-class>Controller.staff.ListCancel</servlet-class>
+        <servlet-name>OrderList</servlet-name>
+        <servlet-class>Controller.staff.OrderList</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CancelDetail</servlet-name>
-        <servlet-class>Controller.staff.CancelDetail</servlet-class>
+        <servlet-name>OrderDetail</servlet-name>
+        <servlet-class>Controller.staff.OrderDetail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddBlogCategory</servlet-name>
@@ -152,6 +152,22 @@
     <servlet>
         <servlet-name>DeleteBlog</servlet-name>
         <servlet-class>Controller.Blog.DeleteBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderEdit</servlet-name>
+        <servlet-class>Controller.staff.OrderEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderCancel</servlet-name>
+        <servlet-class>Controller.staff.OrderCancel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderReject</servlet-name>
+        <servlet-class>Controller.staff.OrderReject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderAccept</servlet-name>
+        <servlet-class>Controller.staff.OrderAccept</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
@@ -270,14 +286,6 @@
         <url-pattern>/DetailStaff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListCancel</servlet-name>
-        <url-pattern>/staff/cancel</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CancelDetail</servlet-name>
-        <url-pattern>/staff/cancel/detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddBlogCategory</servlet-name>
         <url-pattern>/staff/blog/add-cat</url-pattern>
     </servlet-mapping>
@@ -304,6 +312,30 @@
     <servlet-mapping>
         <servlet-name>DeleteBlog</servlet-name>
         <url-pattern>/staff/blog/delete-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderList</servlet-name>
+        <url-pattern>/staff/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetail</servlet-name>
+        <url-pattern>/staff/order/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderEdit</servlet-name>
+        <url-pattern>/staff/order/detail/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderCancel</servlet-name>
+        <url-pattern>/staff/order/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderReject</servlet-name>
+        <url-pattern>/staff/order/reject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderAccept</servlet-name>
+        <url-pattern>/staff/order/accept</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cancel</title>
+        <title>Order</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -18,11 +18,6 @@
     <body>
         <jsp:include page="../layout/left.jsp"></jsp:include>
             <div class="container-80 p-4 d-flex flex-column mx-auto">
-                <div class="d-flex">
-                <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/cancel" role="button">Pending</a>
-                <a class="btn btn-primary" href="#" role="button">Reasons</a>
-                <a class="btn btn-primary" href="#" role="button">Cancel Products</a>
-            </div>
             <h2>Đơn chờ xử lý</h2>
             <input class="form-control" id="myInput" type="text" placeholder="Search..">
             <br>
@@ -43,7 +38,7 @@
                             <tr>
                                 <td>${i}</td>
                                 <td>
-                                    <a class="btn btn-info" href="<%= request.getContextPath()%>/staff/cancel/detail?id=${o.id}" role="button">${o.id}</a>
+                                    <a class="btn btn-info" href="<%= request.getContextPath()%>/staff/order/detail?id=${o.id}" role="button">${o.id}</a>
                                 </td>
                                 <td>${o.status}</td>
                                 <td>${o.day_create}</td>

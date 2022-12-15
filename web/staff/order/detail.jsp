@@ -6,11 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Dao.Impl.OrderDAOImpl"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Staff Detail</title>
+        <title>Order Detail</title>
         <style>
             .content{
                 display: flex;
@@ -84,10 +85,16 @@
                         </c:forEach>                       
                     </tbody>
                 </table>
+                <%OrderDAOImpl od = new OrderDAOImpl();
+                if(od.canOrderEdit(Integer.parseInt(request.getParameter("id")))){ %>
+                <a class="btn btn-primary" style="position: absolute;right: 240px;" href="<%= request.getContextPath()%>/staff/order/reject?id=${id}" role="button">Reject</a>
                 <a class="btn btn-primary" style="position: absolute;
-                   right: 150px;" href="#" role="button">Reject</a>
+                   right: 150px;" href="<%= request.getContextPath()%>/staff/order/detail/edit?id=${id}" role="button">Edit</a>
                 <a class="btn btn-primary" style="position: absolute;
-                   right: 60px;" href="#" role="button">Accept</a>
+                   right: 60px;" href="<%= request.getContextPath()%>/staff/order/accept?id=${id}" role="button">Accept</a>
+
+                <%}%>
+
 
             </div>
             <jsp:include page="../layout/footer.jsp"></jsp:include>     

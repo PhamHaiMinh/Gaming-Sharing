@@ -25,4 +25,7 @@ public interface AccountDao {
     Account check(String username, String password);
 
     Account get(int id);
+    
+    public boolean updateEmail(int id, String email);
+    
 }

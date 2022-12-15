@@ -196,12 +196,32 @@ public class AccountDaoImpl implements AccountDao {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return new Account(id,rs.getString("email"));
+                return new Account(id, rs.getString("email"));
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
+    }
+
+    @Override
+    public boolean updateEmail(int id, String email) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "UPDATE [dbo].[Account]\n"
+                    + "   SET [email] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error at account");
+        }
+        return false;
     }
 
 }

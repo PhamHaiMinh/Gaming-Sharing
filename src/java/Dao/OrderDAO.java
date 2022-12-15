@@ -17,4 +17,8 @@ public interface OrderDAO extends BaseDao<Order>{
     public ArrayList<Order> getPendingCancelOrderID();
     public int getUserID(int order_id);
     public ArrayList<Product> getListProductIDbyOrderID(int order_id);
+    public ArrayList<Order> getAllOrder();
+    public boolean canOrderEdit(int order_id);
+    public boolean changeStatusID(int order_id, int status_id);
+    public boolean deleteOrderByID(int order_id);
 }

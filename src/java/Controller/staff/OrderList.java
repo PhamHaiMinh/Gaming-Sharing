@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author LENOVO
  */
-public class ListCancel extends HttpServlet {
+public class OrderList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,12 +61,11 @@ public class ListCancel extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderDAOImpl od = new OrderDAOImpl();
-        ArrayList<Order> orders = od.getPendingCancelOrderID();
-        
+        ArrayList<Order> orders = od.getAllOrder();
         request.setAttribute("orders", orders);
         
         request
-                .getRequestDispatcher("/staff/cancel/list.jsp")
+                .getRequestDispatcher("/staff/order/list.jsp")
                 .forward(request, response);
     }
 

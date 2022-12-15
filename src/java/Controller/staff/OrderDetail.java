@@ -22,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author LENOVO
  */
-public class CancelDetail extends HttpServlet {
+public class OrderDetail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -59,7 +59,9 @@ public class CancelDetail extends HttpServlet {
             products.add(pd.getProductbyOrder(p));
         }
         request.setAttribute("products", products);
-        request.getRequestDispatcher("/staff/cancel/detail.jsp").forward(request, response);
+        
+        request.setAttribute("id", order_id);
+        request.getRequestDispatcher("/staff/order/detail.jsp").forward(request, response);
     } 
 
     /** 
