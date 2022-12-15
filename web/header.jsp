@@ -53,10 +53,6 @@
                         </a>
                         <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
                              id="navbar-vertical" style="z-index: 999;">
-                            <%
-                            CategoryDao categoryDaoImpl = new CategoryDaoImpl();
-                            List<Category> categories = categoryDaoImpl.getAll();
-                            %>
                             <div class="navbar-nav w-100" style="flex-direction: column;">
                                 <c:forEach items="${categories}" var="c">
                                     <a href="<%=request.getContextPath()%>/product?categoryId=${c.id}" class="nav-item nav-link text-black-50">${c.name}</a>

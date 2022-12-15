@@ -39,4 +39,8 @@ public interface ProductDao extends BaseDao<Product>, BaseImageDao<Product> {
 
     public Product getofUser(int id);
 
+    public List<Product> getTop6New();
+
+    public List<Product> getTop6View();
+
 }

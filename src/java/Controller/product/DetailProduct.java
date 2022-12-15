@@ -4,8 +4,10 @@
  */
 package Controller.product;
 
+import Dao.Impl.CategoryDaoImpl;
 import Dao.Impl.ProductDaoImpl;
 import Dao.ProductDao;
+import Model.Category;
 import Model.Product;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -33,11 +35,15 @@ public class DetailProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDao productDaoImpl = new ProductDaoImpl();
+        CategoryDaoImpl categoryDao = new CategoryDaoImpl();
         int id = request.getParameter("id") != null
                 ? Integer.parseInt(request.getParameter("id"))
                 : 0;
         Product product = productDaoImpl.getofUser(id);
         List<Product> products = productDaoImpl.getTop5OfCategory(product.getCategory().getId());
+
+        List<Category> categories = categoryDao.getAll();
+        request.setAttribute("categories", categories);
         request.setAttribute("products", products);
         request.setAttribute("product", product);
         request
