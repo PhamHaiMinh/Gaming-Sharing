@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Dao.Impl;
 
 import Dao.AccountDao;
 import Dao.DBContext;
 import Model.Account;
 import Model.SendEmail;
+import Model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,39 +62,31 @@ public class AccountDaoImpl implements AccountDao {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String checkUser = rs.getString("username");
+                String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
                     //                } else if (email.equals(checkMail)) {
                     //                    return "Email already exist";
-                }
-            } else {
-                st = connection.prepareStatement("INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)");
-                st.setString(1, username);
-                st.setString(2, password);
-                st.setInt(3, 3);
-                st.setString(4, email);
-                int i = st.executeUpdate();
-                if (i != 0) {
-                    SendEmail se = new SendEmail(email, username);
-                    se.sendMail();
-                    return "Success";
+                } else {
+                    st = connection.prepareStatement(
+                            "INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)"
+                    );
+                    st.setString(1, username);
+                    st.setString(2, password);
+                    st.setInt(3, 3);
+                    st.setString(4, email);
+                    int i = st.executeUpdate();
+
+                    if (i != 0) {
+                        SendEmail se = new SendEmail(email, username);
+                        se.sendMail();
+                        return "Success";
+                    }
                 }
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return "error";
-    }
-
-    public static void main(String[] args) {
-        String email = "philonghiryu@gmail.com";
-        String username = "longnt2";
-        String password = "Ryu@0000";
-        AccountDaoImpl accDao = new AccountDaoImpl();
-        Account acc = new Account(username, password, 3, email);
-        String msg = accDao.register(acc);
-        System.out.println(msg);
     }
 
     @Override
@@ -141,14 +130,14 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void changePassword(Account a) {
+    public void changePassword(String passString, int id) {
         DBContext dBContext = new DBContext();
         Connection connection = dBContext.getConnection();
-        String sql = "update account set password=? where username=?";
+        String sql = "update Account set [password]=? where [id]=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, a.getPassword());
-            st.setString(2, a.getUsername());
+            st.setString(1, passString);
+            st.setInt(2, id);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -181,27 +170,6 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public Account get(int id) {
-        String sql = "SELECT [id]\n"
-                + "      ,[username]\n"
-                + "      ,[password]\n"
-                + "      ,[email]\n"
-                + "      ,[active]\n"
-                + "      ,[role_id]\n"
-                + "  FROM [dbo].[Account]\n"
-                + "  where id = ?";
-        DBContext dBContext = new DBContext();
-        try {
-            Connection connection = dBContext.getConnection();
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                return new Account(id,rs.getString("email"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

@@ -2,27 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.Admin;
+package Controller.cart;
 
+
+
+import Dao.Impl.ProductDaoImpl;
 import Dao.Impl.UserDaoImpl;
+import Dao.ProductDao;
 import Dao.UserDao;
-import Model.Role;
+import Model.Account;
+import Model.Cart;
+import Model.CartItem;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "UpdateStaff", urlPatterns = {"/UpdateStaff"})
-public class UpdateStaff extends HttpServlet {
+public class Checkout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +48,10 @@ public class UpdateStaff extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateStaff</title>");
+            out.println("<title>Servlet Checkout</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateStaff at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Checkout at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,14 +69,17 @@ public class UpdateStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String sid = request.getParameter("sid");
-        UserDao dao = new UserDaoImpl();
-        User u = dao.getById(sid);
-        List<Role> listRole = dao.getAllRole();
-        request.setAttribute("listRole", listRole);
-        request.setAttribute("user", u);
-        request.getRequestDispatcher("/staff/staff/edit.jsp").forward(request, response);
-  
+        HttpSession session = request.getSession();
+        if (session.getAttribute("account") != null) {
+            Account a = (Account) session.getAttribute("account");
+            UserDao dao = new UserDaoImpl();
+            User account = dao.get(a.getId());
+            String address = dao.getAddress(a.getId());
+            request.setAttribute("user", account);
+            request.setAttribute("address", address);
+
+        }
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
     /**
@@ -83,12 +93,43 @@ public class UpdateStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String uid = request.getParameter("uid");
-        String roleId = request.getParameter("role");
-        String stautus = request.getParameter("stautus");
-        UserDao dao = new UserDaoImpl();
-        dao.updateStaff(uid, stautus, roleId);
-        response.sendRedirect("ListStaff");
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Object object = session.getAttribute("cart");
+        ProductDao pdao = new ProductDaoImpl();
+        Cart cart = null;
+        List<CartItem> items = new ArrayList<>();
+        String mess = "";
+        // Check the variable object is not null or not
+        if (object != null) {
+            cart = (Cart) object;
+            for (CartItem item : cart.getItems()) {
+                Product product = pdao.getProductById(String.valueOf(item.getProduct().getId()));
+
+                int quantity = item.getQuantity();
+                if (product.getQuantity() == 0) {
+                    mess += "The product: " + product.getName() + " run out of stock <Br> ";
+                }
+                if (item.getQuantity() > product.getQuantity()) {
+                    mess += "The product: " + product.getName() + " just have " + product.getQuantity() + " in stockNot enough to by.  <Br>";
+                }
+                CartItem newitem = new CartItem(product, quantity);
+                items.add(newitem);
+            }
+            cart.setItems(items);
+        } else {
+            cart = new Cart(items);
+            response.getWriter().print(cart.getItems().size());
+        }
+        if (true) {
+
+        }
+        if (mess.equals("")) {
+            response.sendRedirect("home");
+        } else {
+            response.getWriter().print("<h1 style=\"text-align: center;\">Error</h1>");
+            response.getWriter().print("<h1 style=\"text-align: center;\">"+mess+"</h1>");
+        }
     }
 
     /**

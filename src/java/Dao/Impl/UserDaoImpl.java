@@ -292,4 +292,22 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
+
+    @Override
+    public String getAddress(int id) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "   select [address_detail] from [Address] where [user_id] =  " + id;
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
 }

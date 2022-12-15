@@ -15,26 +15,24 @@
     <body>
         <%@include file="../layout/left.jsp"%>
         <div class=" container p-4 d-flex flex-column mx-auto  ">
-            <div class="d-flex">
-                <a class="btn btn-primary" href="<%= request.getContextPath()%>/staff/product/create" role="button">Create</a>
-            </div>
+            
             <div class="card my-3">
-                <form method="get" action="" style="width: 50%; float: left; position: relative; top: 55px; left: 20px;">
+                <form method="get" action="" style="width: 50%; float: left; position: relative; top: 55px; left: 35px;">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Status</label>
                             <select name="active"  class="form-select" onchange="this.form.submit()">
                                 <option value="">All</option>
-                                <option value="1" ${1 == param.roleId?"selected":"" }>Active</option>
-                                <option value="0" ${0 == param.roleId?"selected":"" }>Inactive</option>
+                                <<option value="1" ${"1" == param.active?"selected":"" }>Active</option>
+                                <option value="0" ${"0" == param.active?"selected":"" }>Inactive</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label>Gender</label>
-                            <select name="active" class="form-select" onchange="this.form.submit()">
+                           <select name="gender" class="form-select" onchange="this.form.submit()">
                                 <option value="">All</option>
-                                <option value="1"  ${1 == param.roleId?"selected":"" }>Male</option>
-                                <option value="0" ${0== param.roleId?"selected":"" }>Female</option>
+                                <option value="1"  ${"1" == param.roleId?"selected":"" }>Male</option>
+                                <option value="0" ${"0" == param.roleId?"selected":"" }>Female</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -42,7 +40,7 @@
                             <select name="roleId"  class="form-select"onchange="this.form.submit()">
                                 <option value="">All</option>
                                 <c:forEach var="r" items="${listRole}">
-                                    <option value="${r.getRid()}" ${r.getRid() == param.roleId?"selected":"" } disabled="">${r.getName()}</option>
+                                    <option value="${r.getRid()}" ${r.getRid() == param.roleId?"selected":"" } >${r.getName()}</option>
                                 </c:forEach>
                             </select> 
                         </div>
@@ -68,7 +66,7 @@
                         <c:forEach items="${list}" var="c">
                             <c:set var="i" value="${i+1}"/>
                             <tr>
-                                <td ><a href="DetailStaff?sid=${c.id}" >${c.id}</a></td>                       
+                                <td ><a href="DetailStaff?sid=${c.account.id}" >${c.account.id}</a></td>                         
                                 <td>${c.last_name} ${c.middle_name} ${c.first_name}</td>
                                 <td>${c.gender?"Male":"Female"}</td>
                                 <td>${c.phone}</td>
@@ -76,12 +74,12 @@
                                 <td>${c.account.active?"Acvtive":"Inactive"}</td>
                                 <td>${c.account.roleName}</td>
                                 <c:if test="${c.account.active}">
-                                    <td><a href="EditStaffStatus?uid=${c.id}&active=0" class="btn btn-warning">De-active</a>  </td>
+                                      <td><a href="EditStaffStatus?uid=${c.account.id}&active=0" class="btn btn-warning">De-active</a>  </td>
                                 </c:if>
                                 <c:if test="${!c.account.active}">
-                                    <td><a href="EditStaffStatus?uid=${c.id}&active=1" class="btn btn-success">Active</a>  </td>
+                                   <td><a href="EditStaffStatus?uid=${c.account.id}&active=1" class="btn btn-success">Active</a>  </td>
                                 </c:if>
-                                <td><a href="DeleteStaff?uid=${c.id}" class="btn btn-danger">Delete</a>  </td>
+                               <td><a href="DeleteStaff?uid=${c.account.id}" class="btn btn-danger">Delete</a>  </td>
 
                             </tr>
                         </c:forEach>

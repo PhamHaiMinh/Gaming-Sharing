@@ -32,17 +32,17 @@
                         <form action="ChangePassword" method="POST">
                             <input type="hidden" name="user" value="${sessionScope.account.username}"
                                    <h4 class="font-500">Old password</h4>
-                            <input name="opass" class="form-control form-control-lg mb-3" type="password" required  placeholder="Enter old password" >
+                           <input name="oldpass" class="form-control form-control-lg mb-3" type="password" required  placeholder="Enter old password" >
                             <h4 class="font-500">New Password</h4>
                             <div class="input-group ">
                                 <input class="form-control form-control-lg" id="password" name="npass" type="password" placeholder="Enter new password" >
                             </div>
                             <h4 class="font-500">Re-enter New Password</h4>
                             <div class="input-group ">
-                                <input class="form-control form-control-lg" id="password" name="renpass" type="password" placeholder="Enter new password" >
+                                <input class="form-control form-control-lg" id="password" name="renewpass" type="password" placeholder="Enter new password" >
 
                             </div>
-                            <span style="color: red" class="mb-3">${errorPassword}</span>
+                            <span style="color: red" class="mb-3">${mess}</span>
                             <div class="d-flex my-3  justify-content-between">
                                 <div class="form-check">
                                     <input
