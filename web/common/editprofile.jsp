@@ -28,13 +28,13 @@
                             <h4 class="font-500">User Name</h4>
                             <input name="username" class="form-control form-control-lg mb-3" type="text" required readonly="" maxlength="50" placeholder="User Name" value="${sessionScope.account.username}" >
                             <h4 class="font-500">First Name</h4>
-                            <input name="first_name" class="form-control form-control-lg mb-3" type="text" required maxlength="50" placeholder="Full Name" value="${user.first_name}" >
+                            <input name="first_name" class="form-control form-control-lg mb-3" type="text" required pattern="[A-Za-z]+"  title="Not aloww to input number" maxlength="50" placeholder="Full Name" value="${user.first_name}" >
                             <h4 class="font-500">Middle Name</h4>
-                            <input name="middle_name" class="form-control form-control-lg mb-3" type="text" required maxlength="50" placeholder="Full Name" value="${user.middle_name}" >
+                              <input name="middle_name" class="form-control form-control-lg mb-3" type="text" required  pattern="[A-Za-z]+"  title="Not aloww to input number" maxlength="50" placeholder="Full Name" value="${user.middle_name}" >
                             <h4 class="font-500">Last Name</h4>
-                            <input name="last_name" class="form-control form-control-lg mb-3" type="text" required maxlength="50" placeholder="Full Name" value="${user.last_name}" >
+                            <input name="last_name" class="form-control form-control-lg mb-3" type="text" required  pattern="[A-Za-z]+" title="Not aloww to input number" maxlength="50" placeholder="Full Name" value="${user.last_name}" >
                             <h4 class="font-500">Phone</h4>
-                            <input name="phone" class="form-control form-control-lg mb-3" type="text" required maxlength="11" placeholder="Phone" value="${user.phone}" >
+                            <input name="phone" class="form-control form-control-lg mb-3" type="text" required pattern="^[0-9]*$" maxlength="11" placeholder="Phone" value="${user.phone}" >
                             <h4 class="font-500">gender</h4>
                             <div class="input-group " style="margin-bottom: 10px;">
                                 <input name="gender" type="radio" value="1" ${user.gender?"checked":""} >Male
