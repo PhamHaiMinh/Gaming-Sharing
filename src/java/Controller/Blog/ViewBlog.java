@@ -2,19 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.cart;
+package Controller.Blog;
 
-import Dao.Impl.ProductDaoImpl;
-import Dao.ProductDao;
-import Model.Cart;
-import Model.CartItem;
-import Model.Product;
+import Dao.Impl.BlogCategoryDaoImpl;
+import Dao.Impl.BlogDaoImpl;
+import Model.Blog;
+import Model.BlogCategory;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ import java.util.List;
  *
  * @author Admin
  */
-public class ViewCart extends HttpServlet {
+public class ViewBlog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +35,18 @@ public class ViewCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Object object = session.getAttribute("cart");
-        ProductDao pdao = new ProductDaoImpl();
-        Cart cart = null;
-        List<CartItem> items = new ArrayList<>();
-        // Check the variable object is not null or not
-        if (object != null) {
-            cart = (Cart) object;
-            for (CartItem item : cart.getItems()) {
-                Product product = pdao.getProductById(String.valueOf(item.getProduct().getId()));
-                System.out.println("================" + product.getPrice());
-                int quantity = item.getQuantity();
-                CartItem newitem = new CartItem(product, quantity);
-                items.add(newitem);
-            }
-            cart.setItems(items);
-        } else {
-            cart = new Cart(items);
-            response.getWriter().print(cart.getItems().size());
-
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ViewBlog</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ViewBlog at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        session.setAttribute("cart", cart);
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,7 +61,7 @@ public class ViewCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -87,7 +75,23 @@ public class ViewCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("id");
+        if (id != null) {
+            BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+            BlogDaoImpl blogDao = new BlogDaoImpl();
+            List<BlogCategory> listCategory = blogCat.getAll();
+            request.setAttribute("listCategory", listCategory);
+
+            Blog blog = blogDao.getBlogDetail(id);
+            blogDao.viewed(id);
+            blogCat.viewed(blog.getCatId());
+            request.setAttribute("catId", blog.getCatId());
+            ArrayList<Blog> listBlog = blogDao.getRelatedBlog(id, blog.getCatId());
+
+            request.setAttribute("listBlog", listBlog);
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("blog/view_blog.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -39,7 +39,7 @@
     </servlet>
     <servlet>
         <servlet-name>CreateProductStaff</servlet-name>
-        <servlet-class>Controller.staff.CreateProductStaff</servlet-class>
+        <servlet-class>Controller.product.CreateProductStaff</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailProductStaff</servlet-name>
@@ -119,11 +119,11 @@
     </servlet>
     <servlet>
         <servlet-name>ListCancel</servlet-name>
-        <servlet-class>Controller.staff.ListCancel</servlet-class>
+        <servlet-class>Controller.Cancel.ListCancel</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CancelDetail</servlet-name>
-        <servlet-class>Controller.staff.CancelDetail</servlet-class>
+        <servlet-name>UpdateDetail</servlet-name>
+        <servlet-class>Controller.Cancel.UpdateCancel</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddBlogCategory</servlet-name>
@@ -156,6 +156,30 @@
     <servlet>
         <servlet-name>Checkout</servlet-name>
         <servlet-class>Controller.cart.Checkout</servlet-class>
+     </servlet>
+     <servlet>
+        <servlet-name>AddCancel</servlet-name>
+        <servlet-class>Controller.Cancel.AddCancel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCancel</servlet-name>
+        <servlet-class>Controller.Cancel.DeleteCancel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditBlog</servlet-name>
+        <servlet-class>Controller.Blog.EditBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListBlog</servlet-name>
+        <servlet-class>Controller.Blog.ListBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewBlog</servlet-name>
+        <servlet-class>Controller.Blog.ViewBlog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListBlogByCategory</servlet-name>
+        <servlet-class>Controller.Blog.ListBlogByCategory</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
@@ -274,8 +298,8 @@
         <url-pattern>/staff/cancel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CancelDetail</servlet-name>
-        <url-pattern>/staff/cancel/detail</url-pattern>
+        <servlet-name>UpdateDetail</servlet-name>
+        <url-pattern>/staff/cancel/update</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBlogCategory</servlet-name>
@@ -312,6 +336,30 @@
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCancel</servlet-name>
+        <url-pattern>/staff/cancel/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCancel</servlet-name>
+        <url-pattern>/staff/cancel/delete</url-pattern>
+   </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditBlog</servlet-name>
+        <url-pattern>/staff/blog/edit-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBlog</servlet-name>
+        <url-pattern>/list-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBlog</servlet-name>
+        <url-pattern>/blog-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBlogByCategory</servlet-name>
+        <url-pattern>/list-blog-by-cat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

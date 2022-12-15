@@ -2,25 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller.product;
+package Controller.Cancel;
 
-import Dao.Impl.CategoryDaoImpl;
-import Dao.Impl.ProductDaoImpl;
-import Dao.ProductDao;
-import Model.Category;
-import Model.Product;
+import Dao.Impl.CancelDaoImpl;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author haimi
  */
-public class DetailProduct extends HttpServlet {
+public class DeleteCancel extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,21 +29,14 @@ public class DetailProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDao productDaoImpl = new ProductDaoImpl();
-        CategoryDaoImpl categoryDao = new CategoryDaoImpl();
+        CancelDaoImpl cancelDaoImpl = new CancelDaoImpl();
         int id = request.getParameter("id") != null
                 ? Integer.parseInt(request.getParameter("id"))
                 : 0;
-        Product product = productDaoImpl.getofUser(id);
-        List<Product> products = productDaoImpl.getTop5OfCategory(product.getCategory().getId());
-
-        List<Category> categories = categoryDao.getAll();
-        request.setAttribute("categories", categories);
-        request.setAttribute("products", products);
-        request.setAttribute("product", product);
-        request
-                .getRequestDispatcher("productDetail.jsp")
-                .forward(request, response);
+        boolean status = cancelDaoImpl.delete(id);
+        response.sendRedirect(
+                request.getContextPath() + "/staff/cancel?status=" + status
+        );
     }
 
 }

@@ -6,7 +6,6 @@ package Controller;
 
 import Dao.DBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import java.sql.Connection;

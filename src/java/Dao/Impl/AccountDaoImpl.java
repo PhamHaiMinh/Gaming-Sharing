@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Dao.Impl;
 
 import Dao.AccountDao;
@@ -65,8 +69,6 @@ public class AccountDaoImpl implements AccountDao {
                 String checkMail = rs.getString("email");
                 if (username.equals(checkUser)) {
                     return "Username already exist";
-                    //                } else if (email.equals(checkMail)) {
-                    //                    return "Email already exist";
                 } else {
                     st = connection.prepareStatement(
                             "INSERT INTO Account(username, password, role_id, email) VALUES(?,?,?,?)"
@@ -170,6 +172,27 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public Account get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT [id]\n"
+                + "      ,[username]\n"
+                + "      ,[password]\n"
+                + "      ,[email]\n"
+                + "      ,[active]\n"
+                + "      ,[role_id]\n"
+                + "  FROM [dbo].[Account]\n"
+                + "  where id = ?";
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new Account(id,rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
+
 }

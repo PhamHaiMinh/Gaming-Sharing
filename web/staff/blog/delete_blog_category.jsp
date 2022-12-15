@@ -1,6 +1,6 @@
 <%-- 
-    Document   : list_blog_category
-    Created on : Dec 5, 2022, 12:09:51 PM
+    Document   : delete_blog_category
+    Created on : Dec 15, 2022, 9:16:25 PM
     Author     : Admin
 --%>
 
@@ -50,52 +50,64 @@
                 </div>
             </div>
             <div>
-                <form action="<%= request.getContextPath()%>/staff/blog/add-cat" method="post" class="form-inline">
-                    <div class="form-group left" style="padding-right: 10px">
-                        <button type="submit" class="btn btn-info" name="showadd" >
-                            <img src="<%=request.getContextPath() %>/assets/img/add.png" alt="" width="20" height="20"> Thêm
-                        </button>
-                    </div>
-                </form>
-
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>STT</th>
-                        <th>ID</th>
-                        <th>Tên danh mục</th>
-                        <th>Mô tả</th>
-                        <th>Sửa</th>
-                    </tr>
-                    <%
-                            if(listCategory!=null){
-                                    for(BlogCategory blogCat:listCategory){
-                    %>
-                    <tr>
-                        <td><%=stt++ %></td>   
-                        <td><%=blogCat.getId() %></td>
-                        <td><%=blogCat.getName() %></td>
-                        <td><%=blogCat.getDescription() %></td>
-                        <td>
-                            <a href="<%= request.getContextPath()%>/staff/blog/edit-cat?showedit=1&id=<%=blogCat.getId()%>"><img src="<%=request.getContextPath() %>/assets/img/edit-icon.png" alt="" width="20" height="20"> Sửa</a>
-                        </td>
-                    </tr>
-                    <%	
-                                    }
-                            }
-                    %>
-                </table>
-                <form action="<%= request.getContextPath()%>/staff/blog/delete-cat" method="post" class="form-inline">
+                <form action="<%= request.getContextPath()%>/staff/blog/delete-cat" method="post" onsubmit="return checkDelete()" class="form-inline">
                     <div>
                         <div class="form-group left">
-                            <button type="submit" class="btn btn-danger" name="showdelete" >
+                            <button type="submit" class="btn btn-danger" name="delete" >
                                 <img src="<%=request.getContextPath() %>/assets/img/del-icon.png" alt="" width="20" height="20"> Xóa
                             </button>
                         </div>
                         <div class="clear"></div>
                     </div>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th><input type="checkbox" name="checkAll" onclick="toggle(this)"></th>
+                            <th>STT</th>
+                            <th>ID</th>
+                            <th>Tên danh mục</th>
+                            <th>Mô tả</th>
+                        </tr>
+                        <%
+                                if(listCategory!=null){
+                                        for(BlogCategory blogCat:listCategory){
+                        %>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="check" value="<%=blogCat.getId() %>">
+                            </td>
+                            <td><%=stt++ %></td>   
+                            <td><%=blogCat.getId() %></td>
+                            <td><%=blogCat.getName() %></td>
+                            <td><%=blogCat.getDescription() %></td>
+                        </tr>
+                        <%	
+                                        }
+                                }
+                        %>
+                    </table>
+
                 </form>
             </div>
         </div>
-        
+        <script type="text/javascript">
+            //kiem tra xoa
+            function checkDelete() {
+                var check = document.getElementsByName("check");
+                for (var i = 0; i < check.length; i++) {
+                    if (check[i].checked) {
+                        return true;
+                    }
+                }
+                document.getElementById("msg").innerHTML = "Chưa chọn mục để xóa";
+                return false;
+            }
+            function toggle(source) {
+                checkboxes = document.getElementsByName('check');
+                for (var i = 0, n = checkboxes.length; i < n; i++) {
+                    checkboxes[i].checked = source.checked;
+                }
+            }
+        </script>
+
     </body>							
 </html>

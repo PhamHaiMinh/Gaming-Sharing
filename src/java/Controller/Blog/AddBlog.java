@@ -86,6 +86,7 @@ public class AddBlog extends HttpServlet {
             category = request.getParameter("category");
             source = request.getParameter("source");
             body = request.getParameter("body");
+            priority = Integer.parseInt(request.getParameter("priority"));
             Part filePart = request.getPart("image");
             Blog blog = new Blog();
             blog.setCatId(category);
@@ -97,10 +98,13 @@ public class AddBlog extends HttpServlet {
             blog.setSource(source);
 
             if (blogDao.insert(blog)) {
+                
                 blog = blogDao.getLast();
                 String image = blogDao.uploadImage(filePart, request, blog);
                 blog.setImage(image);
-                response.sendRedirect("list-blog");
+                boolean status = blogDao.update(blog);
+
+                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
             } else {
                 request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
                 request.getRequestDispatcher("add_blog.jsp").forward(request, response);

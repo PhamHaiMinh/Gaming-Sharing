@@ -54,29 +54,14 @@ public class Register extends HttpServlet {
                     rd.include(request, response);
                     break;
                 }
-//                case "Email already exist": {
-//                    request.setAttribute("emailError", "Email '" + email + "' already exist");
-//                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-//                    rd.include(request, response);
-//                    break;
-//                }
                 default: {
-                        request.setAttribute("error", str);
-                        RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
-                        rd.include(request, response);
-                        break;
-                        }
+                    request.setAttribute("error", str);
+                    RequestDispatcher rd = request.getRequestDispatcher("common/register.jsp");
+                    rd.include(request, response);
+                    break;
+                }
             }
-    }
         }
+    }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

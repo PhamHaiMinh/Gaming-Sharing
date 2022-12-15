@@ -11,7 +11,6 @@ import Model.CartItem;
 import Model.Product;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,8 +57,6 @@ public class AddToCart extends HttpServlet {
             cart.addItem(item);
             session.setAttribute("cart", cart);
            response.sendRedirect("./product");
-
-
         } catch (Exception e) {
             response.sendRedirect("./404.html");
         }
