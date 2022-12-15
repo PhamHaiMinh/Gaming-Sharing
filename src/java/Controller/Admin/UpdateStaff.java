@@ -85,9 +85,9 @@ public class UpdateStaff extends HttpServlet {
             throws ServletException, IOException {
         String uid = request.getParameter("uid");
         String roleId = request.getParameter("role");
-        String status = request.getParameter("status");
+        String stautus = request.getParameter("stautus");
         UserDao dao = new UserDaoImpl();
-        dao.updateStaff(uid, status, roleId);
+        dao.updateStaff(uid, stautus, roleId);
         response.sendRedirect("ListStaff");
     }
 
