@@ -1,9 +1,8 @@
 <%-- 
-    Document   : view_blog
-    Created on : Dec 5, 2022, 12:11:21 PM
+    Document   : list_blog__category_public
+    Created on : Dec 4, 2022, 2:04:30 AM
     Author     : Admin
 --%>
-
 <%@page import="Dao.DBContext"%>
 <%@page import="Model.BlogCategory"%>
 <%@page import="Model.Blog"%>
@@ -18,8 +17,8 @@
         <meta content="Free HTML Templates" name="description">
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="assets/css/blog.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <style>
             .content{
                 display: none;
@@ -31,45 +30,55 @@
         <%
             ArrayList<BlogCategory> listCategory = (ArrayList<BlogCategory>) request.getAttribute("listCategory");
                 String title = request.getParameter("title");
-            Blog blog = (Blog) request.getAttribute("blog");
-                ArrayList<Blog> listBlog = (ArrayList<Blog>) request.getAttribute("listBlog");
                 String catId = (String) request.getAttribute("catId");
+            ArrayList<Blog> listBlog = (ArrayList<Blog>) request.getAttribute("listBlog");
         %>
-        <style>
-            .news_detail img{
-                width:100%;
-            }
-        </style>
         <div id="body">
-            <section class="blog_area single-post-area section-padding">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 posts-list">
-                            <div class="single-post">
-                                <div class="feature-img">
-                                    <img class="img-fluid" src="<%=blog.getImage()%>" alt="">
-                                </div>
 
-                                <div class="blog_details">
-                                    <h2><%=blog.getTitle()%>
-                                    </h2>
-                                    <%  for(BlogCategory blogCategory : listCategory){
-                                        if(blogCategory.getId().equals(catId)){
-                                    %>
-                                    <ul class="blog-info-link mt-3 mb-4">
-                                        <li><a><i class="fa fa-user"></i> <%=blog.getSource()%></a></li>
-                                        <li><a><i class="fa fa-eye"></i> <%=blog.getViewed()%></a></li>
-                                        <li><a><i class="fa fa-bars"></i> <%=blogCategory.getName() %></a></li>
-                                    </ul>
-                                    <%
-                                        break;
-                                        }
-                                      }
-                                    %>
-                                    <p class="excert">
-                                        <%=blog.getBody()%>
-                                    </p>
-                                </div>
+            <section class="blog_area section-padding">
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-lg-8 mb-5 mb-lg-0">
+
+                            <div class="blog_left_sidebar">
+                                <%
+                                String urlBlog = request.getContextPath()+"/blog-detail?id=";
+                                for(Blog blog: listBlog){
+                                %>
+                                <%  for(BlogCategory blogCategory : listCategory){
+                                if(blogCategory.getId().equals(catId)){
+       
+                                %>
+                                <article class="blog_item">
+                                    <div class="blog_item_img">
+                                        <img class="card-img rounded-0" src="<%=blog.getImage() %>" alt="">
+                                        <a href="#" class="blog_item_date">
+                                            <h3><%=blog.getCreate_time() %></h3>
+
+                                        </a>
+                                    </div>
+
+                                    <div class="blog_details">
+                                        <a class="d-inline-block" href="<%=urlBlog+blog.getId()%>">
+                                            <h2><%=blog.getTitle() %></h2>
+                                        </a>
+                                       
+                                        <ul class="blog-info-link">
+
+                                            <li><a><i class="fa fa-bars"></i> <%=blogCategory.getName() %></a></li>
+                                                <% 
+                                                    break;
+                                                     }
+                                                  }
+                                                %>
+                                            <li><a><i class="fa fa-eye"></i> <%=blog.getViewed() %></a></li>
+                                        </ul>
+                                    </div>
+                                </article>
+                                <%} %>
+
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -96,8 +105,8 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </section>
-        </div>
     </body>
 </html>

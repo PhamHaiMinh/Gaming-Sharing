@@ -1,7 +1,7 @@
 <%-- 
-    Document   : blogList
-    Created on : Dec 4, 2022, 2:04:30 AM
-    Author     : Admin
+    Document   : update
+    Created on : 15-12-2022, 18:52:17
+    Author     : haimi
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

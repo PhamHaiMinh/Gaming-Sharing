@@ -5,20 +5,24 @@
 package Controller.Blog;
 
 import Dao.Impl.BlogCategoryDaoImpl;
+import Dao.Impl.BlogDaoImpl;
+import Model.Blog;
 import Model.BlogCategory;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DeleteBlogCategory extends HttpServlet {
+public class ListBlog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +41,10 @@ public class DeleteBlogCategory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteBlogCategory</title>");
+            out.println("<title>Servlet ListBlog</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteBlogCategory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListBlog at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,33 +76,20 @@ public class DeleteBlogCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String msg = "";
-        if (request.getAttribute("msg") != null) {
-            msg = (String) request.getAttribute("msg");
-        }
         BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
-        List<BlogCategory> listCategory = blogCat.getAll();
-        request.setAttribute("listCategory", listCategory);
-        if (listCategory.size() == 0) {
-            msg += "\nKhông tồn tại dữ liệu!";
-        } else {
-            request.setAttribute("listCategory", listCategory);
-        }
-        request.setAttribute("error", msg);
-        if (request.getParameter("delete") != null) {
-            String[] listIdDelete = request.getParameterValues("check");
-            if (blogCat.deleteCategory(listIdDelete)) {
-                msg = "Xóa thành công\n";
-                request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
-                return;
-            } else {
-                msg = "Dữ liệu không tồn tại để xóa!\n";
-            }
-            request.setAttribute("msg", msg);
-        }
-        if (request.getParameter("showdelete") != null) {
-            request.getRequestDispatcher("delete_blog_category.jsp").forward(request, response);
-        }
+		      BlogDaoImpl blogDao = new BlogDaoImpl();
+		List<BlogCategory> listCategory = blogCat.getAll(); 
+		request.setAttribute("listCategory", listCategory);
+		
+		ArrayList<ArrayList<Blog>> listBlog = new ArrayList<ArrayList<Blog>>();
+		for (BlogCategory blogCategory : listCategory) {
+			//System.out.println("1");
+			ArrayList<Blog> list= blogDao.getListBlog(blogCategory.getId());
+			listBlog.add(list);
+		}
+		request.setAttribute("listBlog", listBlog);
+		RequestDispatcher rd = request.getRequestDispatcher("blog/list_blog_public.jsp");
+		rd.forward(request, response);
     }
 
     /**

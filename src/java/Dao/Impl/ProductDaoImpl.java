@@ -664,4 +664,68 @@ public class ProductDaoImpl implements ProductDao {
         }
         return product;
     }
+
+    @Override
+    public List<Product> getTop6New() {
+        DBContext dBContext = new DBContext();
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select top 5 * from Product ORDER BY id DESC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+                product = getCategoryProduct(connection, product);
+                products.add(product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> getTop6View() {
+        DBContext dBContext = new DBContext();
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "select top 5 * from Product ORDER BY viewed DESC";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product
+                        = new Product(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getInt("price"),
+                                rs.getInt("viewed"),
+                                rs.getInt("quantity"),
+                                rs.getString("description"),
+                                rs.getInt("category_id"),
+                                rs.getString("image")
+                        );
+                product = getCategoryProduct(connection, product);
+                products.add(product);
+            }
+            dBContext.closeConnection(connection, ps, rs);
+        } catch (SQLException e) {
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return products;
+    }
 }

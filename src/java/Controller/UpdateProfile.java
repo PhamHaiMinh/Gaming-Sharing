@@ -4,14 +4,11 @@
  */
 package Controller;
 
-import Dao.AccountDao;
-import Dao.Impl.AccountDaoImpl;
 import Dao.Impl.UserDaoImpl;
 import Dao.UserDao;
 import Model.Account;
 import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
