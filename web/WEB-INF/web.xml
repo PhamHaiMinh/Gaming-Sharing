@@ -177,6 +177,30 @@
         <servlet-name>ListBlogByCategory</servlet-name>
         <servlet-class>Controller.Blog.ListBlogByCategory</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderAccept</servlet-name>
+        <servlet-class>Controller.Order.OrderAccept</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderReject</servlet-name>
+        <servlet-class>Controller.Order.OrderReject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetail</servlet-name>
+        <servlet-class>Controller.Order.OrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderEdit</servlet-name>
+        <servlet-class>Controller.Order.OrderEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderList</servlet-name>
+        <servlet-class>Controller.Order.OrderList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>Controller.Order.NewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
         <url-pattern>/Activation</url-pattern>
@@ -336,7 +360,7 @@
     <servlet-mapping>
         <servlet-name>DeleteCancel</servlet-name>
         <url-pattern>/staff/cancel/delete</url-pattern>
-   </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditBlog</servlet-name>
         <url-pattern>/staff/blog/edit-blog</url-pattern>
@@ -352,6 +376,30 @@
     <servlet-mapping>
         <servlet-name>ListBlogByCategory</servlet-name>
         <url-pattern>/list-blog-by-cat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderAccept</servlet-name>
+        <url-pattern>/staff/order/accept</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderReject</servlet-name>
+        <url-pattern>/staff/order/reject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetail</servlet-name>
+        <url-pattern>/staff/order/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderEdit</servlet-name>
+        <url-pattern>/staff/order/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderList</servlet-name>
+        <url-pattern>/staff/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

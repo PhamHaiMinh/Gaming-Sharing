@@ -51,6 +51,21 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
+    public void changePassword(String passString, int id) {
+        DBContext dBContext = new DBContext();
+        Connection connection = dBContext.getConnection();
+        String sql = "update Account set [password]=? where [id]=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, passString);
+            st.setInt(2, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    @Override
     public String register(Account acc) {
         String email = acc.getEmail();
         String username = acc.getUsername();
@@ -141,14 +156,14 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void changePassword(String passString, int id) {
-         DBContext dBContext = new DBContext();
+    public void changePassword(Account a) {
+        DBContext dBContext = new DBContext();
         Connection connection = dBContext.getConnection();
-        String sql = "update Account set [password]=? where [id]=?";
+        String sql = "update account set password=? where username=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, passString);
-            st.setInt(2, id);
+            st.setString(1, a.getPassword());
+            st.setString(2, a.getUsername());
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -196,12 +211,32 @@ public class AccountDaoImpl implements AccountDao {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return new Account(id,rs.getString("email"));
+                return new Account(id, rs.getString("email"));
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
+    }
+
+    @Override
+    public boolean updateEmail(int id, String email) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "UPDATE [dbo].[Account]\n"
+                    + "   SET [email] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error at account");
+        }
+        return false;
     }
 
 }

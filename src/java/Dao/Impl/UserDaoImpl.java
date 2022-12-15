@@ -221,7 +221,6 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
-
     @Override
     public int getNumberGenOfStaff(boolean gender) {
         DBContext dBContext = new DBContext();
@@ -293,21 +292,52 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
-     @Override
-    public String getAddress(int id) {
+    @Override
+    public boolean updateUserPhone(int id, String phone) {
         DBContext dBContext = new DBContext();
         try {
             Connection connection = dBContext.getConnection();
-            String sql = "   select [address_detail] from [Address] where [user_id] =  " + id;
+            String sql = "UPDATE [dbo].[User]\n"
+                    + "   SET     \n"
+                    + "      [phone] = ?\n"
+                    + " WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, phone);
+            ps.setInt(2, id);        
+            ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error at user");
+        }
+        return false;
+    }
+
+    @Override
+    public int getAccountID(int user_id) {
+        DBContext dBContext = new DBContext();
+        int id = -1;
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "SELECT [id]\n"
+                    + "      ,[account_id]\n"
+                    + "      ,[last_name]\n"
+                    + "      ,[middle_name]\n"
+                    + "      ,[first_name]\n"
+                    + "      ,[gender]\n"
+                    + "      ,[phone]\n"
+                    + "  FROM [dbo].[User]\n"
+                    + "  where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, user_id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString(1);
+            if (rs.next()) {
+                id = rs.getInt("account_id");
             }
             dBContext.closeConnection(connection, ps);
         } catch (SQLException e) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, e);
         }
-        return null;
+        return id;
     }
 }

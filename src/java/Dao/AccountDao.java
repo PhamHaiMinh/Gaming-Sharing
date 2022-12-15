@@ -17,12 +17,17 @@ public interface AccountDao {
     boolean checkEmailExist(String email);
 
     void updatePass(String emailString, String password);
+    
+    void changePassword(String passString, int id);
 
     String register(Account acc);
 
-    void changePassword(String passString, int id);
+    void changePassword(Account a);
 
     Account check(String username, String password);
 
     Account get(int id);
+    
+    public boolean updateEmail(int id, String email);
+    
 }

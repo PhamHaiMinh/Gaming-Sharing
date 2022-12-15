@@ -92,6 +92,12 @@ crossorigin="anonymous"></script>
             </a>
         </li>
         <li>
+            <a href="<%= request.getContextPath()%>/staff/order" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/order")?"active":""%>">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                Order
+            </a>
+        </li>
+        <li>
             <a href="<%= request.getContextPath()%>/staff/cancel" class="nav-link text-white <%=request.getServletPath().startsWith("/staff/cancel")?"active":""%>">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                 Cancel
