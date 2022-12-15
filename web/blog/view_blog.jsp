@@ -32,6 +32,7 @@
                 String title = request.getParameter("title");
             Blog blog = (Blog) request.getAttribute("blog");
                 ArrayList<Blog> listBlog = (ArrayList<Blog>) request.getAttribute("listBlog");
+                DBContext dbc = new DBContext();
         %>
         <style>
             .news_detail img{
@@ -39,6 +40,7 @@
             }
         </style>
         <div id="body">
+            
             <div id="fb-root"></div>
 
             <div class="content">
@@ -55,17 +57,16 @@
                     <h2>Tin tức liên quan</h2>
                     <ul>
                         <%
-                                DBContext dbc = new DBContext();
-                                String urlDetail = request.getContextPath()+"/blog-detail/";
-                                for(Blog blog: listBlog){
+                                
+                                String urlDetail = request.getContextPath()+"/blog-detail?id=";
+                                for(Blog oBlog: listBlog){
                         %>
                         <li>
                             <div class="article">
                                 <h3>
-                                    <a href="<%=urlDetail+dbc.createSlug(blog.getTitle())+"_"+blog.getId()+".html"%>">
-                                        <%=blog.getTitle() %></a></h3>
-                                <small>Ngày đăng: <%=blog.getCreate_time() %></small>
-                                <small>Lượt xem: <%=blog.getViewed()%></small>
+                                    <a href="<%=urlDetail+dbc.createSlug(oBlog.getTitle())+"_"+oBlog.getId()+".html"%>"><%=oBlog.getId()%></a></h3>
+                                <small>Ngày đăng: <%=oBlog.getCreate_time() %></small>
+                                <small>Lượt xem: <%=oBlog.getViewed()%></small>
                                
                             </div>
                             

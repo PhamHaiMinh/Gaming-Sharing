@@ -58,7 +58,7 @@
             <div class="section">
 
                 <%
-                        String urlBlog = request.getContextPath()+"/blog-detail/";
+                        String urlBlog = request.getContextPath()+"/blog-detail?id=";
                         for(int i=0; i<listBlog.size(); i++){
                 %>
                 <!-- begin block -->
@@ -78,7 +78,8 @@
                         for(int j=0; j<listBlog.get(i).size(); j++){
                 %>
                 <li>
-                    <b><a href="<%=urlBlog+dbc.createSlug(listBlog.get(i).get(j).getTitle())+"_" + listBlog.get(i).get(0).getId()+".html"%>"><%=listBlog.get(i).get(j).getTitle() %></a></b> 
+                    <a href="<%=urlBlog+listBlog.get(i).get(0).getId()%>"><img src="<%=listBlog.get(i).get(j).getImage() %>" alt=""></a>
+                    <b><a href="<%=urlBlog+listBlog.get(i).get(0).getId()%>"><%=listBlog.get(i).get(j).getTitle() %></a></b> 
                     <small>Ngày đăng: <%=listBlog.get(i).get(j).getCreate_time() %></small>
                 </li>
                 <%} %>

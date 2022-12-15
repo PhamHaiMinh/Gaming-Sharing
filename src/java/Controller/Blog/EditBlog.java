@@ -11,6 +11,7 @@ import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.util.List;
  *
  * @author Admin
  */
+@MultipartConfig
 public class EditBlog extends HttpServlet {
 
     /**
@@ -85,23 +87,21 @@ public class EditBlog extends HttpServlet {
             category = request.getParameter("category");
             source = request.getParameter("source");
             body = request.getParameter("body");
-            priority = 2;
+            priority = Integer.parseInt(request.getParameter("priority"));
             Part filePart = request.getPart("image");
             Blog blog = new Blog();
+            blog.setId(id);
             blog.setCatId(category);
             blog.setTitle(title);
             blog.setBody(body);
-            blog.setPriority(priority);
             blog.setSource(source);
-            
+            blog.setPriority(priority);
+            String image = blogDao.uploadImage(filePart, request, blog);
+            blog.setImage(image);
+
             if (blogDao.update(blog)) {
-                response.sendRedirect("list-blog");
-//                blog = blogDao.getLast();
-//                String image = blogDao.uploadImage(filePart, request, blog);
-//                blog.setImage(image);
-//                boolean status = blogDao.update(blog);
-//                
-//                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
+                boolean status = blogDao.update(blog);
+                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
             } else {
                 request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
                 BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();

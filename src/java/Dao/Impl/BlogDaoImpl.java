@@ -91,7 +91,7 @@ public class BlogDaoImpl implements BlogDao {
     public ArrayList<Blog> getListBlogStaff(String title, String catId, String create_time) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
         String sql = "SELECT b.id, b.title, c.name, b.create_time,"
-                + " b.viewed FROM Blog AS b, BlogCategory AS c"
+                + " b.viewed, b.image FROM Blog AS b, BlogCategory AS c"
                 + " WHERE b.categoryId = c.id"
                 + " ORDER BY b.create_time DESC ";
         try {
@@ -109,7 +109,7 @@ public class BlogDaoImpl implements BlogDao {
                 blog.setCreate_time(tg[2]);
 
                 blog.setViewed(rs.getInt(5));
-
+                blog.setImage(rs.getString(6));
                 listBlog.add(blog);
             }
             db.closeConnection(conn, pstm, rs);
@@ -265,7 +265,7 @@ public class BlogDaoImpl implements BlogDao {
     @Override
     public boolean insert(Blog blog) {
         String sql = "INSERT INTO Blog (categoryId,title,body,"
-                + "create_time,priority,viewed,source) VALUES (?,?,?,FORMAT(GetDate(),'yyyy-MM-dd'),?,?,?)";
+                + "create_time,priority,viewed,source,image) VALUES (?,?,?,FORMAT(GetDate(),'yyyy-MM-dd'),?,?,?,?)";
         boolean result = false;
         try {
             Connection conn = db.getConnection();
@@ -276,7 +276,7 @@ public class BlogDaoImpl implements BlogDao {
             pstm.setInt(4, blog.getPriority());
             pstm.setInt(5, blog.getViewed());
             pstm.setString(6, blog.getSource());
-//            pstm.setString(7, blog.getImage());
+            pstm.setString(7, blog.getImage());
             pstm.executeUpdate();
             result = true;
             db.closeConnection(conn, pstm);
@@ -289,26 +289,30 @@ public class BlogDaoImpl implements BlogDao {
 
     @Override
     public boolean update(Blog blog) {
-        String sql = "UPDATE Blog SET categoryId=?, title=?,body=?,priority=?,source=? WHERE id=?";
-        boolean result = false;
+        DBContext dBContext = new DBContext();
         try {
-            Connection conn = db.getConnection();
-            pstm = conn.prepareStatement(sql);
-            pstm.setString(1, blog.getCatId());
-            pstm.setString(2, blog.getTitle());
-            pstm.setString(3, blog.getBody());
-            pstm.setInt(4, blog.getPriority());
-            pstm.setString(5, blog.getSource());
-//            pstm.setString(6, blog.getImage());
-            pstm.executeUpdate();
-            result = true;
-            db.closeConnection(conn, pstm);
-        } catch (Exception e) {
-            e.getStackTrace();
+            Connection connection = dBContext.getConnection();
+            String sql
+                    = "UPDATE Blog SET categoryId=?,title=?,body=?,priority=?,source=?,image=? WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, blog.getCatId());
+            ps.setString(2, blog.getTitle());
+            ps.setString(3, blog.getBody());
+            ps.setInt(4, blog.getPriority());
+            ps.setString(5, blog.getSource());
+            ps.setString(6, blog.getImage());
+            ps.setString(7, blog.getId());
+            System.out.println(ps.executeUpdate());
+
+            System.out.println("run done");
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException ex) {
+            Logger
+                    .getLogger(BlogDaoImpl.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
-        System.out.println("UPDATE Blog SET categoryId='" + blog.getCatId() + "',title=" + blog.getTitle() + ",body='" + blog.getBody() + "',priority='" + blog.getPriority() + "',source='" + blog.getSource() + "' WHERE id='" + blog.getId() + "'");
-        System.out.println(blog.toString() + "\n" + result);
-        return result;
+        return false;
     }
 
     @Override
@@ -386,6 +390,7 @@ public class BlogDaoImpl implements BlogDao {
                             .uploader()
                             .upload(request.getRealPath("image") + fileName, path);
                     filePart.delete();
+                    System.out.println(uploadResult.get("secure_url").toString());
                     return uploadResult.get("secure_url").toString();
                 } catch (IOException ex) {
                     Logger
@@ -438,7 +443,7 @@ public class BlogDaoImpl implements BlogDao {
                         rs.getString("body"),
                         rs.getString("create_time"),
                         rs.getString("image"),
-                        rs.getString("catId"),
+                        rs.getString("categoryId"),
                         rs.getInt("viewed"),
                         rs.getInt("priority"),
                         rs.getString("source")
@@ -476,12 +481,13 @@ public class BlogDaoImpl implements BlogDao {
                 blog.setViewed(rs.getInt("viewed"));
                 blog.setPriority(rs.getInt("priority"));
                 blog.setSource(rs.getString("source"));
+                blog.setImage(rs.getString("image"));
             }
             db.closeConnection(conn, pstm, rs);
         } catch (Exception e) {
             e.getStackTrace();
         }
-     
+
         return blog;
     }
 

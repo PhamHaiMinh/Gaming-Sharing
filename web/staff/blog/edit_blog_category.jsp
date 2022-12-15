@@ -36,7 +36,7 @@
                     String error = (String) request.getAttribute("error");
                 %>
                 <h2>Thêm danh mục</h2>
-                <div class="loi">
+                <div class="error">
                     <span> <% if (error != null) out.print(error); %>
                     </span>
                 </div>

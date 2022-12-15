@@ -86,14 +86,14 @@ public class ViewBlog extends HttpServlet {
             blogDao.viewed(id);
             blogCat.viewed(blog.getCatId());
 
-            ArrayList<Blog> listRelated = blogDao.getRelatedBlog(id, blog.getCatId());
+            ArrayList<Blog> listBlog = blogDao.getRelatedBlog(id, blog.getCatId());
 
             ArrayList<Blog> listRecommend = blogDao.getRecommendBlog("priority");
             ArrayList<Blog> listMostview = blogDao.getRecommendBlog("viewed");
             request.setAttribute("listRecommend", listRecommend);
             request.setAttribute("listMostview", listMostview);
 
-            request.setAttribute("listRelated", listRelated);
+            request.setAttribute("listBlog", listBlog);
             request.setAttribute("blog", blog);
             request.getRequestDispatcher("blog/view_blog.jsp").forward(request, response);
         }

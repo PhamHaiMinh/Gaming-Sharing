@@ -98,13 +98,13 @@ public class AddBlog extends HttpServlet {
             blog.setSource(source);
 
             if (blogDao.insert(blog)) {
-                response.sendRedirect("list-blog");
-//                blog = blogDao.getLast();
-//                String image = blogDao.uploadImage(filePart, request, blog);
-//                blog.setImage(image);
-//                boolean status = blogDao.update(blog);
-//                
-//                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
+                
+                blog = blogDao.getLast();
+                String image = blogDao.uploadImage(filePart, request, blog);
+                blog.setImage(image);
+                boolean status = blogDao.update(blog);
+
+                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
             } else {
                 request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
                 request.getRequestDispatcher("add_blog.jsp").forward(request, response);

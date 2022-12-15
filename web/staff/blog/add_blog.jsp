@@ -22,11 +22,10 @@
         <script type="text/javascript"
         src="<%=request.getContextPath()%>/assets/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/js/jquery.validate.js"></script>
-        <script type="text/javascript"
-        src="<%=request.getContextPath()%>/assets/js/ckeditor/ckeditor.js"></script>
+
         <script type="text/javascript"
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+
     </head>
 
     <body>
@@ -80,38 +79,32 @@
                         </select>
                     </div>
                 </div>
-                <!--                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Hình ảnh *</label>
-                                    <div class="col-sm-10">
-                                        <label  class="form-label">Select image:</label ><br/>
-                                        <input type="file" required id="img" name="image" required accept="image/*"> 
-                                        <div class="valid-feedback">
-                                            Valid
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Please input Image
-                                        </div>
-                                    </div>
-                                </div>-->
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Nội dung *</label>
+                    <label class="col-sm-2 control-label">Hình ảnh *</label>
                     <div class="col-sm-10">
-                        <textarea id="editor" name="body" required></textarea>
-                        <script>
-                            ClassicEditor
-                                    .create(document.querySelector('#editor'))
-                                    .then(editor => {
-                                        console.log(editor);
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
-                        </script>
+                        <input type="file" required id="img" name="image" required accept="image/*"> 
+                        <div class="valid-feedback">
+                            Valid
+                        </div>
+                        <div class="invalid-feedback">
+                            Please input Image
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Nội dung *</label>
+                    <div class="col-sm-10">
+                        <textarea id="editor" class="editor" name="body" required></textarea>
+                    </div>
+                </div>
+                <style>
+                    .ck-editor__editable {
+                        min-height: 200px !important;
+                    }
+                </style>
+                <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-2">
-                        <button type="submit" class="btn btn-success" name="" formnovalidate="formnovalidate">Thêm</button>
+                        <button type="submit" class="btn btn-success">Thêm</button>
                     </div>
                     <div class="col-sm-2">
                         <button type="reset" class="btn btn-danger" onclick="resetForm();">Nhập lại</button>
@@ -126,46 +119,53 @@
                     CKEDITOR.instances[instance].setData('');
                 }
             }
-            function checkImage(input) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    var img = document.getElementById("img");
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-            function checkAdd() {
-                var image, msg = "";
-                image = document.getElementsByName("image")[0];
-                var txt;
-                if ('files' in image) {
-                    if (image.files.length == 1) {
-                        var file = image.files[0];
-                        if ('size' in file) {
-                            var sizeFile = file.size;
-                            if (sizeFile > (1024 * 1024)) {//>2MB
-                                msg = "Kích thước ảnh phải <= 2MB";
-                            }
-                        }
-                        if ('name' in file) {
-                            var nameFile = file.name;
-                            if (nameFile.length < 1 || nameFile.length > 50) {
-                                msg = "Tên ảnh phải <=50 ký tự";
-                            }
-                            var typeFile = nameFile.split('.')[nameFile.split('.').length - 1].toLowerCase();
-                            if (!(typeFile == "jpg" || typeFile == "jpeg" || typeFile == "gif" || typeFile == "png")) {
-                                msg = "Phải chọn file hình ảnh .jpg, .jpeg, .gif, .png";
-                            }
-                        }
-                        if (msg != "") {
-                            document.getElementById("error").innerHTML = msg;
-                            document.getElementsByName("image")[0].focus();
-                            return false;
-                        }
-                    }
-                }
+        </script>
+        <script src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>		
+        <script>
+            const watchdog = new CKSource.EditorWatchdog();
+            window.watchdog = watchdog;
+            watchdog.setCreator((element, config) => {
+                return CKSource.Editor
+                        .create(element, config)
+                        .then(editor => {
+                            return editor;
+                        })
+            });
+            watchdog.setDestructor(editor => {
+                return editor.destroy();
+            });
+            watchdog.on('error', handleError);
+            watchdog
+                    .create(document.querySelector('.editor'), {
+                        licenseKey: '',
+                    })
+                    .catch(handleError);
+            function handleError(error) {
+                console.error('Oops, something went wrong!');
+                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                console.warn('Build id: 2ycx6bilba5o-l3dah0kel02');
+                console.error(error);
             }
 
         </script>
+        <script >
+            (() => {
+                'use strict'
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+        </script> 
     </body>
 </html>

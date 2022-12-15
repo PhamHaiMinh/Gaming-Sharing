@@ -68,7 +68,7 @@
                             <th>Danh mục</th>
                             <th>Thời gian đăng</th>
                             <th>Luợt xem</th>
-<!--                            <th>Hình ảnh</th>-->
+                            <th>Hình ảnh</th>
                             <th>Sửa</th>
                         </tr>
                         <%
@@ -85,7 +85,7 @@
                             <td><%=blog.getCategory() %></td>
                             <td><%=blog.getCreate_time() %></td>
                             <td><%=blog.getViewed() %></td>
-<!--                            <td><img src="<%=request.getContextPath() %>/files/<%=blog.getImage() %> " width="150px" height="120px"></td>-->
+                            <td><img src="<%=blog.getImage() %> " width="150px" height="120px"></td>
                             <td>
                                 <a href="edit-blog?showedit=1&id=<%=blog.getId()%>" style="color: blue">Sửa</a>
                             </td>
