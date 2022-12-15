@@ -19,6 +19,7 @@
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="assets/css/blog.css">
         <style>
             .content{
                 display: none;
@@ -32,7 +33,7 @@
                 String title = request.getParameter("title");
             Blog blog = (Blog) request.getAttribute("blog");
                 ArrayList<Blog> listBlog = (ArrayList<Blog>) request.getAttribute("listBlog");
-                DBContext dbc = new DBContext();
+                String catId = (String) request.getAttribute("catId");
         %>
         <style>
             .news_detail img{
@@ -40,42 +41,63 @@
             }
         </style>
         <div id="body">
-            
-            <div id="fb-root"></div>
+            <section class="blog_area single-post-area section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 posts-list">
+                            <div class="single-post">
+                                <div class="feature-img">
+                                    <img class="img-fluid" src="<%=blog.getImage()%>" alt="">
+                                </div>
 
-            <div class="content">
-                <div id="blog">
-                    <div class="news_detail">
-                        <h1><%=blog.getTitle() %></h1>
-                        <p class="date">Ngày đăng: <%=blog.getCreate_time() %> - Lượt xem: <%=blog.getViewed() %></p>
-                        <div class="news_content">
-                            <%=blog.getBody() %>
-                        </div>
-                        <p class="author">Nguồn: <%=blog.getSource() %></p>
-                    </div>
-
-                    <h2>Tin tức liên quan</h2>
-                    <ul>
-                        <%
-                                
-                                String urlDetail = request.getContextPath()+"/blog-detail?id=";
-                                for(Blog oBlog: listBlog){
-                        %>
-                        <li>
-                            <div class="article">
-                                <h3>
-                                    <a href="<%=urlDetail+dbc.createSlug(oBlog.getTitle())+"_"+oBlog.getId()+".html"%>"><%=oBlog.getId()%></a></h3>
-                                <small>Ngày đăng: <%=oBlog.getCreate_time() %></small>
-                                <small>Lượt xem: <%=oBlog.getViewed()%></small>
-                               
+                                <div class="blog_details">
+                                    <h2><%=blog.getTitle()%>
+                                    </h2>
+                                    <%  for(BlogCategory blogCategory : listCategory){
+                                        if(blogCategory.getId().equals(catId)){
+                                    %>
+                                    <ul class="blog-info-link mt-3 mb-4">
+                                        <li><a><i class="fa fa-user"></i> <%=blog.getSource()%></a></li>
+                                        <li><a><i class="fa fa-eye"></i> <%=blog.getViewed()%></a></li>
+                                        <li><a><i class="fa fa-bars"></i> <%=blogCategory.getName() %></a></li>
+                                    </ul>
+                                    <%
+                                        break;
+                                        }
+                                      }
+                                    %>
+                                    <p class="excert">
+                                        <%=blog.getBody()%>
+                                    </p>
+                                </div>
                             </div>
-                            
-                        </li>
-                        <%} %>
-                    </ul>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog_right_sidebar">
+                                <aside class="single_sidebar_widget post_category_widget">
+                                    <h4 class="widget_title">Category</h4>
+                                    <ul class="list cat-list">
+                                        <%
+                                            DBContext dbc = new DBContext();
+                                            String urlCat = request.getContextPath()+"/list-blog-by-cat?id=";
+                                            for(BlogCategory blogCategory : listCategory){
+                                        %>
+                                        <li>
+                                            <a href="<%=urlCat + blogCategory.getId()%>" class="d-flex">
+                                                <p><%=blogCategory.getName() %></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <%
+                                            }
+                                    %>
+                                    </ul>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-            </div>
+            </section>
         </div>
     </body>
 </html>

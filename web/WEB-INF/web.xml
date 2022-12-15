@@ -165,6 +165,10 @@
         <servlet-name>ViewBlog</servlet-name>
         <servlet-class>Controller.Blog.ViewBlog</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListBlogByCategory</servlet-name>
+        <servlet-class>Controller.Blog.ListBlogByCategory</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Activation</servlet-name>
         <url-pattern>/Activation</url-pattern>
@@ -328,6 +332,10 @@
     <servlet-mapping>
         <servlet-name>ViewBlog</servlet-name>
         <url-pattern>/blog-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBlogByCategory</servlet-name>
+        <url-pattern>/list-blog-by-cat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

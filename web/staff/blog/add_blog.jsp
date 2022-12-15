@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Tiêu đề *</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="title"  required maxlength="100">
+                        <input type="text" class="form-control" name="title"  required >
                     </div>
                 </div>
                 <div class="form-group">

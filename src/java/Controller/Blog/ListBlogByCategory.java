@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Admin
  */
-public class ViewBlog extends HttpServlet {
+public class ListBlogByCategory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class ViewBlog extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewBlog</title>");
+            out.println("<title>Servlet ListBlogByCategory</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewBlog at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListBlogByCategory at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,22 +75,21 @@ public class ViewBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-        if (id != null) {
+        String catId = request.getParameter("id");
+        if (catId != null) {
             BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
             BlogDaoImpl blogDao = new BlogDaoImpl();
             List<BlogCategory> listCategory = blogCat.getAll();
             request.setAttribute("listCategory", listCategory);
 
-            Blog blog = blogDao.getBlogDetail(id);
-            blogDao.viewed(id);
-            blogCat.viewed(blog.getCatId());
-            request.setAttribute("catId", blog.getCatId());
-            ArrayList<Blog> listBlog = blogDao.getRelatedBlog(id, blog.getCatId());
-
+            request.setAttribute("catId", catId);
+            int total = blogDao.getTotal("", catId);
+            ArrayList<Blog> listBlog = blogDao.getListBlog(catId);
+            if (listBlog.size() == 0) {
+                request.setAttribute("error", "Không tồn tại dữ liệu!");
+            }
             request.setAttribute("listBlog", listBlog);
-            request.setAttribute("blog", blog);
-            request.getRequestDispatcher("blog/view_blog.jsp").forward(request, response);
+            request.getRequestDispatcher("blog/list_blog_category_public.jsp").forward(request, response);
         }
     }
 

@@ -153,9 +153,9 @@ public class BlogDaoImpl implements BlogDao {
     public ArrayList<Blog> getRelatedBlog(String id, String catId) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
         String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,"
-                + " b.viewed FROM Blog AS b "
+                + " b.viewed, b.image FROM Blog AS b "
                 + " WHERE b.categoryId='" + catId + "' AND b.id!='" + id
-                + "' ORDER BY t.thoigiandang DESC";
+                + "' ORDER BY b.create_time DESC";
         try {
             Connection conn = db.getConnection();
             stm = conn.createStatement();
@@ -170,6 +170,7 @@ public class BlogDaoImpl implements BlogDao {
                 tg[2] += "-" + tg[1] + "-" + tg[0];
                 blog.setCreate_time(tg[2]);
                 blog.setViewed(rs.getInt(6));
+                blog.setImage(rs.getString(7));
                 listBlog.add(blog);
             }
             db.closeConnection(conn, pstm, rs);
@@ -213,7 +214,7 @@ public class BlogDaoImpl implements BlogDao {
 
     @Override
     public boolean viewed(String id) {
-        String sql = "UPDATE Blog SET viewed=viewed+1 WHERE id=? LIMIT 1";
+        String sql = "UPDATE Blog SET viewed=viewed+1 WHERE id=?";
 
         boolean result = false;
         try {
