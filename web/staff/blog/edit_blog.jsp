@@ -112,7 +112,14 @@
                 </div>
             </form>
         </div>
-                    <script src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>		
+        <script src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript">
+                            function resetForm() {
+                                for (instance in CKEDITOR.instances) {
+                                    CKEDITOR.instances[instance].setData('');
+                                }
+                            }
+        </script>
         <script>
             const watchdog = new CKSource.EditorWatchdog();
             window.watchdog = watchdog;

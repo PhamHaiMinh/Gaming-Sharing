@@ -123,7 +123,7 @@ public class BlogDaoImpl implements BlogDao {
     @Override
     public ArrayList<Blog> getListBlog(String catId) {
         ArrayList<Blog> listBlog = new ArrayList<Blog>();
-        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,b.viewed FROM Blog AS b"
+        String sql = "SELECT b.id,b.categoryId, b.title, b.body, b.create_time,b.viewed, b.image FROM Blog AS b"
                 + " WHERE b.categoryId='" + catId + "'  ORDER BY b.create_time DESC,b.priority DESC ";
         try {
             Connection conn = db.getConnection();
@@ -139,7 +139,7 @@ public class BlogDaoImpl implements BlogDao {
                 tg[2] += "/" + tg[1] + "/" + tg[0];
                 blog.setCreate_time(tg[2]);
                 blog.setViewed(rs.getInt(6));
-//                blog.setImage(rs.getString(7));
+                blog.setImage(rs.getString(7));
                 listBlog.add(blog);
             }
             db.closeConnection(conn, pstm, rs);

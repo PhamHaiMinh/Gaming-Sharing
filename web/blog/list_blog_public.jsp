@@ -78,7 +78,7 @@
                         for(int j=0; j<listBlog.get(i).size(); j++){
                 %>
                 <li>
-                    <a href="<%=urlBlog+listBlog.get(i).get(0).getId()%>"><img src="<%=listBlog.get(i).get(j).getImage() %>" alt=""></a>
+                    <img src="<%=listBlog.get(i).get(j).getImage() %>">
                     <b><a href="<%=urlBlog+listBlog.get(i).get(0).getId()%>"><%=listBlog.get(i).get(j).getTitle() %></a></b> 
                     <small>Ngày đăng: <%=listBlog.get(i).get(j).getCreate_time() %></small>
                 </li>

@@ -22,7 +22,6 @@
         <script type="text/javascript"
         src="<%=request.getContextPath()%>/assets/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/assets/js/jquery.validate.js"></script>
-
         <script type="text/javascript"
         src="<%=request.getContextPath()%>/assets/css/bootstrap.min.js"></script>
 
@@ -104,7 +103,7 @@
                 </style>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-2">
-                        <button type="submit" class="btn btn-success">Thêm</button>
+                        <button type="submit" class="btn btn-success" formnovalidate="formnovalidate">Thêm</button>
                     </div>
                     <div class="col-sm-2">
                         <button type="reset" class="btn btn-danger" onclick="resetForm();">Nhập lại</button>
@@ -112,15 +111,14 @@
                 </div>
             </form>
         </div>
-
+        <script src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>
         <script type="text/javascript">
-            function resetForm() {
-                for (instance in CKEDITOR.instances) {
-                    CKEDITOR.instances[instance].setData('');
-                }
-            }
+                            function resetForm() {
+                                for (instance in CKEDITOR.instances) {
+                                    CKEDITOR.instances[instance].setData('');
+                                }
+                            }
         </script>
-        <script src="<%=request.getContextPath()%>/assets/ckeditor/ckeditor.js"></script>		
         <script>
             const watchdog = new CKSource.EditorWatchdog();
             window.watchdog = watchdog;

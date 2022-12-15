@@ -5,12 +5,14 @@
 package Controller.Blog;
 
 import Dao.Impl.BlogCategoryDaoImpl;
+import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -56,7 +58,7 @@ public class DeleteBlogCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -70,17 +72,32 @@ public class DeleteBlogCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String msg = "";
+        if (request.getAttribute("msg") != null) {
+            msg = (String) request.getAttribute("msg");
+        }
+        BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+        List<BlogCategory> listCategory = blogCat.getAll();
+        request.setAttribute("listCategory", listCategory);
+        if (listCategory.size() == 0) {
+            msg += "\nKhông tồn tại dữ liệu!";
+        } else {
+            request.setAttribute("listCategory", listCategory);
+        }
+        request.setAttribute("error", msg);
         if (request.getParameter("delete") != null) {
             String[] listIdDelete = request.getParameterValues("check");
-            String msg;
-            BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
             if (blogCat.deleteCategory(listIdDelete)) {
                 msg = "Xóa thành công\n";
+                request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
+                return;
             } else {
                 msg = "Dữ liệu không tồn tại để xóa!\n";
             }
             request.setAttribute("msg", msg);
-            request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
+        }
+        if (request.getParameter("showdelete") != null) {
+            request.getRequestDispatcher("delete_blog_category.jsp").forward(request, response);
         }
     }
 

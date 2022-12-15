@@ -50,83 +50,50 @@
                         </button>
                     </div>
                 </form>
-                <form action="<%= request.getContextPath()%>/staff/blog/delete-blog" method="post" onsubmit="return checkDelete()" class="form-inline">
+
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>STT</th>                         
+                        <th>ID</th>
+                        <th>Tiêu đề</th>
+                        <th>Danh mục</th>
+                        <th>Thời gian đăng</th>
+                        <th>Luợt xem</th>
+                        <th>Hình ảnh</th>
+                        <th>Sửa</th>
+                    </tr>
+                    <%
+                            if(listBlog!=null){
+                                    for(Blog blog:listBlog){
+                    %>
+                    <tr>
+                        <td><%=stt++ %></td>
+                        <td><%=blog.getId() %></td>
+                        <td><%=blog.getTitle() %></td>
+                        <td><%=blog.getCategory() %></td>
+                        <td><%=blog.getCreate_time() %></td>
+                        <td><%=blog.getViewed() %></td>
+                        <td><img src="<%=blog.getImage() %> " width="150px" height="120px"></td>
+                        <td>
+                            <a href="edit-blog?showedit=1&id=<%=blog.getId()%>" style="color: blue"><img src="<%=request.getContextPath() %>/assets/img/edit-icon.png" alt="" width="20" height="20">Sửa</a>
+                        </td>
+                    </tr>
+                    <%	
+                                    }
+                            }
+                    %>
+                </table>
+                <form action="<%= request.getContextPath()%>/staff/blog/delete-blog" method="post" class="form-inline">
                     <div>
                         <div class="form-group left">
-                            <button type="submit" class="btn btn-danger" name="delete" >
+                            <button type="submit" class="btn btn-danger" name="showdelete" >
                                 <img src="<%=request.getContextPath() %>/assets/img/del-icon.png" alt="" width="20" height="20"> Xóa
                             </button>
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th></th>
-                            <th>STT</th>                         
-                            <th>ID</th>
-                            <th>Tiêu đề</th>
-                            <th>Danh mục</th>
-                            <th>Thời gian đăng</th>
-                            <th>Luợt xem</th>
-                            <th>Hình ảnh</th>
-                            <th>Sửa</th>
-                        </tr>
-                        <%
-                                if(listBlog!=null){
-                                        for(Blog blog:listBlog){
-                        %>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="check" value="<%=blog.getId() %>">
-                            </td>
-                            <td><%=stt++ %></td>
-                            <td><%=blog.getId() %></td>
-                            <td><%=blog.getTitle() %></td>
-                            <td><%=blog.getCategory() %></td>
-                            <td><%=blog.getCreate_time() %></td>
-                            <td><%=blog.getViewed() %></td>
-                            <td><img src="<%=blog.getImage() %> " width="150px" height="120px"></td>
-                            <td>
-                                <a href="edit-blog?showedit=1&id=<%=blog.getId()%>" style="color: blue">Sửa</a>
-                            </td>
-                        </tr>
-                        <%	
-                                        }
-                                }
-                        %>
-                    </table>
                 </form>
             </div>
         </div>
-        <script type="text/javascript">
-            function setActive(id) {
-                //alert(0);
-                $.ajax({
-                    url: '<%=request.getContextPath()%>/admin/active-news',
-                    type: 'POST',
-                    cache: false,
-                    data: {
-                        id: id,
-                    },
-                    success: function (data) {
-                        $('#setactive-' + id).html(data);
-                    },
-                    error: function () {
-                        alert('Có lỗi xảy ra');
-                    }
-                });
-                return false;
-            }
-            function checkDelete() {
-                var check = document.getElementsByName("check");
-                for (var i = 0; i < check.length; i++) {
-                    if (check[i].checked) {
-                        return true;
-                    }
-                }
-                document.getElementById("msg").innerHTML = "Chưa chọn mục để xóa";
-                return false;
-            }
-        </script>
     </body>
 </html>
