@@ -2,26 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package Controller.Blog;
 
-import Dao.AccountDao;
-import Dao.Impl.AccountDaoImpl;
-import Model.Account;
+import Dao.Impl.BlogCategoryDaoImpl;
+import Dao.Impl.BlogDaoImpl;
+import Model.Blog;
+import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author Windows 10-DPC
+ * @author Admin
  */
-@WebServlet(name = "ChangePassword", urlPatterns = {"/ChangePassword"})
-public class ChangePassword extends HttpServlet {
+public class ListBlogByCategory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class ChangePassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePassword</title>");            
+            out.println("<title>Servlet ListBlogByCategory</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListBlogByCategory at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,23 +61,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String username = request.getParameter("user");
-//        String oldpassword = request.getParameter("opass");
-//        String newpassword = request.getParameter("npass");
-//        AccountDao aDAO = new AccountDaoImpl();
-//        Account a = aDAO.check(username, oldpassword);
-//        if(a == null){
-//            String msg = "Username or Password are incorrect";
-//            request.setAttribute("msg", msg);
-//            request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
-//        }else{
-//             Account acc = new Account(a.getId(), username, newpassword, a.getRole(), a.getEmail(), a.isActive());
-//             aDAO.changePassword();
-//            HttpSession session = request.getSession();
-//            session.setAttribute("account", acc);
-//            response.sendRedirect("login.jsp");
-//        }
-        request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -91,23 +75,21 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        AccountDao aDAO = new AccountDaoImpl();
-        HttpSession session = request.getSession();
-        String oldpass = request.getParameter("oldpass");
-        String newpass = request.getParameter("newpass");
-        String renewpass = request.getParameter("renewpass");
-        Account account = (Account) request.getSession().getAttribute("account");
-        if (!oldpass.equals(account.getPassword())) {
-            request.setAttribute("mess", "OldPassword not match");
-            request.getRequestDispatcher("Changepassword.jsp").forward(request, response);
-        } else if (!newpass.equals(renewpass)) {
-            request.setAttribute("mess", "New password not match wwith re password");
-            request.getRequestDispatcher("Changepassword.jsp").forward(request, response);
-        } else {
-            aDAO.changePassword(newpass, account.getId());
-            request.setAttribute("mess", "Password change successfully!");
-            request.getRequestDispatcher("common/changepassword.jsp").forward(request, response);
+        String catId = request.getParameter("id");
+        if (catId != null) {
+            BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+            BlogDaoImpl blogDao = new BlogDaoImpl();
+            List<BlogCategory> listCategory = blogCat.getAll();
+            request.setAttribute("listCategory", listCategory);
+
+            request.setAttribute("catId", catId);
+            int total = blogDao.getTotal("", catId);
+            ArrayList<Blog> listBlog = blogDao.getListBlog(catId);
+            if (listBlog.size() == 0) {
+                request.setAttribute("error", "Không tồn tại dữ liệu!");
+            }
+            request.setAttribute("listBlog", listBlog);
+            request.getRequestDispatcher("blog/list_blog_category_public.jsp").forward(request, response);
         }
     }
 

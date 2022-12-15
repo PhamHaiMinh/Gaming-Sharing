@@ -56,7 +56,7 @@ public class AddToCart extends HttpServlet {
 
             cart.addItem(item);
             session.setAttribute("cart", cart);
-            response.sendRedirect("./ProductList?index=1");
+            response.sendRedirect("./product");
 
         } catch (Exception e) {
             response.sendRedirect("./404.html");

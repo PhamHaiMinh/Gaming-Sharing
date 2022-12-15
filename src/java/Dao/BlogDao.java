@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import Dao.Impl.BlogDaoImpl;
 import Model.Blog;
 import java.util.ArrayList;
 
@@ -31,4 +32,5 @@ public interface BlogDao extends BaseDao<Blog>, BaseImageDao<Blog> {
 
     public int getTotal(String title, String catId);
     public Blog getLast();
+    public Blog getBlogDetail(String id);
 }
