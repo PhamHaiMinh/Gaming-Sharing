@@ -154,6 +154,10 @@
         <servlet-class>Controller.Blog.DeleteBlog</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>Controller.cart.Checkout</servlet-class>
+     </servlet>
+     <servlet>
         <servlet-name>AddCancel</servlet-name>
         <servlet-class>Controller.Cancel.AddCancel</servlet-class>
     </servlet>
@@ -262,10 +266,6 @@
         <url-pattern>/ConfirmResetPass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddToCart</servlet-name>
-        <url-pattern>/AddToCart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DeleteCartItem</servlet-name>
         <url-pattern>/DeleteCartItem</url-pattern>
     </servlet-mapping>
@@ -328,6 +328,14 @@
     <servlet-mapping>
         <servlet-name>DeleteBlog</servlet-name>
         <url-pattern>/staff/blog/delete-blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/cart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCancel</servlet-name>

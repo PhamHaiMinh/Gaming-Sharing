@@ -4,11 +4,19 @@
  */
 package Controller.cart;
 
+import Dao.Impl.ProductDaoImpl;
+import Dao.ProductDao;
+import Model.Cart;
+import Model.CartItem;
+import Model.Product;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,6 +36,28 @@ public class ViewCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Object object = session.getAttribute("cart");
+        ProductDao pdao = new ProductDaoImpl();
+        Cart cart = null;
+        List<CartItem> items = new ArrayList<>();
+        // Check the variable object is not null or not
+        if (object != null) {
+            cart = (Cart) object;
+            for (CartItem item : cart.getItems()) {
+                Product product = pdao.getProductById(String.valueOf(item.getProduct().getId()));
+                System.out.println("================" + product.getPrice());
+                int quantity = item.getQuantity();
+                CartItem newitem = new CartItem(product, quantity);
+                items.add(newitem);
+            }
+            cart.setItems(items);
+        } else {
+            cart = new Cart(items);
+            response.getWriter().print(cart.getItems().size());
+
+        }
+        session.setAttribute("cart", cart);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 

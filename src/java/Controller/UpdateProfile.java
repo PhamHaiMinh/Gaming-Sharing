@@ -4,11 +4,14 @@
  */
 package Controller;
 
+import Dao.AccountDao;
+import Dao.Impl.AccountDaoImpl;
 import Dao.Impl.UserDaoImpl;
 import Dao.UserDao;
 import Model.Account;
 import Model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,7 +58,7 @@ public class UpdateProfile extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
