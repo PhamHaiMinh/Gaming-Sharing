@@ -4,13 +4,19 @@
  */
 package Controller.Blog;
 
+import Dao.Impl.BlogCategoryDaoImpl;
 import Dao.Impl.BlogDaoImpl;
+import Model.Blog;
+import Model.BlogCategory;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -70,18 +76,37 @@ public class DeleteBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String msg = "";
+        if (request.getAttribute("msg") != null) {
+            msg = (String) request.getAttribute("msg");
+        }
+        BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+        List<BlogCategory> listCategory = blogCat.getAll();
+        request.setAttribute("listCategory", listCategory);
+        BlogDaoImpl blogDao = new BlogDaoImpl();
+        int total = blogDao.getTotal("", "", "");
+
+        ArrayList<Blog> listBlog = blogDao.getListBlogStaff("", "", "");
+        if (listBlog.size() == 0) {
+            msg += "\nKhông tồn tại dữ liệu!";
+        } else {
+            request.setAttribute("listBlog", listBlog);
+        }
+        request.setAttribute("error", msg);
+       
         if (request.getParameter("delete") != null) {
-            BlogDaoImpl blogDao = new BlogDaoImpl();
             String[] listIdDelete = request.getParameterValues("check");
-            String msg;
             if (blogDao.deleteBlog(listIdDelete)) {
-                
                 msg = "Xóa thành công\n";
+                request.getRequestDispatcher("list-blog").forward(request, response);
+                return;
             } else {
                 msg = "Dữ liệu không tồn tại để xóa!\n";
             }
             request.setAttribute("msg", msg);
-            request.getRequestDispatcher("list-blog").forward(request, response);
+        }
+        if (request.getParameter("showdelete") != null) {
+            request.getRequestDispatcher("delete_blog.jsp").forward(request, response);
         }
     }
 

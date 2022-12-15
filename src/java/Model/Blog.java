@@ -20,13 +20,11 @@ public class Blog {
     private int viewed;
     private int priority;
     private String source;
-    private String userId;
-    private int browser;
-
+    private BlogCategory blogCategory;
     public Blog() {
     }
 
-    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int priority, String source, String userId, int browser) {
+    public Blog(String id, String title, String body, String create_time, String category, String image, String catId, int viewed, int priority, String source) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -37,8 +35,6 @@ public class Blog {
         this.viewed = viewed;
         this.priority = priority;
         this.source = source;
-        this.userId = userId;
-        this.browser = browser;
     }
 
     public Blog(String id, String title, String body, String create_time, String image, String catId, int viewed, int priority, String source) {
@@ -51,14 +47,6 @@ public class Blog {
         this.viewed = viewed;
         this.priority = priority;
         this.source = source;
-    }
-
-    public int getBrowser() {
-        return browser;
-    }
-
-    public void setBrowser(int browser) {
-        this.browser = browser;
     }
 
     public String getId() {
@@ -141,12 +129,13 @@ public class Blog {
         this.source = source;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setBlogCategory(BlogCategory blogCategory) {
+        this.blogCategory = blogCategory;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    @Override
+    public String toString() {
+        return "Blog{" + "id=" + id + ", title=" + title + ", body=" + body + ",image=" + image + ", catId=" + catId + ", viewed=" + viewed + ", priority=" + priority + ", source=" + source + ", blogCategory=" + blogCategory + '}';
     }
 
 }

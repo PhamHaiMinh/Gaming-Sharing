@@ -5,20 +5,25 @@
 package Controller.Blog;
 
 import Dao.Impl.BlogCategoryDaoImpl;
+import Dao.Impl.BlogDaoImpl;
+import Model.Blog;
 import Model.BlogCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class DeleteBlogCategory extends HttpServlet {
+@MultipartConfig
+public class EditBlog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +42,10 @@ public class DeleteBlogCategory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteBlogCategory</title>");
+            out.println("<title>Servlet EditBlog</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteBlogCategory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditBlog at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -72,32 +77,53 @@ public class DeleteBlogCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String msg = "";
-        if (request.getAttribute("msg") != null) {
-            msg = (String) request.getAttribute("msg");
-        }
-        BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
-        List<BlogCategory> listCategory = blogCat.getAll();
-        request.setAttribute("listCategory", listCategory);
-        if (listCategory.size() == 0) {
-            msg += "\nKhông tồn tại dữ liệu!";
-        } else {
-            request.setAttribute("listCategory", listCategory);
-        }
-        request.setAttribute("error", msg);
-        if (request.getParameter("delete") != null) {
-            String[] listIdDelete = request.getParameterValues("check");
-            if (blogCat.deleteCategory(listIdDelete)) {
-                msg = "Xóa thành công\n";
-                request.getRequestDispatcher("/staff/ListBlogCategory").forward(request, response);
-                return;
+        BlogDaoImpl blogDao = new BlogDaoImpl();
+        String id = request.getParameter("id");
+        Blog old = blogDao.getBlogDetail(id);
+        if (request.getParameter("edit") != null) {
+            String title, source, body, category;
+            int priority;
+            title = request.getParameter("title");
+            category = request.getParameter("category");
+            source = request.getParameter("source");
+            body = request.getParameter("body");
+            priority = Integer.parseInt(request.getParameter("priority"));
+            Part filePart = request.getPart("image");
+            Blog blog = new Blog();
+            blog.setId(id);
+            blog.setCatId(category);
+            blog.setTitle(title);
+            blog.setBody(body);
+            blog.setSource(source);
+            blog.setPriority(priority);
+            String image = blogDao.uploadImage(filePart, request, blog);
+            blog.setImage(image);
+
+            if (blogDao.update(blog)) {
+                boolean status = blogDao.update(blog);
+                response.sendRedirect(request.getContextPath() + "/staff/blog/list-blog?status=" + status);
             } else {
-                msg = "Dữ liệu không tồn tại để xóa!\n";
+                request.setAttribute("error", "Thêm dữ liệu vào database thất bại");
+                BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+                List<BlogCategory> listCategory = blogCat.getAll();
+                request.setAttribute("listCategory", listCategory);
+                if (old != null) {
+                    request.setAttribute("blog", old);
+                    request.getRequestDispatcher("edit_blog.jsp").forward(request, response);
+                }
             }
-            request.setAttribute("msg", msg);
+
         }
-        if (request.getParameter("showdelete") != null) {
-            request.getRequestDispatcher("delete_blog_category.jsp").forward(request, response);
+        if (request.getParameter("showedit") != null) {
+            BlogCategoryDaoImpl blogCat = new BlogCategoryDaoImpl();
+            List<BlogCategory> listCategory = blogCat.getAll();
+            request.setAttribute("listCategory", listCategory);
+            if (old != null) {
+                request.setAttribute("blog", old);
+                request.getRequestDispatcher("edit_blog.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("list-blog");
+            }
         }
     }
 
