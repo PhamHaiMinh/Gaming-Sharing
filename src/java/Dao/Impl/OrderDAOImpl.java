@@ -157,4 +157,102 @@ public class OrderDAOImpl implements OrderDAO {
         return output;
     }
 
+    @Override
+    public ArrayList<Order> getAllOrder() {
+        DBContext dBContext = new DBContext();
+        ArrayList<Order> output = new ArrayList<>();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "SELECT o.[id]\n"
+                    + "      ,[user_id]\n"
+                    + "      ,[create_time]\n"
+                    + "      ,[status_id]\n"
+                    + "      ,[cancel_id]\n"
+                    + "	  ,s.name\n"
+                    + "  FROM [dbo].[Order] o left join StatusOrder s\n"
+                    + "  on o.status_id = s.id";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = new Order();
+                o.setId(rs.getInt("id"));
+                o.setStatus(rs.getString("name"));
+                o.setDay_create(rs.getDate("create_time"));
+                output.add(o);
+            }
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            System.out.println("Error at orderimpl");
+        }
+        return output;
+    }
+
+    @Override
+    public boolean canOrderEdit(int order_id) {
+        DBContext dBContext = new DBContext();
+        boolean output = false;
+        int status_id = -1;
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "SELECT o.[id]\n"
+                    + "      ,[user_id]\n"
+                    + "      ,[create_time]\n"
+                    + "      ,[status_id]\n"
+                    + "      ,[cancel_id]\n"
+                    + "	  ,s.name\n"
+                    + "  FROM [dbo].[Order] o left join StatusOrder s\n"
+                    + "  on o.status_id = s.id\n"
+                    + "  where o.id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, order_id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                status_id = rs.getInt("status_id");
+            }
+            output = status_id == 5;
+            dBContext.closeConnection(connection, ps);
+        } catch (SQLException e) {
+            System.out.println("Error at orderimpl");
+        }
+        return output;
+    }
+
+    @Override
+    public boolean changeStatusID(int order_id, int status_id) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "UPDATE [dbo].[Order]\n"
+                    + "   SET [status_id] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, status_id);
+            ps.setInt(2, order_id);
+            ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error at order");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteOrderByID(int order_id) {
+        DBContext dBContext = new DBContext();
+        try {
+            Connection connection = dBContext.getConnection();
+            String sql = "DELETE FROM [dbo].[Order]\n"
+                    + "      WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, order_id);
+            ps.executeUpdate();
+            dBContext.closeConnection(connection, ps);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error at order");
+        }
+        return false;
+    }
+
 }
